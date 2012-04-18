@@ -38,4 +38,4 @@ gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'rmagick'
-gem 'carrierwave'
+gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
