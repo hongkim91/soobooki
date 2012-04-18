@@ -39,3 +39,4 @@ gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
 
 gem 'rmagick'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
+gem 'pg'
