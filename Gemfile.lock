@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/jnicklas/carrierwave.git
+  revision: 4e07f9a402ea54dacd4395a58ff97d649fafd562
+  specs:
+    carrierwave (0.6.2)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -31,9 +39,6 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
-    carrierwave (0.6.2)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -123,7 +128,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
-  carrierwave
+  carrierwave!
   coffee-rails (~> 3.2.1)
   jquery-rails
   rails (= 3.2.3)
