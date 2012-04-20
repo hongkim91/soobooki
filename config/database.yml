@@ -13,3 +13,11 @@ test:
   pool: 5
   username: 
   password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: soobooki_production
+  pool: 5
+  username: hong
+  password: hong10
