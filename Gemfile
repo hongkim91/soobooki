@@ -34,6 +34,6 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-#gem 'rmagick'
+gem 'rmagick'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'pg'
