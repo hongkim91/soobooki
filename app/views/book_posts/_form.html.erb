@@ -1,0 +1,35 @@
+<%= form_tag(book_posts_path, html: {multipart: true}) do %>
+  <% if @book_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book_post.errors.count, "error") %> prohibited this book_post from being saved:</h2>
+
+      <ul>
+      <% @book_post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :title %><br />
+    <%= text_field_tag :title, nil, class:"span6" %>
+  </div>
+  <div class="field">
+    <%= label_tag :review %><br />
+    <%= text_area_tag :review, nil, rows: 10, class:"span6" %>
+  </div>
+  <div class="field">
+    <%= label_tag :image %><br />
+    <%= file_field_tag :image %>
+  </div>
+  <div class="field">
+    <%= label_tag :remote_image_url, "or image URL:" %><br />
+    <%= text_field_tag :remote_image_url %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Add Book", :class => "btn" %>
+    <%= link_to "Back", book_posts_path, :class => "btn" %>
+  </div>
+
+<% end %>

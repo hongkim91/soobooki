@@ -2,11 +2,15 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    if current_user
+      @books = Book.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @books }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @books }
+      end
+    else
+      redirect_to log_in_path
     end
   end
 

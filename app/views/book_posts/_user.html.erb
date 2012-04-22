@@ -1,0 +1,15 @@
+<ul class="thumbnails">
+  <li>
+    <% if @user.profile_pic_url.blank? %>
+      <%= link_to image_tag("http://placehold.it/130x130"),\
+          edit_user_path(@user.id), :class => "thumbnail" %>
+    <% else %>
+      <%= link_to image_tag(@user.profile_pic_url(:thumb).to_s),\
+          edit_user_path(@user.id), :class => "thumbnail" %>
+    <% end %>
+  </li>
+</ul>
+<h4> User email: </h4>
+<p>
+  <%= current_user.email %>
+</p>

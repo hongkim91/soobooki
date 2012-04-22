@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      redirect_to books_path
+      redirect_to book_posts_path
     else
       render "new"
     end
@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:email],params[:password])
     if user
       session[:user_id] = user.id
-      redirect_to root_url, :notice => "User logged in"
+      redirect_to book_posts_path, :notice => "User logged in"
     else
       flash.now.alert = "Invalid email or password"
       render "new"
