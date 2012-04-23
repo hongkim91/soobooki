@@ -1,18 +1,19 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation,\
-                  :profile_pic, :remote_profile_pic_url
+                  :image, :remote_image_url, :info
   attr_accessor :password
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
 
   before_save :encrypt_password
 
-  mount_uploader :profile_pic, ProfilePicUploader
+  mount_uploader :image, ProfilePicUploader
 
   validates_confirmation_of :password
-  validates_presence_of :password
+  validates_presence_of :password, :on => :create
   validates_presence_of :email
   validates_uniqueness_of :email
+  validates_presence_of :image, :on => :update
 
   def self.authenticate(email,password)
     user = find_by_email(email)

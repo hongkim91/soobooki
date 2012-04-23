@@ -28,8 +28,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.profile_pic = params[:profile_pic]
-
+    @user.attributes = params[:user]
     respond_to do |format|
       if @user.save
         format.html { redirect_to book_posts_path,

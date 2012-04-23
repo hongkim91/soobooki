@@ -19,6 +19,7 @@ class BookPostsController < ApplicationController
   # GET /book_posts/1
   # GET /book_posts/1.json
   def show
+    @user = current_user
     @book_post = BookPost.find(params[:id])
     @book = Book.find(@book_post.book_id)
 
