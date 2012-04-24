@@ -20,8 +20,8 @@
     <%= text_area_tag :review, nil, rows: 10, class:"span6" %>
   </div>
   <div class="field">
-    <%= label_tag :image %><br />
-    <%= file_field_tag :image %>
+    <%= label :image %><br />
+    <%= file_field (:book, :image) %>
   </div>
   <div class="field">
     <%= label_tag :remote_image_url, "or image URL:" %><br />

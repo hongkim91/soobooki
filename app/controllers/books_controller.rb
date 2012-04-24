@@ -29,6 +29,11 @@ class BooksController < ApplicationController
   # GET /books/new.json
   def new
     @book = Book.new
+    @book.book_posts.build
+    @review = false
+    if params[:review] == "true"
+      @review = true
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,12 +44,15 @@ class BooksController < ApplicationController
   # GET /books/1/edit
   def edit
     @book = Book.find(params[:id])
+    @book_post = @book.book_post
   end
 
   # POST /books
   # POST /books.json
   def create
     @book = Book.new(params[:book])
+    @book.book_posts.first.user_id = current_user.id
+#    return render :text => "book: #{params}"
 
     respond_to do |format|
       if @book.save

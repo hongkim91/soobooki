@@ -48,23 +48,15 @@ class BookPostsController < ApplicationController
   # POST /book_posts
   # POST /book_posts.json
   def create
-    user = current_user
-    book = Book.new({title: params[:title],image: params[:image],
-                      remote_image_url: params[:remote_image_url]})
-    if book.save
-      @book_post = BookPost.new({user_id: user.id, book_id: book.id, review: params[:review]})
-
-      respond_to do |format|
-        if @book_post.save
-          format.html { redirect_to @book_post, notice: 'Book post was successfully created.' }
-          format.json { render json: @book_post, status: :created, location: @book_post }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @book_post.errors, status: :unprocessable_entity }
-        end
+    @book_post = BookPost.new(params[:book_post])
+    respond_to do |format|
+      if @book_post.save
+        format.html { redirect_to @book_post, notice: 'Book post was successfully created.' }
+        format.json { render json: @book_post, status: :created, location: @book_post }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @book_post.errors, status: :unprocessable_entity }
       end
-    else
-      flash[:notice] = "book creation failed"
     end
   end
 
