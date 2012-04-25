@@ -19,3 +19,7 @@
     <%= current_user.info %>
   </p>
 <% end %>
+<% if is_park %>
+  <%= link_to "discharge from military", park_notice_path, :class => "btn" %>
+<% end %>
+

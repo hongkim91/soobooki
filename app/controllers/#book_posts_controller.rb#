@@ -7,10 +7,6 @@ class BookPostsController < ApplicationController
   def index
     @user = current_user
     
-    @is_park = true
-    if @user.email == "park@park.com"
-      @is_park = true
-    end
 
     if @user
       @book_posts = @user.book_posts
