@@ -46,10 +46,10 @@ end
 
 namespace :customs do
   task :config, :roles => :app do
-    run "ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/system/database.yml #{current_path}/config/database.yml"
   end
   task :symlink, :roles => :app do
-    run "ln -nfs #{shared_path}/system/uploads #{release_path}/public/uploads"
+    run "ln -nfs #{shared_path}/system/uploads #{current_path}/public/uploads"
   end
 end
 after "deploy:update_code", "customs:config"

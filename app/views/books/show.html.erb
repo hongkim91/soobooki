@@ -4,7 +4,7 @@
 </p>
 
 <p>
-  <%= image_tag @book.image_url.to_s %>
+  <%= image_tag @book.image_url(:default).to_s %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book), :class => "btn" %> 
