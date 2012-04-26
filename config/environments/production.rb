@@ -67,11 +67,12 @@ Soobooki::Application.configure do
 
   config.action_mailer.default_url_options = { :host => "soobooki.com" }
   
+  ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => "soobooki.com",
-    :user_name            => "soobooki@soobooki.com",
+    :user_name            => "honki91@gmail.com",
     :password             => "ahddlhong10",
     :authentication       => "plain",
     :enable_starttls_auto => true
