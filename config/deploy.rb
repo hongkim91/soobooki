@@ -57,6 +57,6 @@ after "deploy:create_symlink","customs:symlink"
 
 desc "I don't know why but this makes rmagick work"
 task :bundle_no_deploy, :roles => :app do
-  run "cd #{current_path}; bundle install --no-deployment"
+  run "cd #{current_path}; bundle install --no-deployment --quiet"
 end
 after "deploy", :bundle_no_deploy
