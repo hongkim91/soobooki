@@ -5,23 +5,22 @@
       <%= @book.title %>
     </p>
 
-    <p>
-      <b>User:</b>
-      <%= @book_post.user_id %>
-    </p>
-
-    <p>
-      <%= image_tag @book.image_url.to_s %>
-    </p>
+    <ul class="thumbnails">
+      <li class="thumbnail">
+        <%= image_tag @book.image_url(:default).to_s %>
+      </li>
+    </ul>
 
     <p>
       <b>Review:</b>
       <%= @book_post.review %>
     </p>
-
+s
 
     <%= link_to 'Edit', edit_book_post_path(@book_post), :class => "btn"%>
-    <%= link_to 'Back', book_posts_path, :class => "btn" %>
+    <%= link_to 'Delete', book_post_path(@book_post), 
+                :confirm => "Are you sure you want to delete '#{@book.title}'?",
+                :method => :delete, :class => "btn"%>
   </div>
   <div class="span3">
     <%= render 'user' %>
