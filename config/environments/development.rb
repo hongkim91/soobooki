@@ -37,4 +37,14 @@ Soobooki::Application.configure do
 
   config.action_mailer.default_url_options = { :host => "booki.com/" }
 
+  ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "booki.com",
+    :user_name            => "booki",
+    :password             => "secret",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+  
 end

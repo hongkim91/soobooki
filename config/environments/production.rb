@@ -66,4 +66,15 @@ Soobooki::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.action_mailer.default_url_options = { :host => "soobooki.com" }
+  
+    ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "soobooki.com",
+    :user_name            => "soobooki",
+    :password             => "secret",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
 end
