@@ -37,3 +37,5 @@ gem 'capistrano'
 gem 'rmagick'
 gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'pg'
+
+gem 'tlsmail'

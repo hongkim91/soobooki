@@ -1,4 +1,5 @@
 Soobooki::Application.configure do
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -6,7 +7,7 @@ Soobooki::Application.configure do
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+nnn  config.action_controller.perform_caching = false
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
@@ -66,16 +67,5 @@ Soobooki::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.action_mailer.default_url_options = { :host => "soobooki.com" }
-  
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => "soobooki.com",
-    :user_name            => "honki91@gmail.com",
-    :password             => "ahddlhong10",
-    :authentication       => "plain",
-    :enable_starttls_auto => true
-  }
 
 end
