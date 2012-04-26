@@ -3,12 +3,14 @@
     <h1>Bookshelf</h1>
     <ul class ="thumbnails">
       <% @book_posts.each do |book_post| %>
-      <% book = find_book(book_post.book_id) %>
-      <li>
-        <a href="<%= book_post_path(book_post)%>" class="thumbnail">
-          <%= image_tag book.image_url(:thumb).to_s %> 
-        </a>
-      </li>
+        <% book = find_book(book_post.book_id) %>
+        <% if book %>
+          <li>
+            <a href="<%= book_post_path(book_post)%>" class="thumbnail">
+              <%= image_tag book.image_url(:thumb).to_s %> 
+            </a>
+          </li>
+        <% end %>
       <% end %>
     </ul>
     <br />

@@ -54,3 +54,9 @@ namespace :customs do
 end
 after "deploy:update_code", "customs:config"
 after "deploy:create_symlink","customs:symlink"
+
+desc "I don't know why but this makes rmagick work"
+task :bundle_no_deploy, :roles => :app do
+  run "cd #{current_path}; bundle install --no-deployment"
+end
+after "deploy", :bundle_no_deploy
