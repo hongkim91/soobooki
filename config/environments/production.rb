@@ -49,7 +49,7 @@ Soobooki::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
@@ -67,12 +67,12 @@ Soobooki::Application.configure do
 
   config.action_mailer.default_url_options = { :host => "soobooki.com" }
   
-    ActionMailer::Base.smtp_settings = {
+  ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => "soobooki.com",
-    :user_name            => "soobooki",
-    :password             => "secret",
+    :user_name            => "soobooki@soobooki.com",
+    :password             => "ahddlhong10",
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
