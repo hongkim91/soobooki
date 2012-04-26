@@ -6,11 +6,6 @@ class BookPostsController < ApplicationController
   # GET /book_posts.json
   def index
     @user = current_user
-    
-    @is_park = true
-    if @user.email == "park@park.com"
-      @is_park = true
-    end
 
     if @user
       @book_posts = @user.book_posts
@@ -41,7 +36,8 @@ class BookPostsController < ApplicationController
   # GET /book_posts/new
   # GET /book_posts/new.json
   def new
-    @book_post = BookPost.new
+    @book = Book.new
+    @book_post = @book.book_posts.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,14 +48,17 @@ class BookPostsController < ApplicationController
   # GET /book_posts/1/edit
   def edit
     @book_post = BookPost.find(params[:id])
+    @book = Book.find(@book_post.book_id)
   end
 
   # POST /book_posts
   # POST /book_posts.json
   def create
-    @book_post = BookPost.new(params[:book_post])
+    @book = Book.new(params[:book])
+
     respond_to do |format|
-      if @book_post.save
+      if @book.save
+        @book_post = @book.book_posts.first
         format.html { redirect_to @book_post, notice: 'Book post was successfully created.' }
         format.json { render json: @book_post, status: :created, location: @book_post }
       else

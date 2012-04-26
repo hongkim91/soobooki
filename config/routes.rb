@@ -9,6 +9,7 @@ Soobooki::Application.routes.draw do
   resources :users
   resources :book_posts
   resources :sessions
+  resources :password_resets
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

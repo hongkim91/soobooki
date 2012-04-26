@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423081110) do
+ActiveRecord::Schema.define(:version => 20120426065946) do
 
   create_table "book_posts", :force => true do |t|
     t.integer  "user_id"
@@ -30,12 +30,13 @@ ActiveRecord::Schema.define(:version => 20120423081110) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "password_hash"
-    t.string   "password_salt"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "image"
     t.text     "info"
+    t.string   "password_digest"
+    t.datetime "password_reset_sent_at"
+    t.string   "password_reset_token"
   end
 
 end

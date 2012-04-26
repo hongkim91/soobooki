@@ -53,4 +53,4 @@ namespace :customs do
   end
 end
 after "deploy:update_code", "customs:config"
-after "deploy:symlink","customs:symlink"
+after "deploy:create_symlink","customs:symlink"

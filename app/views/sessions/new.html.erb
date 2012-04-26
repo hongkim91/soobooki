@@ -1,13 +1,23 @@
-<h1>Log in</h1>
-<%= form_tag sessions_path do %>
-  <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %>
+<div class="row">
+  <div class="span6">
+    <div class="alert">
+      <button class="close" data-dismiss="alert">×</button>
+      <strong>Notice!</strong> All users have been deleted. Please sign up again! <br/>
+      I'm sorry, but it was necessary :P
+    </div>
+    <h1>Log in</h1>
+    <%= form_tag sessions_path do %>
+      <div class="field">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div class="field">
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>
+      </div>
+      <%= submit_tag "Log in",:class => "btn" %>
+      <%= link_to "Sign up", sign_up_path, :class => "btn" %>
+      <%= link_to "Forgotten password?", new_password_resets_path, :class => "btn" %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-  <%= submit_tag "Log in",:class => "btn" %>
-  <%= link_to "Sign up", sign_up_path, :class => "btn" %>
-<% end %>
+</div>

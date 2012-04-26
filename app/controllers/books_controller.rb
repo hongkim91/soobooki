@@ -30,10 +30,6 @@ class BooksController < ApplicationController
   def new
     @book = Book.new
     @book.book_posts.build
-    @review = false
-    if params[:review] == "true"
-      @review = true
-    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -51,8 +47,9 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(params[:book])
-    @book.book_posts.first.user_id = current_user.id
-#    return render :text => "book: #{params}"
+    unless @book.book_posts.empty?
+      @book.book_posts.first.user_id = current_user.id
+    end
 
     respond_to do |format|
       if @book.save
