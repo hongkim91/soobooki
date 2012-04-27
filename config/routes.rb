@@ -3,8 +3,12 @@ Soobooki::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
+
   get "park_notice" => "book_posts#notice", :as => "park_notice"
-  get "email_confirmation" =>"users#email_confirmation", :as => "email_confirmation"
+
+  get "email_confirmation/:id" =>"users#email_confirmation", :as => "email_confirmation"
+  get "need_confirmation" =>"users#need_confirmation", :as => "need_confirmation"
+  get "send_confirmation" =>"users#send_confirmation", :as => "send_confirmation"
 
   resources :books
   resources :users
