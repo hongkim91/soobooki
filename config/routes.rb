@@ -4,6 +4,7 @@ Soobooki::Application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   get "park_notice" => "book_posts#notice", :as => "park_notice"
+  get "email_confirmation" =>"users#email_confirmation", :as => "email_confirmation"
 
   resources :books
   resources :users

@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
                     :length => {:minimun => 3, :maximum => 254},
                     :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
   validates :password, :length => {:minimun => 1, :maximum => 254}
-  validates_presence_of :image, :on => :update
 
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
@@ -21,6 +20,12 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
     UserMailer.password_reset(self).deliver
+  end
+
+  def send_email_confirmation
+    generate_token(:email_confirmation_token)
+    save!
+    UserMailer.email_confirmation(self).deliver
   end
 
   def generate_token(column)

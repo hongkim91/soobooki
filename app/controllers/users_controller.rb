@@ -7,7 +7,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       session[:user_id] = @user.id
-      redirect_to book_posts_path, :notice => "Signed Up!"
+      @user.send_email_confirmation
+      redirect_to book_posts_path, :notice => "A confirmation link was sent to your email. 
+                          Please click the on the link to finish Signup!"
     else
       render "new"
     end
@@ -41,4 +43,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def email_confirmation
+    @user = User.find_by_email_confirmation_token(params[:id])
+    if @user
+      @user.email_confirmed = true
+      redirect_to root_url, :notice => "Email has been confirmed. Sign up complete!"
+    else
+      redirect_to root_url, :alert => "Email confirmation token was incorrect.
+                                       Please try again."
+    end
+  end
 end

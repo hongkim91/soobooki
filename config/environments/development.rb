@@ -37,4 +37,5 @@ Soobooki::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { :host => "booki.com" }
+  
 end
