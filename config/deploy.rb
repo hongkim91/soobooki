@@ -47,6 +47,7 @@ end
 namespace :customs do
   task :config, :roles => :app do
     run "ln -nfs #{shared_path}/system/database.yml #{current_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/system/setup_mailer.rb #{current_path}/config/setup_mailer.rb"
   end
   task :symlink, :roles => :app do
     run "ln -nfs #{shared_path}/system/uploads #{current_path}/public/uploads"

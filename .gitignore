@@ -17,3 +17,4 @@ doc/
 
 /config/database.yml
 /public/uploads
+/config/setup_mailer.rb
