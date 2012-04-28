@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    if current_user
+s    if current_user
       @users = User.all
 
       respond_to do |format|
