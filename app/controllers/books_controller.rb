@@ -46,13 +46,21 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(params[:book])
+
     unless @book.book_posts.empty?
-      @book.book_posts.first.user_id = current_user.id
+      book_post = @book.book_posts.first
+      book_post.user_id = current_user.id
     end
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.html {
+          if @book.book_posts.empty?
+            redirect_to @book, notice: 'Book was successfully created.'
+          else
+            redirect_to book_post, notice: 'Book post was successfully added.'
+          end
+        }
         format.json { render json: @book, status: :created, location: @book }
       else
         format.html { render action: "new" }

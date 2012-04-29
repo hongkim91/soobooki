@@ -12,5 +12,3 @@
  *= require_tree .
 */
 
-#book-post img { display: block; margin-left: auto; margin-right: auto }
-#book-post h1 {padding-bottom: 10px;}

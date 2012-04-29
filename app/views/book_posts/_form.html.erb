@@ -11,24 +11,24 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title %>
     <%= f.text_field :title, class:"span6" %>
   </div>
   <%= f.fields_for :book_posts do |builder| %>
-  <div class="field">
-    <%= builder.label :review %><br />
-    <%= builder.text_area :review, rows:10, class:"span6" %>
-  </div>
+    <div class="field">
+      <%= builder.label :review %>
+      <%= builder.text_area :review, rows:10, class:"span6" %>
+    </div>
   <% end %>
   <div class="field">
-    <%= f.label :image %><br />
+    <%= f.label :image %>
     <%= f.file_field :image %>
   </div>
   <div class="field">
-    <%= f.label :remote_image_url, "or image URL:" %><br />
+    <%= f.label :remote_image_url, "or image URL:" %>
     <%= f.text_field :remote_image_url %>
   </div>
   <div class="actions">
-    <%= f.submit :class => "btn" %>
+    <%= f.submit "Add Book",:class => "btn" %>
   </div>
 <% end %>
