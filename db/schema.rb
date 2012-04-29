@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428053813) do
+ActiveRecord::Schema.define(:version => 20120429084105) do
 
   create_table "book_posts", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120428053813) do
     t.string   "email_confirmation_token"
     t.boolean  "email_confirmed",          :default => false
     t.boolean  "admin",                    :default => false
+    t.string   "username"
   end
 
 end

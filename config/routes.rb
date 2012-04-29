@@ -9,6 +9,8 @@ Soobooki::Application.routes.draw do
   get "need_confirmation" =>"users#need_confirmation", :as => "need_confirmation"
   get "send_confirmation" =>"users#send_confirmation", :as => "send_confirmation"
 
+  get "bookshelf/:id" => "book_posts#index", :as => "book_shelf"
+
   resources :books
   resources :users
   resources :book_posts

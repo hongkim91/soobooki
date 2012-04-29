@@ -42,6 +42,12 @@
       <%= f.label :info %>
       <%= f.text_area :info, rows:10, class:"span6" %>
     </div>
+    <div class="field">
+      <%= f.label :username, "User Name" %>
+      <%= f.text_field :username %></br>
+      Your bookshelf's URL will be created with your username as the following: </br>
+      soobooki.com/bookshelf/#username</br>
+    </div>
   <% end %>
   <div class="actions">
     <%= f.submit "Submit", :class => "btn" %>

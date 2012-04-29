@@ -5,7 +5,15 @@ class BookPostsController < ApplicationController
   # GET /book_posts
   # GET /book_posts.json
   def index
-    @user = current_user
+    if params.has_key?(:id)
+      if params[:id] =~ /[0-9]+/
+        @user = User.find(params[:id])
+      else
+        @user = User.find_by_username!(params[:id])
+      end
+    else
+      @user = current_user
+    end
 
     if @user
       @book_posts = @user.book_posts
@@ -26,6 +34,8 @@ class BookPostsController < ApplicationController
     @user = current_user
     @book_post = BookPost.find(params[:id])
     @book = Book.find(@book_post.book_id)
+    
+    raise AcessDenied unless @user.id == @book_post.user_id
 
     respond_to do |format|
       format.html # show.html.erb
@@ -49,6 +59,7 @@ class BookPostsController < ApplicationController
   def edit
     @book_post = BookPost.find(params[:id])
     @book = Book.find(@book_post.book_id)
+    raise AcessDenied unless current_user.id == @book_post.user_id
   end
 
   # POST /book_posts
@@ -72,6 +83,7 @@ class BookPostsController < ApplicationController
   # PUT /book_posts/1.json
   def update
     @book_post = BookPost.find(params[:id])
+    raise AcessDenied unless current_user.id == @book_post.user_id
 
     respond_to do |format|
       if @book_post.update_attributes(params[:book_post])
@@ -88,10 +100,12 @@ class BookPostsController < ApplicationController
   # DELETE /book_posts/1.json
   def destroy
     @book_post = BookPost.find(params[:id])
+    raise AcessDenied unless current_user.id == @book_post.user_id
+
     @book_post.destroy
 
     respond_to do |format|
-      format.html { redirect_to book_posts_url }
+      format.html { redirect_to book_posts_url, notice: 'Book post was successfully deleted.'}
       format.json { head :no_content }
     end
   end

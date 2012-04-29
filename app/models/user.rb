@@ -2,13 +2,16 @@ class User < ActiveRecord::Base
   has_secure_password
 
   attr_accessible :email, :password, :password_confirmation,\
-                  :image, :remote_image_url, :info
+                  :image, :remote_image_url, :info, :username
 
   validates :email, :presence => :true,
                     :uniqueness => :true,
                     :length => {:minimun => 3, :maximum => 254},
                     :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
   validates :password, :length => {:minimun => 1, :maximum => 254}
+  validates :username, :uniqueness => :true,
+                       :length => {:minimun => 1, :maximum => 254},
+                       :format => {:with => /^[a-z]+[a-z0-9\_\-]+$/i}
 
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts

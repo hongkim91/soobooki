@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
     if current_user
+      raise AcessDenied unless current_user.admin?
       @users = User.all
 
       respond_to do |format|
@@ -36,26 +37,20 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
-  end
-
   def edit
     @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
   end
 
   def update
     @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
+
     @user.attributes = params[:user]
     respond_to do |format|
       if @user.save
         format.html { redirect_to book_posts_path,
-                      notice: 'user was successfully updated.' }
+                      notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -66,16 +61,18 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id || current_user.admin?
     @user.destroy
 
-    unless current_user.admin?
-      session[:user_id] = nil
-    else
-      redirect_to users_path, :notice => "User account deleted."
-    end
-
     respond_to do |format|
-      format.html { redirect_to root_url, :notice => "User account deleted." }
+      format.html { 
+        unless current_user.admin?
+          session[:user_id] = nil
+          redirect_to root_url, :notice => "User account deleted." 
+        else
+          redirect_to users_path, :notice => "User account deleted."
+        end
+      }
       format.json { head :no_content }
     end
   end

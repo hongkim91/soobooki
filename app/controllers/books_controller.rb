@@ -39,6 +39,7 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
+    raise AccessDenied
     @book = Book.find(params[:id])
   end
 
@@ -73,6 +74,7 @@ class BooksController < ApplicationController
   # PUT /books/1.json
   def update
     @book = Book.find(params[:id])
+    raise AccessDenied unless current_user.id == @book.book_posts.first.user_id
 
     respond_to do |format|
       if @book.update_attributes(params[:book])
@@ -88,6 +90,7 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
+    raise AccessDenied unless current_user.admin?
     @book = Book.find(params[:id])
     @book.destroy
 

@@ -29,6 +29,10 @@
     <%= f.text_field :remote_image_url %>
   </div>
   <div class="actions">
-    <%= f.submit "Add Book",:class => "btn" %>
+    <% if params[:action] == "new" %>
+      <%= f.submit "Add Book",:class => "btn" %>
+    <% else %>
+      <%= f.submit "Edit Book",:class => "btn" %>
+    <% end %>
   </div>
 <% end %>
