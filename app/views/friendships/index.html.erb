@@ -58,7 +58,7 @@
             <td><%= user.email %></td>
             <td><%= user.username %></td>
             <td><%= user.info %></td>
-            <td><%= link_to 'Add Friend', friendships_path(:friend_id => user.id),
+            <td><%= link_to 'Add_Friend', friendships_path(:friend_id => user.id),
               method: :post,
               confirm: "Are you sure you want to be friends
               with #{user.email}?",
