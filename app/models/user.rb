@@ -17,15 +17,26 @@ class User < ActiveRecord::Base
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
 
-  has_many :direct_friendships, :class_name => "Friendship", :dependent => :destroy
+  has_many :direct_friendships, :class_name => "Friendship", :dependent => :destroy,
+           :conditions => "approved = true"
   has_many :direct_friends, :through => :direct_friendships, :source => :friend
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id",
+           :conditions => "approved = true"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-
+  has_many :pending_friendships, :class_name => "Friendship",
+           :conditions => "approved = false"
+  has_many :pending_friends, :through => :pending_friendships, :source => :friend
+  has_many :requested_friendships, :class_name => "Friendship",
+           :conditions => "approved = false", :foreign_key => "friend_id"
+  has_many :requested_friends, :through => :requested_friendships, :source => :user
   mount_uploader :image, ProfilePicUploader
 
   def friends
     direct_friends | inverse_friends
+  end
+  
+  def inverse_friendss
+    inverse_friends
   end
 
   def send_password_reset

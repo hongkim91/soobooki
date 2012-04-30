@@ -1,5 +1,5 @@
 Soobooki::Application.routes.draw do
-  resources :friendships
+
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
@@ -11,11 +11,14 @@ Soobooki::Application.routes.draw do
 
   get "bookshelf/:id" => "book_posts#index", :as => "bookshelf"
 
+  put "friendships/:id" => "friendships#approve"
+
   resources :books
   resources :users
   resources :book_posts
   resources :sessions
   resources :password_resets
+  resources :friendships
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
