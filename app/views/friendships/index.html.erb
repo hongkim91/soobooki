@@ -4,35 +4,40 @@
 
     <table class="table table-striped">
       <tr>
-        <th>#</th>
         <th>Email</th>
         <th>User Name</th>
         <th>Info</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
 
       <% @direct_friendships.each do |friendship| %>
         <tr>
-          <td><%= friendship.id %></td>
           <td><%= friendship.friend.email %></td>
           <td><%= friendship.friend.username %></td>
           <td><%= friendship.friend.info %></td>
-          <td><%= link_to 'Delete', friendship,
+          <td>
+            <%= link_to 'Delete', friendship,
                   confirm: "Are you sure you want to delete friendship 
                             with #{friendship.friend.email}?",
-                  method: :delete, class: "btn"  %></td>
+                  method: :delete, class: "btn" %>
+            <%= link_to 'Bookshelf',
+                bookshelf_path(:id => (bookshelf_id friendship.friend)),class: "btn"%>
+          </td>
         </tr>
       <% end %>
       <% @inverse_friendships.each do |friendship| %>
         <tr>
-          <td><%= friendship.id %></td>
           <td><%= friendship.user.email %></td>
           <td><%= friendship.user.username %></td>
           <td><%= friendship.user.info %></td>
-          <td><%= link_to 'Delete', friendship,
+          <td>
+            <%= link_to 'Delete', friendship,
                   confirm: "Are you sure you want to delete friendship 
                             with #{friendship.user.email}?",
-                  method: :delete, class: "btn"  %></td>
+                  method: :delete, class: "btn"  %>
+            <%= link_to 'Bookshelf', 
+                bookshelf_path(:id => (bookshelf_id friendship.user)), class: "btn" %>
+          </td>
         </tr>
       <% end %>
     </table>
@@ -41,7 +46,6 @@
 
     <table class="table table-striped">
       <tr>
-        <th>#</th>
         <th>Email</th>
         <th>User Name</th>
         <th>Info</th>
@@ -51,7 +55,6 @@
       <% @users.each do |user| %>
         <% unless @friends.include?(user) %>
           <tr>
-            <td><%= user.id %></td>
             <td><%= user.email %></td>
             <td><%= user.username %></td>
             <td><%= user.info %></td>

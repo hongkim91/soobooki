@@ -31,11 +31,12 @@ class BookPostsController < ApplicationController
   # GET /book_posts/1
   # GET /book_posts/1.json
   def show
-    @user = current_user
     @book_post = BookPost.find(params[:id])
+    @user = @book_post.user
     @book = Book.find(@book_post.book_id)
     
-    raise AcessDenied unless @user.id == @book_post.user_id
+    raise AcessDenied unless @user.id == @book_post.user_id or 
+      @book_post.user.friends.include?(@user)
 
     respond_to do |format|
       format.html # show.html.erb

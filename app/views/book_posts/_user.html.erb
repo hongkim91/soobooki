@@ -1,11 +1,19 @@
 <ul class="thumbnails">
   <li class="profile-pic">
-    <% if current_user.image_url.blank?%>
-      <%= link_to image_tag("http://placehold.it/130x130"),\
-          edit_user_path(@user.id), :class => "thumbnail" %>
+    <% if @user.image_url.blank?%>
+      <% if @user == current_user %>
+        <%= link_to image_tag("http://placehold.it/130x130"),\
+            edit_user_path(@user.id), :class => "thumbnail" %>
+      <% else %>
+        <%= image_tag "http://placehold.it/130x130", class: "thumbnail" %>
+      <% end %>
     <% else %>
-      <%= link_to image_tag(@user.image_url(:thumb).to_s),\
-          edit_user_path(@user.id), :class => "thumbnail" %>
+      <% if @user == current_user %>
+        <%= link_to image_tag(@user.image_url(:thumb).to_s),\
+            edit_user_path(@user.id), :class => "thumbnail" %>
+      <% else %>
+        <%= image_tag @user.image_url(:thumb).to_s, class: "thumbnail" %>
+      <% end %>
     <% end %>
   </li>
 </ul>
