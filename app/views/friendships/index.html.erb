@@ -1,0 +1,68 @@
+<div class="row">
+  <div class ="span7">
+    <h1>My Friends</h1>
+
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>Email</th>
+        <th>User Name</th>
+        <th>Info</th>
+        <th>Action</th>
+      </tr>
+
+      <% @direct_friendships.each do |friendship| %>
+        <tr>
+          <td><%= friendship.id %></td>
+          <td><%= friendship.friend.email %></td>
+          <td><%= friendship.friend.username %></td>
+          <td><%= friendship.friend.info %></td>
+          <td><%= link_to 'Delete', friendship,
+                  confirm: "Are you sure you want to delete friendship 
+                            with #{friendship.friend.email}?",
+                  method: :delete, class: "btn"  %></td>
+        </tr>
+      <% end %>
+      <% @inverse_friendships.each do |friendship| %>
+        <tr>
+          <td><%= friendship.id %></td>
+          <td><%= friendship.user.email %></td>
+          <td><%= friendship.user.username %></td>
+          <td><%= friendship.user.info %></td>
+          <td><%= link_to 'Delete', friendship,
+                  confirm: "Are you sure you want to delete friendship 
+                            with #{friendship.user.email}?",
+                  method: :delete, class: "btn"  %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <h1>Users</h1>
+
+    <table class="table table-striped">
+      <tr>
+        <th>#</th>
+        <th>Email</th>
+        <th>User Name</th>
+        <th>Info</th>
+        <th>Action</th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <% unless @friends.include?(user) %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.username %></td>
+            <td><%= user.info %></td>
+            <td><%= link_to 'Add Friend', friendships_path(:friend_id => user.id),
+              method: :post,
+              confirm: "Are you sure you want to be friends
+              with #{user.email}?",
+              class: "btn"%></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

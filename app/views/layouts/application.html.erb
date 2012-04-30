@@ -21,10 +21,11 @@
               <li class="active"><%= link_to 'Bookshelf', book_posts_path %></li>
               <li><%= link_to 'Books', books_path %></li>
               <% if current_user %>
+                <li><%= link_to 'Friends', friendships_path %></li>
+                <li><%= link_to 'My Account', user_path(current_user) %></li>
                 <% if current_user.admin? %>
                   <li><%= link_to 'Users Admin', users_path %></li>
                 <% end %>
-                <li><%= link_to 'My Account', user_path(current_user) %></li>
                 <li><%= link_to 'Log out', log_out_path %></li>
               <% else %>
                 <li><%= link_to 'Log in ', log_in_path %></li>
