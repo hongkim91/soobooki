@@ -1,7 +1,5 @@
 class BookPostsController < ApplicationController
 
-  def notice
-  end
   # GET /book_posts
   # GET /book_posts.json
   def index

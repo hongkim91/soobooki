@@ -19,15 +19,12 @@
 </ul>
 <h4> User email: </h4>
 <p>
-  <%= current_user.email %>
+  <%= @user.email %>
 </p>
 <% if current_user.info? %>
   <h4> Info: </h4>
   <p>
-    <%= current_user.info %>
+    <%= @user.info %>
   </p>
-<% end %>
-<% if is_park %>
-  <%= link_to "discharge from military", park_notice_path, :class => "btn" %>
 <% end %>
 
