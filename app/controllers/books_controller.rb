@@ -30,6 +30,7 @@ class BooksController < ApplicationController
   def new
     @book = Book.new
     @book.book_posts.build
+    @book.book_posts.first.date_read = Time.now
 
     respond_to do |format|
       format.html # new.html.erb
@@ -74,11 +75,12 @@ class BooksController < ApplicationController
   # PUT /books/1.json
   def update
     @book = Book.find(params[:id])
+#    return render :text => "params #{params}"
     raise AccessDenied unless current_user.id == @book.book_posts.first.user_id
 
     respond_to do |format|
       if @book.update_attributes(params[:book])
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        format.html { redirect_to @book.book_posts.first, notice: 'Book post was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

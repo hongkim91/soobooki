@@ -15,6 +15,17 @@
     <%= f.text_field :title, class:"span6" %>
   </div>
   <%= f.fields_for :book_posts do |builder| %>
+    <div class="field date" >
+      <%= builder.label :date_read %>
+      <% years = (1980..(Time.now.year)).map{|y| [y.to_s,y]}\
+                                        .insert(0,['Select Year',nil]) %>
+      <%= builder.select :year, years %>
+      <% months = (1..12).map{|m| [Date::MONTHNAMES[m],m]}\
+                         .insert(0,['Select Month',nil]) %>
+      <%= builder.select :month, months %>
+      <% days = (1..31).map{|d| [d.to_s,d]}.insert(0,['Select Day',nil]) %>
+      <%= builder.select :day, days %>
+    </div>
     <div class="field">
       <%= builder.label :review %>
       <%= builder.text_area :review, rows:10, class:"span6" %>

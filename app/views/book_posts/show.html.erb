@@ -2,7 +2,19 @@
   <div class="span6">
     <div class="book-post">
       <h1><%= @book.title %></h1>
-          <%= image_tag @book.image_url(:default).to_s %>
+      <%= image_tag @book.image_url(:default).to_s %>
+
+      <% if @book_post.year %>
+        <h4> Date Read </h4>
+        <% if @book_post.day %>
+           <%= "%s %d, %d" % [Date::MONTHNAMES[@book_post.month],
+                                 @book_post.day,@book_post.year] %>
+        <% elsif @book_post.month %>
+          <%= "%s, %d" % [Date::MONTHNAMES[@book_post.month],@book_post.year] %>
+        <% else %>
+          <%= @book_post.year.to_s %>
+        <% end %>
+      <% end %>
       <p>
         <%= simple_format(@book_post.review) %>
       </p>

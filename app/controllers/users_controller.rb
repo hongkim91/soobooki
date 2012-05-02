@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_email_confirmation
       redirect_to root_url, :notice => "A confirmation link was sent to your email. 
-                          Please click the on the link to finish sign up!"
+                          Please click on the link to finish sign up!"
     else
       render "new"
     end

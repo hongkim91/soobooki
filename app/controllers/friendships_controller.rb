@@ -6,8 +6,6 @@ class FriendshipsController < ApplicationController
     @direct_friendships = current_user.direct_friendships
     @inverse_friendships = current_user.inverse_friendships
     @requested_friendships = current_user.requested_friendships
-    @direct_friends = current_user.direct_friends
-    @inverse_friends = current_user.inverse_friends
     @pending_friends = current_user.pending_friends
     @requested_friends = current_user.requested_friends
     @friends = current_user.friends

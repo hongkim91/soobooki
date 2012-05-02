@@ -16,7 +16,7 @@ set :rails_env, :production
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
-after "deploy", "deploy:cleanup" # keep only the last 5 releases
+after "deploy:restart", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
   desc "cause Passenger to initiate a restart"
@@ -60,4 +60,4 @@ desc "I don't know why but this makes rmagick work"
 task :bundle_no_deploy, :roles => :app do
   run "cd #{current_path}; bundle install --no-deployment --quiet"
 end
-after "deploy", :bundle_no_deploy
+after "deploy:restart", :bundle_no_deploy
