@@ -2,6 +2,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
+    raise AccessDenied unless current_user
     @users = User.where('email_confirmed = true AND email != \''+current_user.email+'\'')
     @direct_friendships = current_user.direct_friendships
     @inverse_friendships = current_user.inverse_friendships

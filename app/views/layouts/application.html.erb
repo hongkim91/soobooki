@@ -15,10 +15,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="<%= book_posts_path %>">Soobooki</a>
+          <a class="brand" href="<%= bookshelf(current_user) %>">Soobooki</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><%= link_to 'Bookshelf', book_posts_path %></li>
+              <li class="active"><%= link_to 'Bookshelf', bookshelf(current_user) %></li>
               <li><%= link_to 'Books', books_path %></li>
               <% if current_user %>
                 <li><%= link_to 'Friends', friendships_path %></li>

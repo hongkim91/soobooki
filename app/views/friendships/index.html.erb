@@ -44,7 +44,7 @@
                             with #{friendship.friend.email}?",
                   method: :delete, class: "btn" %>
             <%= link_to 'Bookshelf',
-                bookshelf_path(:id => (bookshelf_id friendship.friend)),class: "btn"%>
+                bookshelf(friendship.friend), class: "btn" %>
           </td>
         </tr>
       <% end %>
@@ -59,7 +59,7 @@
                             with #{friendship.user.email}?",
                   method: :delete, class: "btn"  %>
             <%= link_to 'Bookshelf', 
-                bookshelf_path(:id => (bookshelf_id friendship.user)), class: "btn" %>
+                bookshelf(friendship.user), class: "btn" %>
           </td>
         </tr>
       <% end %>

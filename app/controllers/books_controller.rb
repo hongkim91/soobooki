@@ -30,7 +30,6 @@ class BooksController < ApplicationController
   def new
     @book = Book.new
     @book.book_posts.build
-    @book.book_posts.first.date_read = Time.now
 
     respond_to do |format|
       format.html # new.html.erb
@@ -65,7 +64,14 @@ class BooksController < ApplicationController
         }
         format.json { render json: @book, status: :created, location: @book }
       else
-        format.html { render action: "new" }
+        format.html { 
+          if @book.book_posts.empty?
+            render action: "new"
+          else
+            @book_post = @book.book_posts.first
+            render 'book_posts/new'
+          end
+        }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      redirect_to book_posts_path
+      redirect_to bookshelf(current_user)
     else
       render "new"
     end
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       if user.email_confirmed
         session[:user_id] = user.id
-        redirect_to book_posts_path, :notice => "User logged in"
+        redirect_to bookshelf(current_user), :notice => "User logged in"
       else
         session[:user_email] = user.email
         redirect_to need_confirmation_path
