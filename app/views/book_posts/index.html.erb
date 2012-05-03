@@ -38,7 +38,9 @@
     <% end %>
     </ul>
     <br />
-    <%= link_to 'Add Book', new_book_post_path, :class => "btn" %>
+    <% if @user == current_user %>
+      <%= link_to 'Add Book', new_book_post_path, :class => "btn" %>
+    <% end %>
   </div>
   <div class="span3">
     <%= render 'user' %>
