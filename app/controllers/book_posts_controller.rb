@@ -57,6 +57,9 @@ class BookPostsController < ApplicationController
   def new
     @book = Book.new
     @book_post = @book.book_posts.build
+    @book_post.year = Time.now.year
+    @book_post.month = Time.now.month
+    @book_post.day = Time.now.day
 
     respond_to do |format|
       format.html # new.html.erb
