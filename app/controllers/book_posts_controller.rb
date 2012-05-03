@@ -14,8 +14,18 @@ class BookPostsController < ApplicationController
     end
 
     if @user
-      @book_posts = @user.book_posts
+      @book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
+#      return render :text => "bp: #{@book_posts.to_yaml}"
       @books = @user.books
+#      @book_posts.each do |bp|
+#        if bp.day
+#          @book_posts_by_date[bp.year][bp.month][bp.day] = bp
+#        elsif bp.month
+#          @book_posts_by_date[bp.year][bp.month] = bp
+#        else
+#          @book_posts_by_date[bp.year]= bp
+#        end
+#      end
 
       respond_to do |format|
         format.html # index.html.erb

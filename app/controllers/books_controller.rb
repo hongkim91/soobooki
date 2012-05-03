@@ -79,7 +79,7 @@ class BooksController < ApplicationController
     raise AccessDenied unless current_user.id == @book.book_posts.first.user_id
 
     respond_to do |format|
-      if @book.update_attributes(params[:book])
+      if @book.update_attributes!(params[:book])
         format.html { redirect_to @book.book_posts.first, notice: 'Book post was successfully updated.' }
         format.json { head :no_content }
       else
