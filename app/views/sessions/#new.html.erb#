@@ -19,7 +19,7 @@
   </div>
   <div class="span3">
     <h3> or Facebook accurnt </h3>
-    <a href="/auth/facebook" class="auth_provider">
+    <a href="/auth/facebook" class="auth_provider" id="auth">
       <%= image_tag('facebook_128.png') %>
     </a>
   </div>

@@ -39,3 +39,8 @@ gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git'
 gem 'pg'
 
 gem 'tlsmail'
+gem 'nifty-generators', :group => :devolopment
+
+gem 'omniauth-facebook'
+
+gem "mocha", :group => :test

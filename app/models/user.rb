@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
                        :format => {:with => /^[a-z]+[a-z0-9\_\-]+$/i},
                        :allow_blank => true
 
+  has_many :authentications
+
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
 
