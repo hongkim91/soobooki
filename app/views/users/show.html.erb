@@ -9,14 +9,38 @@
       </ul>
     <% end %>
     <p>
-      <b>Email:</b>
+      <h3>Email</h3>
       <%= @user.email %>
     </p>
-
-    <p>
-      <b>Info:</b>
-      <%= @user.info %>
-    </p>
+    <% if @user.username? %>
+      <p>
+        <h3>Username</h3>
+        <%= @user.username %>
+      </p>
+    <% end %>
+    <% if @user.info? %>
+      <p>
+        <h3>Info</h3>
+        <%= @user.info %>
+      </p>
+    <% end %>
+    <% unless @user.authentications.empty? %>
+      <h3>Authentications</h3>
+      <table class="table table-striped authentications">
+        <tr>
+          <th>Provider</th>
+          <th>Action</th>
+        </tr>
+        <% for authentication in @user.authentications %>
+        <tr>
+          <td><%= authentication.provider %></td>
+          <td><%= link_to "Delete", authentication, :confirm => 
+        "Are you sure you want to delete authentication from #{authentication.provider}?",
+                    :method => :delete, :class => "btn" %></td>
+        </tr>
+        <% end %>
+      </table>
+    <% end %>
 
     <%= link_to 'Edit', edit_user_path(@user), :class => "btn"%>
     <%= link_to 'Delete Account', user_path(@user), 

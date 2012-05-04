@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user.attributes = params[:user]
     respond_to do |format|
       if @user.save
-        format.html { redirect_to book_posts_path,
+        format.html { redirect_to bookshelf(current_user),
                       notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
       @user.email_confirmed = true
       @user.save!
       session[:user_id] = @user.id
-      redirect_to book_posts_path, :alert => "Email has been confirmed. Sign up complete!"
+      redirect_to bookshelf(current_user), :alert => "Email has been confirmed. Sign up complete!"
     else
       redirect_to root_url, :alert => "Email confirmation token was incorrect.
                                        Please try again."

@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
         render "new"
       end
     rescue BCrypt::Errors::InvalidHash
-      flash.now.alert = "You have not signed up with a password, but rather through 
+      flash.now.alert = "You didn't signed up with a password, but rather through 
                           #{user.authentications.first.provider}."
       render "new"
     end

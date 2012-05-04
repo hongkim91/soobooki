@@ -8,13 +8,15 @@ class User < ActiveRecord::Base
                     :uniqueness => {:case_sensitive => false},
                     :length => {:minimun => 3, :maximum => 254},
                     :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
-  validates :password, :length => {:minimun => 1, :maximum => 254}
+  validates_length_of :password, :minimun => 1, :maximum => 254
   validates :username, :uniqueness => {:case_sensitive => false},
                        :length => {:minimun => 1, :maximum => 254},
                        :format => {:with => /^[a-z]+[a-z0-9\_\-]+$/i},
                        :allow_blank => true
+  
+  before_validation :no_password_omniauth
 
-  has_many :authentications
+  has_many :authentications, :dependent => :destroy
 
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
@@ -23,7 +25,7 @@ class User < ActiveRecord::Base
            :conditions => "approved = true"
   has_many :direct_friends, :through => :direct_friendships, :source => :friend
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id",
-           :conditions => "approved = true"
+           :dependent => :destroy, :conditions => "approved = true"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   has_many :pending_friendships, :class_name => "Friendship",
            :conditions => "approved = false"
@@ -55,4 +57,19 @@ class User < ActiveRecord::Base
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
+
+  #the following two methods are a dirty hack to bypass the validate_presense_of :password
+  #validtaion automatically genearated by "has_secure_password"
+  def no_password_omniauth
+    self.password_digest = 0 unless password_required
+  end
+  
+  def password_required
+    (authentications.empty? || !password_digest.blank?)
+  end
+  
+  def only_omniauth?
+    authentications.size == 1 and 
+      (password_digest.blank? or password_digest == 0)
+    end
 end
