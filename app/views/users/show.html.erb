@@ -24,23 +24,26 @@
         <%= @user.info %>
       </p>
     <% end %>
-    <% unless @user.authentications.empty? %>
-      <h3>Authentications</h3>
-      <table class="table table-striped authentications">
-        <tr>
-          <th>Provider</th>
-          <th>Action</th>
-        </tr>
-        <% for authentication in @user.authentications %>
-        <tr>
-          <td><%= authentication.provider %></td>
-          <td><%= link_to "Delete", authentication, :confirm => 
-        "Are you sure you want to delete authentication from #{authentication.provider}?",
-                    :method => :delete, :class => "btn" %></td>
-        </tr>
+    <h3>Authentications</h3>
+    <table class="table table-striped authentications">
+      <tr>
+        <th>Provider</th>
+        <th>Action</th>
+      </tr>
+      <% for provider in ["Facebook"] %>
+      <tr>
+        <td><%= provider %></td>
+        <% authentication = @user.authentications.find_by_provider(provider) %>
+        <% if authentication %>
+        <td><%= link_to "Delete", authentication, :confirm => 
+          "Are you sure you want to delete authentication from #{provider}?",
+          :method => :delete, :class => "btn" %></td>
+        <% else %>
+        <td><%= link_to "Add", "/auth/facebook", :class => "btn" %></td>
         <% end %>
-      </table>
-    <% end %>
+      </tr>
+      <% end %>
+    </table>
 
     <%= link_to 'Edit', edit_user_path(@user), :class => "btn"%>
     <%= link_to 'Delete Account', user_path(@user), 
