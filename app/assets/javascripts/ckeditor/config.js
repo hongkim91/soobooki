@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config )
     config.toolbar_MyToolbar =
     [
         { name: 'styles', items : ['Format','Bold','Italic'] },
-        { name: 'clipboard', items : ['PasteText','PasteFromWord','-','Image','HorizontalRule','-','Undo','Redo' ] },
+        { name: 'clipboard', items : ['Source','PasteText','PasteFromWord','-','Image','HorizontalRule','-','Undo','Redo' ] },
         { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','Link','Unlink'] }
     ];
 }
