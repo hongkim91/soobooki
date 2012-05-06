@@ -42,5 +42,6 @@ gem 'tlsmail'
 gem 'nifty-generators', :group => :devolopment
 
 gem 'omniauth-facebook'
+gem 'omniauth-openid'
 
 gem "mocha", :group => :test

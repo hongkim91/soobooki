@@ -13,6 +13,7 @@ Soobooki::Application.routes.draw do
   put "friendships/:id" => "friendships#approve"
 
   match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/failure' => 'authentications#failure'
 
   resources :books
   resources :users

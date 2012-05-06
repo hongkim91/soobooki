@@ -19,10 +19,14 @@
   </div>
   <div class="span3">
     <div class="auth_providers">
-      <h3>or Facebook</h3>
-      <a href="/auth/facebook" class="auth_provider">
-        <%= image_tag('facebook_128.png') %>
-      </a>
+      <div class="auth_provider">
+        <h3>Facebook</h3>
+        <%= link_to image_tag('facebook_128.png'), "/auth/facebook" %>
+      </div>
+      <div class="auth_provider">
+        <h3>or Google</h3>
+        <%= link_to image_tag('google_128.png'), "/auth/google" %>
+      </div>
     </div>
   </div>
 </div>

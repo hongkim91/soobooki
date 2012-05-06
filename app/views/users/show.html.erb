@@ -30,7 +30,7 @@
         <th>Provider</th>
         <th>Action</th>
       </tr>
-      <% for provider in ["Facebook"] %>
+      <% for provider in ["Facebook","Google"] %>
       <tr>
         <td><%= provider %></td>
         <% authentication = @user.authentications.find_by_provider(provider) %>

@@ -59,4 +59,9 @@ class AuthenticationsController < ApplicationController
       :notice => "Couldn't delete authentication from #{auth.provider} because it is your only authentication method."
     end
   end
+
+  def failure
+    flash[:error] = 'There was an error at the remote authentication service. You have not been signed in.'
+    redirect_to root_url
+  end
 end
