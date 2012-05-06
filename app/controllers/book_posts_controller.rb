@@ -13,19 +13,10 @@ class BookPostsController < ApplicationController
       @user = current_user
     end
 
+    raise AcessDenied unless current_user == @user or @user.friends.include?(current_user)
     if @user
       @book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
-#      return render :text => "bp: #{@book_posts.to_yaml}"
       @books = @user.books
-#      @book_posts.each do |bp|
-#        if bp.day
-#          @book_posts_by_date[bp.year][bp.month][bp.day] = bp
-#        elsif bp.month
-#          @book_posts_by_date[bp.year][bp.month] = bp
-#        else
-#          @book_posts_by_date[bp.year]= bp
-#        end
-#      end
 
       respond_to do |format|
         format.html # index.html.erb
@@ -43,8 +34,8 @@ class BookPostsController < ApplicationController
     @user = @book_post.user
     @book = Book.find(@book_post.book_id)
     
-    raise AcessDenied unless @user.id == @book_post.user_id or 
-      @book_post.user.friends.include?(@user)
+    raise AcessDenied unless current_user.id == @book_post.user_id or 
+      @book_post.user.friends.include?(current_user)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -111,9 +102,7 @@ class BookPostsController < ApplicationController
   # DELETE /book_posts/1
   # DELETE /book_posts/1.json
   def destroy
-    @book_post = BookPost.find(params[:id])
-    raise AcessDenied unless current_user.id == @book_post.user_id
-
+    @book_post = current_user.book_posts.find(params[:id])
     @book_post.destroy
 
     respond_to do |format|
