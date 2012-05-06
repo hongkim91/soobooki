@@ -61,7 +61,10 @@ class BookPostsController < ApplicationController
   # GET /book_posts/1/edit
   def edit
     @book_post = BookPost.find(params[:id])
+#    return render :text => "book: #{@book_post.to_yaml}"
     @book = Book.find(@book_post.book_id)
+    book = @book
+#    return render :text => "book: #{book.to_yaml}"
     raise AcessDenied unless current_user.id == @book_post.user_id
   end
 

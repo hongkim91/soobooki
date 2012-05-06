@@ -46,6 +46,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
+#    return render :text => "params #{params}"
     @book = Book.new(params[:book])
 
     unless @book.book_posts.empty?

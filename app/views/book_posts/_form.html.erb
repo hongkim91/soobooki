@@ -26,19 +26,19 @@
       <% days = (1..31).map{|d| [d.to_s,d]}.insert(0,['Select Day',0]) %>
       <%= builder.select :day, days %>
     </div>
+    <div class="field book_image_local">
+      <%= f.label :image, "Image file"%>
+      <%= f.file_field :image %>
+    </div>
+    <div class="field book_image_url">
+      <%= f.label :remote_image_url, "or image URL" %>
+      <%= f.text_field :remote_image_url %>
+    </div>
     <div class="field">
       <%= builder.label :review %>
-      <%= builder.text_area :review, rows:10, class:"span6" %>
+      <%= builder.cktext_area(:review, :namespace => "",:width => 570, :toolbar => 'MyToolbar') %>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :remote_image_url, "or image URL:" %>
-    <%= f.text_field :remote_image_url %>
-  </div>
   <div class="actions">
     <% if params[:action] == "new" or params[:action] == "create" %>
       <%= f.submit "Add Book",:class => "btn" %>
