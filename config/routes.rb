@@ -1,5 +1,7 @@
 Soobooki::Application.routes.draw do
 
+  Mercury::Engine.routes
+
   mount Ckeditor::Engine => '/ckeditor'
 
   get "log_out" => "sessions#destroy", :as => "log_out"
@@ -19,7 +21,9 @@ Soobooki::Application.routes.draw do
 
   resources :books
   resources :users
-  resources :book_posts
+  resources :book_posts do
+    member { post :mercury_update }
+  end
   resources :sessions
   resources :password_resets
   resources :friendships

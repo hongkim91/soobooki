@@ -47,4 +47,6 @@ gem 'omniauth-openid'
 gem "mocha", :group => :test
 
 gem "ckeditor", "3.7.0.rc3"
-gem "mini_magick"
+gem 'mercury-rails'
+
+gem "sanitize"

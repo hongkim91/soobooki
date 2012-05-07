@@ -1,3 +1,4 @@
+<%= javascript_include_tag "book_posts" %>
 <%= form_for(@book, html: {multipart: true}) do |f| %>
   <% if @book.errors.any? %>
     <div id="error_explanation">

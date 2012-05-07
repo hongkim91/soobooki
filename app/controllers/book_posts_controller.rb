@@ -61,10 +61,8 @@ class BookPostsController < ApplicationController
   # GET /book_posts/1/edit
   def edit
     @book_post = BookPost.find(params[:id])
-#    return render :text => "book: #{@book_post.to_yaml}"
     @book = Book.find(@book_post.book_id)
-    book = @book
-#    return render :text => "book: #{book.to_yaml}"
+    
     raise AcessDenied unless current_user.id == @book_post.user_id
   end
 
@@ -88,8 +86,7 @@ class BookPostsController < ApplicationController
   # PUT /book_posts/1
   # PUT /book_posts/1.json
   def update
-    @book_post = BookPost.find(params[:id])
-    raise AcessDenied unless current_user.id == @book_post.user_id
+    @book_post = current_user.book_posts.find(params[:id])
 
     respond_to do |format|
       if @book_post.update_attributes(params[:book_post])
@@ -112,5 +109,12 @@ class BookPostsController < ApplicationController
       format.html { redirect_to book_posts_url, notice: 'Book post was successfully deleted.'}
       format.json { head :no_content }
     end
+  end
+
+  def mercury_update
+    book_post = current_user.book_posts.find(params[:id])
+    book_post.review = Sanitize.clean(params[:content][:book_post_review][:value],Sanitize::Config::RELAXED)
+    book_post.save!
+    render text: ""
   end
 end

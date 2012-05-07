@@ -52,6 +52,7 @@ class BooksController < ApplicationController
     unless @book.book_posts.empty?
       book_post = @book.book_posts.first
       book_post.user_id = current_user.id
+      book_post.review = Sanitize.clean(book_post.review,Sanitize::Config::RELAXED)
     end
 
     respond_to do |format|
@@ -81,9 +82,10 @@ class BooksController < ApplicationController
   # PUT /books/1
   # PUT /books/1.json
   def update
-    @book = Book.find(params[:id])
+    @book = current_user.books.find(params[:id])
 #    return render :text => "params #{params}"
-    raise AccessDenied unless current_user.id == @book.book_posts.first.user_id
+    review = params[:book][:book_posts_attributes]["0"][:review]
+    params[:book][:book_posts_attributes]["0"][:review] = Sanitize.clean(review,Sanitize::Config::RELAXED)
 
     respond_to do |format|
       if @book.update_attributes!(params[:book])
