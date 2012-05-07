@@ -437,9 +437,13 @@ window.Mercury = {
   onload: function() {
     //Mercury.PageEditor.prototype.iframeSrc = function(url) { return '/testing'; }
     Mercury.on('ready', function() {
-      var link = $('#mercury_iframe').contents().find('#edit_link');
+      var link = $('#mercury_iframe').contents().find('#mercury_edit_link');
       Mercury.saveURL = link.data('save-url');
       link.hide();
+      $('#mercury_iframe').contents().find('#ck_edit_link').hide();
+      $('#mercury_iframe').contents().find('#delete_link').hide();
+      $('#mercury_iframe').contents().find('#navbar').hide();
+      $('#mercury_iframe').contents().find('body').css('padding-top','15px');
     });
 
     Mercury.on('saved', function() {
