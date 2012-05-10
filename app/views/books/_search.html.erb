@@ -4,11 +4,15 @@
       <% book_info = book['volumeInfo'] %>
       <tr>
         <td class="book-image-block"> 
-          <%= image_tag book_info['imageLinks']['smallThumbnail'], class: "book-small-image"%> 
+          <% if book_info['imageLinks'] && book_info['imageLinks']['smallThumbnail'] %>
+            <%= image_tag book_info['imageLinks']['smallThumbnail'], class: "book-small-image"%> 
+          <% end %>
         </td>
         <td> 
           <%= book_info['title'] %> </br>
-          by <%= book_info['authors'].join(', ') %> </br>
+          <% if book_info['authors'] %>
+            by <%= book_info['authors'].join(', ') %> </br>
+          <% end %>
           <%= book_info['publisher'] %> </br>
           <%= book_info['publishedDate'] %>
         </td>

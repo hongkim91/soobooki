@@ -113,9 +113,14 @@ class BooksController < ApplicationController
 
   def search
 #    @books = Book.all
+    req_params = {'q' => params[:query]}
+    req_params['startIndex'] = 1
+    req_params['maxResults'] = 15
+    query = req_params.map { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
+
     url = URI::HTTPS.build(:host  => 'www.googleapis.com',
                            :path  => '/books/v1/volumes',
-                           :query => 'q='+params[:query])
+                           :query => query)
     @response = HTTParty.get(url.to_s)
 
     respond_to do |format|
