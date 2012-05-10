@@ -1,18 +1,11 @@
 <div class="row">
   <div class="span7">
-    <h1>Books</h1>
-
-    <ul class ="thumbnails">
-      <% @books.each do |book| %>
-      <li>
-        <a href="/books/<%= book.id %>" class="thumbnail">
-          <%= image_tag book.image_url(:thumb).to_s %> 
-        </a>
-      </li>
-      <% end %>
-    </ul>
-
-    <br />
-    <%= link_to 'New Book', new_book_path, :class => "btn" %>
+    <h1>Search Books</h1>
+    <%= form_tag search_books_path, method: "get", remote: true, class: "form-search" do %>
+      <%= text_field_tag "query", nil, class: "input-medium search-query" %>
+      <%= submit_tag "Search", class: "btn" %>
+    <% end %>
+    <div class="search-results">
+    </div>
   </div>
 </div>

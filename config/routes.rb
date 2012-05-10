@@ -19,7 +19,9 @@ Soobooki::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'authentications#failure'
 
-  resources :books
+  resources :books do
+    collection { get :search }
+  end
   resources :users
   resources :book_posts do
     member { post :mercury_update }

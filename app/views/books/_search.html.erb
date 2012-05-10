@@ -1,0 +1,20 @@
+<table class="book-search-table">
+  <tbody>
+    <% @response['items'].each do |book| %>
+      <% book_info = book['volumeInfo'] %>
+      <tr>
+        <td class="book-image-block"> 
+          <%= image_tag book_info['imageLinks']['smallThumbnail'], class: "book-small-image"%> 
+        </td>
+        <td> 
+          <%= book_info['title'] %> </br>
+          by <%= book_info['authors'].join(', ') %> </br>
+          <%= book_info['publisher'] %> </br>
+          <%= book_info['publishedDate'] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  
+

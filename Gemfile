@@ -50,3 +50,4 @@ gem "ckeditor", "3.7.0.rc3"
 gem 'mercury-rails'
 
 gem "sanitize"
+gem "httparty"

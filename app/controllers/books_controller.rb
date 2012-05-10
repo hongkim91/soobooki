@@ -110,4 +110,16 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def search
+#    @books = Book.all
+    url = URI::HTTPS.build(:host  => 'www.googleapis.com',
+                           :path  => '/books/v1/volumes',
+                           :query => 'q='+params[:query])
+    @response = HTTParty.get(url.to_s)
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end
