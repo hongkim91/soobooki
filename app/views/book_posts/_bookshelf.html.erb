@@ -1,0 +1,26 @@
+<% @book_posts_by_year_and_month.each_key do |year| %>
+  <% @book_posts_by_year_and_month[year].each_key do |month| %>
+    <% book_posts = @book_posts_by_year_and_month[year][month] %>
+    <% if year == 0 %>
+      <h3>Sometime Before</h3>
+    <% elsif month == 0 %>
+      <h3><%= year.to_s %> </h3>
+    <% else %>
+      <h3><%= Date::MONTHNAMES[month]+", "+year.to_s %></h3>
+    <% end %>
+    <ul class ="thumbnails book <%=year%>_<%=month%>">
+    <% book_posts.each do |book_post| %>
+      <% book = find_book(book_post.book_id) %>
+      <% if book %>
+        <%= render "book_post_thumbnail", :book => book, :book_post =>
+             book_post%>
+      <% end %>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
+
+
+
+

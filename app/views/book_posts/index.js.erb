@@ -1,0 +1,13 @@
+<% if @last_month_book_posts %>
+   <% @last_month_book_posts.each do |book_post| %>
+     <% book = find_book(book_post.book_id) %>
+     <% if book %>
+       $(".bookshelf ul.<%=book_post.year%>_<%=book_post.month%>").append("<%= j render "book_post_thumbnail", :book => book, :book_post => book_post %>")
+     <% end %>
+   <% end %>
+<% end %>
+$(".bookshelf").append("<%= j render "bookshelf" %>")
+$("a.see-more").attr("href", "<%= j book_posts_path(next_index:@next_index) %>")
+<% if @next_index >= @book_posts_size %>
+   $("a.see-more").hide()
+<% end %>

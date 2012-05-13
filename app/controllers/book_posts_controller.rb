@@ -15,11 +15,45 @@ class BookPostsController < ApplicationController
 
     raise AcessDenied unless current_user == @user or @user.friends.include?(current_user)
     if @user
-      @book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
-      @books = @user.books
+      increment_size = 10
+      previous_book_post = nil
+      if params[:next_index]
+        book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
+                         .limit(increment_size).offset(params[:next_index])
+        @next_index = increment_size + params[:next_index].to_i
+        previous_book_post = @user.book_posts.order("year DESC","month DESC","day DESC")
+                         .limit(1).offset(params[:next_index].to_i-1).first
+      else
+        book_posts = @user.book_posts.order("year DESC","month DESC","day DESC").limit(increment_size)
+        @next_index = increment_size
+      end
+      @book_posts_size = @user.book_posts.size
+
+      @book_posts_by_year_and_month = {}
+      book_posts.each do |book_post|
+        if !@book_posts_by_year_and_month.include?(book_post.year)
+          @book_posts_by_year_and_month[book_post.year] = {book_post.month => [book_post]}
+        elsif !@book_posts_by_year_and_month[book_post.year].include?(book_post.month)
+          @book_posts_by_year_and_month[book_post.year][book_post.month] = [book_post]
+        else
+          @book_posts_by_year_and_month[book_post.year][book_post.month] << book_post
+        end
+      end
+
+      max_year = @book_posts_by_year_and_month.keys().max
+      max_month = @book_posts_by_year_and_month[max_year].keys().max
+
+      if previous_book_post && (previous_book_post.year == max_year) &&
+          (previous_book_post.month == max_month)
+        @last_month_book_posts = @book_posts_by_year_and_month[max_year].delete(max_month)
+        if @book_posts_by_year_and_month[max_year].empty?
+          @book_posts_by_year_and_month.delete(max_year)
+        end
+      end
 
       respond_to do |format|
         format.html # index.html.erb
+        format.js
         format.json { render json: @book_posts }
       end
     else
@@ -33,8 +67,8 @@ class BookPostsController < ApplicationController
     @book_post = BookPost.find(params[:id])
     @user = @book_post.user
     @book = Book.find(@book_post.book_id)
-    
-    raise AcessDenied unless current_user.id == @book_post.user_id or 
+
+    raise AcessDenied unless current_user.id == @book_post.user_id or
       @book_post.user.friends.include?(current_user)
 
     respond_to do |format|
@@ -118,3 +152,5 @@ class BookPostsController < ApplicationController
     render text: ""
   end
 end
+
+

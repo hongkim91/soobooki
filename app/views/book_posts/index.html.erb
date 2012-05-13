@@ -1,45 +1,13 @@
 <div class="row">
   <div class="span6">
     <h1>Bookshelf</h1>
-    <% year = -1, month = -1 %>
-    <% @book_posts.each do |book_post| %>
-      <% book = find_book(book_post.book_id) %>
-      <% if book %>
-        <% if book_post.year != -1 and
-          book_post.year != year or book_post.month != month %>
-          </ul>
-        <% end %>
-        <% if book_post.year != year %>
-          <% year = book_post.year %>
-          <% month = book_post.month %>
-          <% if book_post.year == 0 %>
-            <h3>Sometime Before</h3>
-          <% elsif book_post.month == 0 %>
-            <h3><%= book_post.year.to_s %> </h3>
-          <% else %>
-            <h3><%= Date::MONTHNAMES[book_post.month]+", "+book_post.year.to_s %></h3>
-          <% end %>
-            <ul class ="thumbnails book">
-        <% elsif book_post.month != month %>
-          <% month = book_post.month %>
-          <% if book_post.month == 0 %>
-            <h3><%= book_post.year.to_s %> </h3>
-          <% else %>
-            <h3><%= Date::MONTHNAMES[book_post.month]+", "+book_post.year.to_s %></h3>
-          <% end %>
-          <ul class ="thumbnails book">
-        <% end %>
-          <li>
-            <a href="<%= book_post_path(book_post)%>" class="thumbnail">
-              <%= image_tag book.image_url(:thumb).to_s %> 
-            </a>
-          </li>
-      <% end %>
-    <% end %>
-    </ul>
-    <br />
+    <div class="bookshelf">
+      <%= render "bookshelf"%>
+    </div>
+    <%= link_to "See More", book_posts_path(next_index: @next_index),
+        class: "btn see-more", remote: true %>
     <% if @user == current_user %>
-      <%= link_to 'Add Book', new_book_post_path, :class => "btn" %>
+      <%= link_to 'Add Book', new_book_post_path, class: "btn" %>
     <% end %>
   </div>
   <div class="span3">
