@@ -4,8 +4,10 @@
     <div class="bookshelf">
       <%= render "bookshelf"%>
     </div>
-    <%= link_to "See More", book_posts_path(next_index: @next_index),
-        class: "btn see-more", remote: true %>
+    <% unless @next_index >= @book_posts_size %>
+      <%= link_to "See More", book_posts_path(next_index: @next_index),
+          class: "btn see-more", remote: true %>
+    <% end %>
     <% if @user == current_user %>
       <%= link_to 'Add Book', new_book_post_path, class: "btn" %>
     <% end %>

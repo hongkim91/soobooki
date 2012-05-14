@@ -3,7 +3,6 @@ class Book < ActiveRecord::Base
   has_many :book_posts
   accepts_nested_attributes_for :book_posts
 
-  validates_presence_of :image
-
+#  validates_presence_of :image
   mount_uploader :image, ImageUploader
 end

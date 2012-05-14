@@ -3,7 +3,9 @@
   <div class="span6">
     <div class="book-post">
       <h1><%= @book.title %></h1>
-      <%= image_tag @book.image_url(:default).to_s %>
+      <% unless @book.image_url.blank? %>
+        <%= image_tag @book.image_url(:default).to_s %>        
+      <% end %>
 
       <% if @book_post.year != 0 %>
         <h4> Date Read </h4>
@@ -23,7 +25,7 @@
       </p>
 
       <% if current_user == @user %>
-        <%= link_to 'Edit', edit_book_post_path(@book_post), :class => "btn", id: "ck_edit_link" %>
+        <%= link_to 'Edit Post', edit_book_post_path(@book_post), :class => "btn", id: "ck_edit_link" %>
         <%= link_to 'Mercury Editor', "/editor"+request.path, class: "btn", id: "mercury_edit_link", data: {save_url: mercury_update_book_post_path(@book_post)} %>
         <%= link_to 'Delete', book_post_path(@book_post), 
             :confirm => "Are you sure you want to delete '#{@book.title}'?",

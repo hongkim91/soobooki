@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120504005856) do
+ActiveRecord::Schema.define(:version => 20120514042437) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20120504005856) do
     t.integer  "user_id"
     t.integer  "book_id"
     t.text     "review"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "year"
-    t.integer  "month"
-    t.integer  "day"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "year",       :default => 0
+    t.integer  "month",      :default => 0
+    t.integer  "day",        :default => 0
   end
 
   create_table "books", :force => true do |t|

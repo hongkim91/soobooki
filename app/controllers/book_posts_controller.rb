@@ -40,14 +40,16 @@ class BookPostsController < ApplicationController
         end
       end
 
-      max_year = @book_posts_by_year_and_month.keys().max
-      max_month = @book_posts_by_year_and_month[max_year].keys().max
+      unless @book_posts_by_year_and_month.empty?
+        max_year = @book_posts_by_year_and_month.keys().max
+        max_month = @book_posts_by_year_and_month[max_year].keys().max
 
-      if previous_book_post && (previous_book_post.year == max_year) &&
-          (previous_book_post.month == max_month)
-        @last_month_book_posts = @book_posts_by_year_and_month[max_year].delete(max_month)
-        if @book_posts_by_year_and_month[max_year].empty?
-          @book_posts_by_year_and_month.delete(max_year)
+        if previous_book_post && (previous_book_post.year == max_year) &&
+            (previous_book_post.month == max_month)
+          @last_month_book_posts = @book_posts_by_year_and_month[max_year].delete(max_month)
+          if @book_posts_by_year_and_month[max_year].empty?
+            @book_posts_by_year_and_month.delete(max_year)
+          end
         end
       end
 
@@ -94,24 +96,42 @@ class BookPostsController < ApplicationController
 
   # GET /book_posts/1/edit
   def edit
-    @book_post = BookPost.find(params[:id])
+    @book_post = current_user.book_posts.find(params[:id])
     @book = Book.find(@book_post.book_id)
-    
-    raise AcessDenied unless current_user.id == @book_post.user_id
   end
 
   # POST /book_posts
   # POST /book_posts.json
   def create
-    @book = Book.new(params[:book])
+    url = URI::HTTPS.build(:host  => 'www.googleapis.com',
+                           :path  => '/books/v1/volumes/'+params[:google_book_id])
+    response = HTTParty.get(url.to_s)
+    book_info = response['volumeInfo']
+#    return render text: "#{book_info['imageLinks']['small'].inspect}"
+    #TODO: improve so that image links can be blank <- add default image
+    #TODO: check if the book already exists.
+    image_url = nil
+    if book_info['imageLinks']
+      if book_info['imageLinks']['small']
+        image_url = book_info['imageLinks']['small']
+      elsif book_info['imageLinks']['thumbnail']
+        image_url = book_info['imageLinks']['thumbnail']
+      end
+    end
+#    return render text: "image_url: #{image_url}"
 
+    @book = Book.new(title: book_info['title'], remote_image_url: image_url)
+    @book.book_posts.build(user_id: current_user.id, year: Time.now.year, month: Time.now.month,
+                     day: Time.now.day)
+    @google_book_id = params[:google_book_id]
     respond_to do |format|
-      if @book.save
-        @book_post = @book.book_posts.first
+      if @book.save!
         format.html { redirect_to @book_post, notice: 'Book post was successfully created.' }
+        format.js
         format.json { render json: @book_post, status: :created, location: @book_post }
       else
         format.html { render action: "new" }
+        format.js {alert("book add failed")}
         format.json { render json: @book_post.errors, status: :unprocessable_entity }
       end
     end

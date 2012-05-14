@@ -46,8 +46,9 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-#    return render :text => "params #{params}"
+#    return render text: "#{params}"
     @book = Book.new(params[:book])
+#    return render text: "#{@book.to_yaml}"
 
     unless @book.book_posts.empty?
       book_post = @book.book_posts.first
@@ -57,6 +58,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
+        return render text: "#{@book.to_yaml}"
         format.html {
           if @book.book_posts.empty?
             redirect_to @book, notice: 'Book was successfully created.'
@@ -66,7 +68,7 @@ class BooksController < ApplicationController
         }
         format.json { render json: @book, status: :created, location: @book }
       else
-        format.html { 
+        format.html {
           if @book.book_posts.empty?
             render action: "new"
           else
