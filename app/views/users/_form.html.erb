@@ -30,13 +30,25 @@
         </li>
       </ul>
     <% end %>
-    <div class="field">
-      <%= f.label :image %>
-      <%= f.file_field :image %>
+    <div class="name-fields">
+      <div class="field">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: "span2" %>
+      </div>
+      <div class="field">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, class: "span2" %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :remote_image_url, "or image URL:" %>
-      <%= f.text_field :remote_image_url %>
+    <div class="image-fields">
+      <div class="image field">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
+      </div>
+      <div class="remote-image field">
+        <%= f.label :remote_image_url, "or image URL:" %>
+        <%= f.text_field :remote_image_url %>
+      </div>
     </div>
     <div class="field">
       <%= f.label :info %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514042437) do
+ActiveRecord::Schema.define(:version => 20120518100734) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(:version => 20120514042437) do
     t.string   "image"
   end
 
+  create_table "comments", :force => true do |t|
+    t.string   "commenter"
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "book_post_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "comments", ["book_post_id"], :name => "index_comments_on_book_post_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
@@ -60,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20120514042437) do
     t.boolean  "email_confirmed",          :default => false
     t.boolean  "admin",                    :default => false
     t.string   "username"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end

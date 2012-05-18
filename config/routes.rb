@@ -1,5 +1,7 @@
 Soobooki::Application.routes.draw do
 
+  resources :comments
+
   Mercury::Engine.routes
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -25,6 +27,7 @@ Soobooki::Application.routes.draw do
   resources :users
   resources :book_posts do
     member { post :mercury_update }
+    resources :comments
   end
   resources :sessions
   resources :password_resets

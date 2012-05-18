@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  attr_accessible :email, :password, :password_confirmation,\
-                  :image, :remote_image_url, :info, :username
+  attr_accessible :email, :password, :password_confirmation, :image, :remote_image_url,\
+                  :info, :username, :first_name, :last_name
 
   validates :email, :presence => :true,
                     :uniqueness => {:case_sensitive => false},
@@ -13,13 +13,13 @@ class User < ActiveRecord::Base
                        :length => {:minimun => 1, :maximum => 254},
                        :format => {:with => /^[a-z]+[a-z0-9\_\-]+$/i},
                        :allow_blank => true
-  
+
   before_validation :no_password_omniauth
 
   has_many :authentications, :dependent => :destroy
-
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
+  has_many :comments
 
   has_many :direct_friendships, :class_name => "Friendship", :dependent => :destroy,
            :conditions => "approved = true"
@@ -63,13 +63,13 @@ class User < ActiveRecord::Base
   def no_password_omniauth
     self.password_digest = 0 unless password_required
   end
-  
+
   def password_required
     (authentications.empty? || !password_digest.blank?)
   end
-  
+
   def only_omniauth?
-    authentications.size == 1 and 
+    authentications.size == 1 and
       (password_digest.blank? or password_digest == 0)
     end
 end
