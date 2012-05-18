@@ -11,7 +11,6 @@ CKEDITOR.editorConfig = function( config )
 
         return params;
     };
-    config.scayt_autoStartup = true;
     config.toolbar_MyToolbar =
     [
         { name: 'styles', items : ['Format','Bold','Italic'] },
