@@ -21,10 +21,10 @@
 <p>
   <%= @user.email %>
 </p>
-<% if !current_user_name.blank? %>
+<% if !user_name(@user).blank? %>
   <h4> Name: </h4>
   <p>
-    <%= current_user_name %>
+    <%= user_name(@user) %>
   </p>
 <% elsif @user.username? %>
   <h4> Username: </h4>

@@ -1,18 +1,22 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user, :bookshelf, :current_user_name
+  helper_method :current_user, :bookshelf, :user_name, :find_user
   private
 
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
   end
 
-  def current_user_name
-    if current_user.first_name?
-      if  current_user.last_name?
-        return current_user.first_name+" "+current_user.last_name
+  def find_user(id)
+    User.find_by_id(id)
+  end
+
+  def user_name(user)
+    if user.first_name?
+      if  user.last_name?
+        return user.first_name+" "+user.last_name
       else
-        return current_user.first_name
+        return user.first_name
       end
     end
     return ""

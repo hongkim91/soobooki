@@ -1,13 +1,16 @@
+<% comment = @comment ? @comment : comment %>
+<% user = find_user(comment.user_id) %>
+
 <li>
   <div class="comment-container">
-    <% if current_user.image_url.blank? %>
+    <% if user.image_url.blank? %>
       <%= image_tag "http://placehold.it/50x50" %>
     <% else %>
-      <%= image_tag (current_user.image_url(:thumb).to_s) %>
+      <%= image_tag (user.image_url(:thumb).to_s) %>
     <% end %>
     <div class="comment-content">
-      <%= link_to current_user_name, bookshelf(current_user) %>
-      <%= @comment ? @comment.body : comment.body %>
+      <%= link_to user_name(user), bookshelf(user) %>
+      <%= comment.body %>
     </div>
   </div>
 </li>
