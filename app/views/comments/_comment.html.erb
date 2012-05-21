@@ -1,7 +1,7 @@
 <% comment = @comment ? @comment : comment %>
 <% user = find_user(comment.user_id) %>
 
-<li>
+<li class="comment-item-<%= comment.id %>">
   <div class="comment-container">
     <% if user.image_url.blank? %>
       <%= image_tag "http://placehold.it/50x50" %>
@@ -10,7 +10,23 @@
     <% end %>
     <div class="comment-content">
       <%= link_to user_name(user), bookshelf(user) %>
-      <%= comment.body %>
+      <span>
+        <%= raw simple_format(comment.body).gsub('<p>','').gsub('</p>','') %>
+      </span>
+      <% if comment.user == current_user %>
+        <div class="comment-remove">
+          <%= link_to "×", book_post_comment_path(comment.book_post,comment), 
+              :confirm => "Are you sure you want to delete this comment?",
+              :method => :delete, remote: true %>
+        </div>
+      <% end %>
+      <div class="comment-time">
+        <% if comment.created_at.year == Time.now.year %>
+          <%= comment.created_at.localtime.strftime("%B %-d at %l:%M%P") %>
+        <% else %>
+          <%= comment.created_at.localtime.strftime("%B %-d, %Y at %l:%M%P") %>
+        <% end %>
+      </div>
     </div>
   </div>
 </li>
