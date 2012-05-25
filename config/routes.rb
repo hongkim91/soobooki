@@ -15,6 +15,7 @@ Soobooki::Application.routes.draw do
   get "send_confirmation" =>"users#send_confirmation", :as => "send_confirmation"
 
   get "bookshelf/:id" => "book_posts#index", :as => "bookshelf"
+  get "user_image_crop/:id" => "users#crop_image", :as => "user_image_crop"
 
   put "friendships/:id" => "friendships#approve"
 

@@ -4,7 +4,7 @@
       <h2>Error:</h2>
       <ul>
         <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
@@ -24,11 +24,13 @@
     </div>
   <% else %>
     <% unless current_user.image_url.blank? %>
-      <ul class="thumbnails">
-        <li class="thumbnail">
-          <%= image_tag(@user.image_url(:thumb).to_s) %>
-        </li>
-      </ul>
+      <% filename = @user.image.file.filename %>
+      <% if FileTest.exists?(@user.image.file.path.gsub(filename,'medium_'+filename)) %>
+        <%= image_tag(@user.image_url(:medium).to_s, class:"frame") %>
+      <% else %>
+        <%= image_tag(@user.image_url(:thumb).to_s, class:"frame") %>
+      <% end %>
+      <%= link_to "Crop Again", user_image_crop_path(@user), class: "btn" %>
     <% end %>
     <div class="name-fields">
       <div class="field">

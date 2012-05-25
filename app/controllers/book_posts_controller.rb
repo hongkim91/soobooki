@@ -12,7 +12,6 @@ class BookPostsController < ApplicationController
     else
       @user = current_user
     end
-
     raise AcessDenied unless current_user == @user or @user.friends.include?(current_user)
     if @user
       increment_size = 10

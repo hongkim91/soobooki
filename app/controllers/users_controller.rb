@@ -43,20 +43,32 @@ class UsersController < ApplicationController
   end
 
   def update
+#    return render text: "#{params}"
     @user = User.find(params[:id])
     raise AccessDenied unless current_user.id == @user.id
 
     @user.attributes = params[:user]
     respond_to do |format|
       if @user.save
-        format.html { redirect_to bookshelf(current_user),
-                      notice: 'User was successfully updated.' }
+        format.html {
+          if params[:user][:image].present? or params[:user][:remote_image_url].present?
+#            return render text: "#{params}"
+           redirect_to user_image_crop_path(@user)
+          else
+            redirect_to bookshelf(current_user),
+            notice: 'User was successfully updated.'
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def crop_image
+    @user = User.find(params[:id])
   end
 
   def destroy

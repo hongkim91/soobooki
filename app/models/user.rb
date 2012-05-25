@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   attr_accessible :email, :password, :password_confirmation, :image, :remote_image_url,\
-                  :info, :username, :first_name, :last_name
+                  :info, :username, :first_name, :last_name, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :email, :presence => :true,
                     :uniqueness => {:case_sensitive => false},
@@ -33,7 +33,10 @@ class User < ActiveRecord::Base
   has_many :requested_friendships, :class_name => "Friendship",
            :conditions => "approved = false", :foreign_key => "friend_id"
   has_many :requested_friends, :through => :requested_friendships, :source => :user
+
   mount_uploader :image, ProfilePicUploader
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  after_update :crop_image
 
   def friends
     direct_friends | inverse_friends
@@ -71,5 +74,9 @@ class User < ActiveRecord::Base
   def only_omniauth?
     authentications.size == 1 and
       (password_digest.blank? or password_digest == 0)
-    end
+  end
+
+  def crop_image
+    image.recreate_versions! if crop_x.present?
+  end
 end
