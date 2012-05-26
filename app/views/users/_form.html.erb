@@ -26,7 +26,8 @@
     <% unless current_user.image_url.blank? %>
       <% filename = @user.image.file.filename %>
       <% if FileTest.exists?(@user.image.file.path.gsub(filename,'medium_'+filename)) %>
-        <%= image_tag(@user.image_url(:medium).to_s, class:"frame") %>
+        <%= image_tag(@user.image_url(:medium).to_s+
+                      "?#{File.mtime(@user.image.file.path).to_i.to_s}", class:"frame") %>
       <% else %>
         <%= image_tag(@user.image_url(:thumb).to_s, class:"frame") %>
       <% end %>

@@ -34,7 +34,8 @@
         <% else %>
           <% filename = @user.image.file.filename %>      
           <% if FileTest.exists?(@user.image.file.path.gsub(filename,'small_thumb_'+filename)) %>
-            <%= image_tag (current_user.image_url(:small_thumb).to_s+"?#{@user.updated_at.to_i.to_s}") %>
+            <%= image_tag (current_user.image_url(:small_thumb).to_s+
+                      "?#{File.mtime(@user.image.file.path).to_i.to_s}") %>
           <% else %>
             <%= image_tag (current_user.image_url(:thumb).to_s) %>
           <% end %>
