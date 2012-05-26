@@ -9,7 +9,7 @@
       <% end %>
     <% else %>
       <% if @user == current_user %>
-        <%= link_to image_tag(@user.image_url(:thumb).to_s),\
+        <%= link_to image_tag(@user.image_url(:thumb).to_s+"?#{@user.updated_at.to_i.to_s}"),\
             edit_user_path(@user.id), :class => "thumbnail" %>
       <% else %>
         <%= image_tag @user.image_url(:thumb).to_s, class: "thumbnail" %>

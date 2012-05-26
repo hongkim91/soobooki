@@ -58,7 +58,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        return render text: "#{@book.to_yaml}"
+#        return render text: "#{@book.to_yaml}"
         format.html {
           if @book.book_posts.empty?
             redirect_to @book, notice: 'Book was successfully created.'

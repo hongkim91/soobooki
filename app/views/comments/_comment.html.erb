@@ -6,7 +6,12 @@
     <% if user.image_url.blank? %>
       <%= image_tag "http://placehold.it/50x50" %>
     <% else %>
-      <%= image_tag (user.image_url(:thumb).to_s) %>
+      <% filename = user.image.file.filename %>      
+      <% if FileTest.exists?(user.image.file.path.gsub(filename,'small_thumb_'+filename)) %>
+        <%= image_tag (user.image_url(:small_thumb).to_s) %>
+      <% else %>
+        <%= image_tag (user.image_url(:thumb).to_s) %>
+      <% end %>
     <% end %>
     <div class="comment-content">
       <%= link_to user_name(user), bookshelf(user) %>

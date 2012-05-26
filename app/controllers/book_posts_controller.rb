@@ -117,7 +117,7 @@ class BookPostsController < ApplicationController
         image_url = book_info['imageLinks']['thumbnail']
       end
     end
-#    return render text: "image_url: #{image_url}"
+    return render text: "image_url: #{image_url}"
 
     @book = Book.new(title: book_info['title'], remote_image_url: image_url)
     @book.book_posts.build(user_id: current_user.id, year: Time.now.year, month: Time.now.month,

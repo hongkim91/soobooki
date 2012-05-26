@@ -32,7 +32,12 @@
         <% if current_user.image_url.blank? %>
           <%= image_tag "http://placehold.it/50x50" %>
         <% else %>
-          <%= image_tag (current_user.image_url(:thumb).to_s) %>
+          <% filename = @user.image.file.filename %>      
+          <% if FileTest.exists?(@user.image.file.path.gsub(filename,'small_thumb_'+filename)) %>
+            <%= image_tag (current_user.image_url(:small_thumb).to_s+"?#{@user.updated_at.to_i.to_s}") %>
+          <% else %>
+            <%= image_tag (current_user.image_url(:thumb).to_s) %>
+          <% end %>
         <% end %>
         <%= form_for [@book_post,@book_post.comments.build], remote: true do |f| %>
           <%= f.text_area :body, rows: 1 %>
