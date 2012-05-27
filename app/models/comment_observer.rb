@@ -13,7 +13,7 @@ class CommentObserver < ActiveRecord::Observer
       end
     end
     commenters.each do |commenter|
-      unless commenter == model.book_post.user
+      unless (commenter == model.book_post.user or commenter == current_user)
         commenter.notifications.create(sender_id: sender.id, comment_id: model.id,
                                 notification_type: "potential comment reply")
       end
