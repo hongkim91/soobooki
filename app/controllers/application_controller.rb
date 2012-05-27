@@ -18,17 +18,20 @@ class ApplicationController < ActionController::Base
       else
         return user.first_name
       end
+    elsif user.bookshelf_name?
+      return user.bookshelf_name
+    else
+      return user.email
     end
-    return ""
   end
 
   def bookshelf(user)
     if user.nil?
       book_posts_path
-    elsif user.username.blank?
+    elsif user.bookshelf_name.blank?
       bookshelf_path(:id => user.id)
     else
-      bookshelf_path(:id => user.username)
+      bookshelf_path(:id => user.bookshelf_name)
     end
   end
 end

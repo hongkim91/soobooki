@@ -18,19 +18,21 @@
     <% end %>
   </li>
 </ul>
-<h4> User email: </h4>
-<p>
-  <%= @user.email %>
-</p>
-<% if !user_name(@user).blank? %>
+<% if @user.first_name? %>
   <h4> Name: </h4>
   <p>
-    <%= user_name(@user) %>
+    <%= @user.first_name+" "+@user.last_name %>
   </p>
-<% elsif @user.username? %>
-  <h4> Username: </h4>
+<% else %>
+  <h4> User email: </h4>
   <p>
-    <%= @user.username %>
+    <%= @user.email %>
+  </p>
+<% end %>
+<% if @user.bookshelf_name? %>
+  <h4> Bookshelf ID: </h4>
+  <p>
+    <%= @user.bookshelf_name %>
   </p>
 <% end %>
 <% if @user.info? %>

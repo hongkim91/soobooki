@@ -7,7 +7,7 @@ class BookPostsController < ApplicationController
       if params[:id] =~ /[0-9]+/
         @user = User.find(params[:id])
       else
-        @user = User.find_by_username!(params[:id])
+        @user = User.find_by_bookshelf_name!(params[:id])
       end
     else
       @user = current_user
@@ -117,7 +117,7 @@ class BookPostsController < ApplicationController
         image_url = book_info['imageLinks']['thumbnail']
       end
     end
-    return render text: "image_url: #{image_url}"
+#    return render text: "image_url: #{image_url}"
 
     @book = Book.new(title: book_info['title'], remote_image_url: image_url)
     @book.book_posts.build(user_id: current_user.id, year: Time.now.year, month: Time.now.month,

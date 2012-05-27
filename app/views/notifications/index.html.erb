@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="span6">
+    <h1>Notifications</h1>
+    <ul class="notification-list">
+      <% @notifications.each do |notification| %>
+        <% sender = notification.sender %>
+        <li class="notification-item-<%= notification.id %>">
+          <div class="notification-container">
+            <% if sender.image_url.blank? %>
+              <%= image_tag "http://placehold.it/50x50" %>
+            <% else %>
+              <% filename = sender.image.file.filename %>      
+              <% if FileTest.exists?(sender.image.file.path.gsub(filename,'small_thumb_'+filename)) %>
+                <%= image_tag (sender.image_url(:small_thumb).to_s) %>
+              <% else %>
+                <%= image_tag (sender.image_url(:thumb).to_s) %>
+              <% end %>
+            <% end %>
+            <div class="notification-content">
+              <%= link_to user_name(sender), bookshelf(sender) %>
+              <% case notification.notification_type %>
+              <% when "friend's new book_post" %>
+                has read the book
+                <%= link_to notification.book_post.book.title, book_post_path(notification.book_post) %>
+              <% when "new comment on my book_post" %>
+                has commented on your book review about
+                <%= link_to notification.comment.book_post.book.title,
+                    book_post_path(notification.comment.book_post) %>
+              <% when "potential comment reply" %>
+                has also commented on
+                <%= link_to user_name(notification.comment.book_post.user)+"'s",
+                    bookshelf(notification.comment.book_post.user) %>
+                book review about
+                <%= link_to notification.comment.book_post.book.title,
+                    book_post_path(notification.comment.book_post) %>
+              <% else %>
+                something went wrong
+              <% end %>
+              <div class="notification-time">
+                <% if notification.created_at.year == Time.now.year %>
+                  <%= notification.created_at.localtime.strftime("%B %-d at %l:%M%P") %>
+                <% else %>
+                  <%= notification.created_at.localtime.strftime("%B %-d, %Y at %l:%M%P") %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -2,14 +2,14 @@ class User < ActiveRecord::Base
   has_secure_password
 
   attr_accessible :email, :password, :password_confirmation, :image, :remote_image_url,\
-                  :info, :username, :first_name, :last_name, :crop_x, :crop_y, :crop_w, :crop_h
+                  :info, :bookshelf_name, :first_name, :last_name, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :email, :presence => :true,
                     :uniqueness => {:case_sensitive => false},
                     :length => {:minimun => 3, :maximum => 254},
                     :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
   validates_length_of :password, :minimun => 1, :maximum => 254
-  validates :username, :uniqueness => {:case_sensitive => false},
+  validates :bookshelf_name, :uniqueness => {:case_sensitive => false},
                        :length => {:minimun => 1, :maximum => 254},
                        :format => {:with => /^[a-z]+[a-z0-9\_\-]+$/i},
                        :allow_blank => true
@@ -17,9 +17,14 @@ class User < ActiveRecord::Base
   before_validation :no_password_omniauth
 
   has_many :authentications, :dependent => :destroy
+
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
+
   has_many :comments
+
+  has_many :notifications, :foreign_key => "receiver_id", :dependent => :destroy
+  has_many :sent_notifications, :foreign_key => "sender_id", :dependent => :destroy
 
   has_many :direct_friendships, :class_name => "Friendship", :dependent => :destroy,
            :conditions => "approved = true"

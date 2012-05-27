@@ -1,9 +1,6 @@
 Soobooki::Application.routes.draw do
 
-  resources :comments
-
   Mercury::Engine.routes
-
   mount Ckeditor::Engine => '/ckeditor'
 
   get "log_out" => "sessions#destroy", :as => "log_out"
@@ -34,6 +31,8 @@ Soobooki::Application.routes.draw do
   resources :password_resets
   resources :friendships
   resources :authentications
+  resources :comments
+  resources :notifications
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

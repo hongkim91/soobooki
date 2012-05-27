@@ -12,10 +12,16 @@
       <h3>Email</h3>
       <%= @user.email %>
     </p>
-    <% if @user.username? %>
+    <% if @user.first_name? %>
       <p>
-        <h3>Username</h3>
-        <%= @user.username %>
+        <h3> Name: </h3>
+        <%= @user.first_name+" "+@user.last_name %>
+      </p>
+    <% end %>
+    <% if @user.bookshelf_name? %>
+      <p>
+        <h3>Bookshelf Name</h3>
+        <%= @user.bookshelf_name %>
       </p>
     <% end %>
     <% if @user.info? %>

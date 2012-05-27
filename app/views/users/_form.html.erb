@@ -49,7 +49,7 @@
         <%= f.file_field :image %>
       </div>
       <div class="remote-image field">
-        <%= f.label :remote_image_url, "or image URL:" %>
+        <%= f.label :remote_image_url, "or image URL" %>
         <%= f.text_field :remote_image_url %>
       </div>
     </div>
@@ -58,10 +58,9 @@
       <%= f.text_area :info, rows:10, class:"span6" %>
     </div>
     <div class="field">
-      <%= f.label :username, "User Name" %>
-      <%= f.text_field :username %></br>
-      Your bookshelf's URL will be created with your username as the following: </br>
-      soobooki.com/bookshelf/#username</br>
+      <%= f.label :bookshelf_name, "Bookshelf ID" %>
+      <%= f.text_field :bookshelf_name %></br>
+      Your bookshelf's URL will be: soobooki.com/bookshelf/#bookshelf_id</br>
     </div>
   <% end %>
   <div class="actions">

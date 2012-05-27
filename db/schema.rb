@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518100734) do
+ActiveRecord::Schema.define(:version => 20120527061433) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(:version => 20120518100734) do
     t.boolean  "approved",   :default => false
   end
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "book_post_id"
+    t.integer  "comment_id"
+    t.string   "notification_type"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email"
     t.datetime "created_at",                                  :null => false
@@ -71,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20120518100734) do
     t.string   "email_confirmation_token"
     t.boolean  "email_confirmed",          :default => false
     t.boolean  "admin",                    :default => false
-    t.string   "username"
+    t.string   "bookshelf_name"
     t.string   "first_name"
     t.string   "last_name"
   end

@@ -51,6 +51,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html {
+          @current_user = nil
           if params[:user][:image].present? or params[:user][:remote_image_url].present?
 #            return render text: "#{params}"
            redirect_to user_image_crop_path(@user)
