@@ -7,13 +7,13 @@ class CommentObserver < ActiveRecord::Observer
                                     notification_type: "new comment on my book_post")
     end
     commenters = []
-    model.book_post.comments do |comment|
+    model.book_post.comments.each do |comment|
       unless commenters.include?(comment.user)
         commenters << comment.user
       end
     end
     commenters.each do |commenter|
-      unless commenter == book_post_owner
+      unless commenter == model.book_post.user
         commenter.notifications.create(sender_id: sender.id, comment_id: model.id,
                                 notification_type: "potential comment reply")
       end

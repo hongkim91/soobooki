@@ -51,3 +51,5 @@ gem 'mercury-rails'
 
 gem "sanitize"
 gem "httparty"
+
+gem "log_buddy"

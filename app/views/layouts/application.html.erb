@@ -22,7 +22,7 @@
               <li><%= link_to 'Books', books_path %></li>
               <% if current_user %>
                 <li><%= link_to 'Friends', friendships_path %></li>
-                <li><%= link_to 'Notifications', notifications_path %></li>
+                <li><%= link_to 'Notifications', notifications_path(id:current_user.id) %></li>
                 <li><%= link_to 'My Account', user_path(current_user) %></li>
                 <% if current_user.admin? %>
                   <li><%= link_to 'Users Admin', users_path %></li>
