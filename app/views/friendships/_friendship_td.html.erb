@@ -1,0 +1,9 @@
+<td>
+  <% if user.first_name? %>
+    <%= user.first_name+" "+user.last_name %>
+  <% else %>
+    <%= user.email %>
+  <% end %>
+</td>    
+<td><%= user.bookshelf_name %></td>
+<td><%= user.info %></td>

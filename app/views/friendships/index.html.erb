@@ -2,17 +2,10 @@
   <div class ="span7">
     <h1>Friend Requests</h1>
     <table class="table table-striped">
-      <tr>
-        <th>Email</th>
-        <th>User Name</th>
-        <th>Info</th>
-        <th>Actions</th>
-      </tr>
+      <tr><%= render "friendship_th" %></tr>
       <% @requested_friendships.each do |friendship| %>
         <tr>
-          <td><%= friendship.user.email %></td>
-          <td><%= friendship.user.username %></td>
-          <td><%= friendship.user.info %></td>
+          <%= render "friendship_td", user: friendship.user %>
           <td>
             <%= link_to 'Confirm', friendship, method: :put, class: "btn" %>
             <%= link_to 'Ignore', friendship,
@@ -26,18 +19,10 @@
 
     <h1>My Friends</h1>
     <table class="table table-striped">
-      <tr>
-        <th>Email</th>
-        <th>User Name</th>
-        <th>Info</th>
-        <th>Actions</th>
-      </tr>
-
+      <tr><%= render "friendship_th" %></tr>
       <% @direct_friendships.each do |friendship| %>
         <tr>
-          <td><%= friendship.friend.email %></td>
-          <td><%= friendship.friend.username %></td>
-          <td><%= friendship.friend.info %></td>
+          <%= render "friendship_td", user: friendship.friend %>
           <td>
             <%= link_to 'Delete', friendship,
                   confirm: "Are you sure you want to delete friendship 
@@ -50,9 +35,7 @@
       <% end %>
       <% @inverse_friendships.each do |friendship| %>
         <tr>
-          <td><%= friendship.user.email %></td>
-          <td><%= friendship.user.username %></td>
-          <td><%= friendship.user.info %></td>
+          <%= render "friendship_td", user: friendship.user %>
           <td>
             <%= link_to 'Delete', friendship,
                   confirm: "Are you sure you want to delete friendship 
@@ -67,19 +50,11 @@
 
     <h1>Other Users</h1>
     <table class="table table-striped">
-      <tr>
-        <th>Email</th>
-        <th>User Name</th>
-        <th>Info</th>
-        <th>Action</th>
-      </tr>
-
+      <tr><%= render "friendship_th" %></tr>
       <% @users.each do |user| %>
         <% unless @friends.include?(user) %>
           <tr>
-            <td><%= user.email %></td>
-            <td><%= user.username %></td>
-            <td><%= user.info %></td>
+            <%= render "friendship_td", user: user %>
             <td>
               <% unless @pending_friends.include?(user) || @requested_friends.include?(user)%>
                 <%= link_to 'Add_Friend', friendships_path(:friend_id => user.id),
