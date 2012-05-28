@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @book_posts = @user.book_posts.order("created_at DESC")
+    @book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }

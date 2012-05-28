@@ -1,6 +1,12 @@
 <% @book_posts_by_year_and_month.each_key do |year| %>
   <% @book_posts_by_year_and_month[year].each_key do |month| %>
     <% book_posts = @book_posts_by_year_and_month[year][month] %>
+    <% book_posts.each do |book_post| %>
+      <% if !(current_user == book_post.user) and book_post.privacy == "Only Me" %>
+       <% book_posts.delete(book_post) %>
+      <% end %>
+    <% end %>
+    <% next if book_posts.length == 0 %>
     <% if year == 0 %>
       <h3>Sometime Before</h3>
     <% elsif month == 0 %>
