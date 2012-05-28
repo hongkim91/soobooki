@@ -8,7 +8,9 @@ class BookPostObserver < ActiveRecord::Observer
   end
 
   def before_update(model)
-    if model.privacy == "Only Me"
+    previous_privacy = BookPost.find(model.id).privacy
+    d {previous_privacy}
+    if previous_privacy == "Only Me"
       self.after_create(model)
     end
   end

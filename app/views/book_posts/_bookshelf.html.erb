@@ -18,8 +18,7 @@
     <% book_posts.each do |book_post| %>
       <% book = find_book(book_post.book_id) %>
       <% if book %>
-        <%= render "book_post_thumbnail", :book => book, :book_post =>
-             book_post%>
+        <%= render "book_post_thumbnail", :book => book, :book_post => book_post%>
       <% end %>
     <% end %>
     </ul>
