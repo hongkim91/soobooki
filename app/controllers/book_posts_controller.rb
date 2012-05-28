@@ -10,9 +10,31 @@ class BookPostsController < ApplicationController
         @user = User.find_by_bookshelf_name!(params[:id])
       end
     else
-      @user = current_user
+      if current_user.present?
+        @user = current_user
+      else
+        redirect_to log_in_path, notice: "Plase log in first." and return
+      end
     end
-    raise AcessDenied unless current_user == @user or @user.friends.include?(current_user)
+    unless @user.bookshelf_privacy == "Everyone"
+      unless current_user.present?
+        redirect_to log_in_path,
+        notice: "You must first log in to view #{user_name(@user)}'s bookshelf." and return
+      end
+    end
+    if @user.bookshelf_privacy == "Only Me"
+      unless current_user == @user
+        redirect_to bookshelf(current_user),
+        notice: "#{user_name(@user)}'s bookshelf is private." and return
+      end
+    elsif @user.bookshelf_privacy == "Friends"
+      unless current_user == @user or @user.friends.include?(current_user)
+        redirect_to friendships_path,
+        notice: "#{user_name(@user)}'s bookshelf is only open to friends."+
+          " Send a friend request!" and return
+      end
+    end
+
     if @user
       increment_size = 10
       previous_book_post = nil
@@ -69,8 +91,25 @@ class BookPostsController < ApplicationController
     @user = @book_post.user
     @book = Book.find(@book_post.book_id)
 
-    raise AcessDenied unless current_user.id == @book_post.user_id or
-      @book_post.user.friends.include?(current_user)
+    unless @book_post.privacy == "Everyone"
+      unless current_user.present?
+        redirect_to log_in_path,
+        notice: "You must first log in to view #{user_name(@user)}'s"+
+          " book review on #{@book_post.book.title}." and return
+      end
+    end
+    if @book_post.privacy == "Only Me"
+      unless current_user == @user
+        redirect_to bookshelf(current_user),
+        notice: "#{user_name(@user)}'s book review on #{@book_post.book.title} is private." and return
+      end
+    elsif @book_post.privacy == "Friends"
+      unless current_user == @user or @user.friends.include?(current_user)
+        redirect_to friendships_path,
+        notice: "#{user_name(@user)}'s book review on"+
+          " #{@book_post.book.title} is only open to friends. Send a friend request!" and return
+      end
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -169,6 +208,16 @@ class BookPostsController < ApplicationController
     book_post.review = Sanitize.clean(params[:content][:book_post_review][:value],Sanitize::Config::RELAXED)
     book_post.save!
     render text: ""
+  end
+
+  def edit_privacy
+    @book_post = BookPost.find(params[:id])
+    @book_post.privacy = params[:privacy]
+    respond_to do |format|
+      if @book_post.save
+        format.js
+      end
+    end
   end
 end
 

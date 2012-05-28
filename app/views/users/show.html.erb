@@ -2,16 +2,12 @@
   <div class="span6">
     <h1> My Account Info </h1>
     <% unless @user.image_url.blank? %>
-      <ul class="thumbnails">
-        <li class="thumbnail">
-          <%= image_tag @user.image_url(:thumb).to_s %>
-        </li>
-      </ul>
+      <%= image_tag @user.image_url(:thumb).to_s, class: "frame float-left" %>
     <% end %>
-    <p>
+
       <h3>Email</h3>
       <%= @user.email %>
-    </p>
+
     <% if @user.first_name? %>
       <p>
         <h3> Name: </h3>
@@ -55,5 +51,47 @@
     <%= link_to 'Delete Account', user_path(@user), 
                 :confirm => "Are you sure you want to delete your account?",
                 :method => :delete, :class => "btn"%>
+    <div class="privacy-settings">
+      <h1>Privacy Settings</h1>
+      <h3>Bookshelf</h3>
+      <div class="btn-group bookshelf-privacy" data-toggle="buttons-radio">
+        <% ["Only Me","Friends","Users","Everyone"].each do |privacy_level| %>
+          <% if @user.bookshelf_privacy == privacy_level %>
+            <%= link_to privacy_level, edit_bookshelf_privacy_path(@user, privacy: privacy_level),
+                class: "btn init-select", remote: true %>
+          <% else %>
+            <%= link_to privacy_level, edit_bookshelf_privacy_path(@user, privacy: privacy_level),
+                class: "btn", remote: true %>
+          <% end %>
+        <% end %>
+      </div>
+      <h3>Book Reviews</h3>
+      <table class="table table-striped">
+        <tr>
+          <th>Book Title</th>
+          <th>Privacy Level</th>
+        </tr>
+        <% @book_posts.each do |book_post| %>
+          <tr>
+            <td><%= book_post.book.title %></td>
+            <td>
+              <div class="btn-group" data-toggle="buttons-radio">
+                <% ["Only Me","Friends","Users","Everyone"].each do |privacy_level| %>
+                  <% if book_post.privacy == privacy_level %>
+                    <%= link_to privacy_level, 
+                        edit_book_post_privacy_path(book_post, privacy: privacy_level),
+                        class: "btn init-select", remote: true %>
+                  <% else %>
+                    <%= link_to privacy_level, 
+                        edit_book_post_privacy_path(book_post, privacy: privacy_level),
+                        class: "btn", remote: true %>
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
   </div>
 </div>

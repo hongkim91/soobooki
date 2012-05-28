@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120527061433) do
+ActiveRecord::Schema.define(:version => 20120528073112) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -25,11 +25,12 @@ ActiveRecord::Schema.define(:version => 20120527061433) do
     t.integer  "user_id"
     t.integer  "book_id"
     t.text     "review"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "year",       :default => 0
     t.integer  "month",      :default => 0
     t.integer  "day",        :default => 0
+    t.string   "privacy",    :default => "Friends"
   end
 
   create_table "books", :force => true do |t|
@@ -71,8 +72,8 @@ ActiveRecord::Schema.define(:version => 20120527061433) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.string   "image"
     t.text     "info"
     t.string   "password_digest"
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20120527061433) do
     t.string   "bookshelf_name"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "bookshelf_privacy",        :default => "Friends"
   end
 
 end

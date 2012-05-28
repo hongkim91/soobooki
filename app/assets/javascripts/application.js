@@ -13,5 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.Jcrop
+//= require jquery.autogrow-textarea
 //= require users
+//= require book_posts
 //= require twitter/bootstrap

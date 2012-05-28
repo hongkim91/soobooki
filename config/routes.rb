@@ -12,6 +12,9 @@ Soobooki::Application.routes.draw do
   get "send_confirmation" =>"users#send_confirmation", :as => "send_confirmation"
 
   get "bookshelf/:id" => "book_posts#index", :as => "bookshelf"
+  get "edit_bookshelf_privacy/:id" => "users#edit_bookshelf_privacy", :as => "edit_bookshelf_privacy"
+  get "edit_book_post_privacy/:id" => "book_posts#edit_privacy", :as => "edit_book_post_privacy"
+
   get "user_image_crop/:id" => "users#crop_image", :as => "user_image_crop"
 
   put "friendships/:id" => "friendships#approve"

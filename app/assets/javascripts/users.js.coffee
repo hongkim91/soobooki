@@ -4,6 +4,7 @@
 
 $ ->
   new ImageCropper()
+  $('.privacy-settings .btn-group .init-select').button('toggle')
 
 class ImageCropper
   constructor: ->

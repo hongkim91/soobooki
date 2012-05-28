@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
+    @book_posts = @user.book_posts.order("created_at DESC")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       @user.send_email_confirmation
-      redirect_to root_url, :notice => "A confirmation link was sent to your email. 
+      redirect_to root_url, :notice => "A confirmation link was sent to your email.
                           Please click on the link to finish sign up!"
     else
       render "new"
@@ -78,10 +78,10 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { 
+      format.html {
         unless current_user.admin?
           session[:user_id] = nil
-          redirect_to root_url, :notice => "User account deleted." 
+          redirect_to root_url, :notice => "User account deleted."
         else
           redirect_to users_path, :notice => "User account deleted."
         end
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
   def need_confirmation
   end
-  
+
   def send_confirmation
     if session[:user_email]
       user = User.find_by_email(session[:user_email])
@@ -114,6 +114,16 @@ class UsersController < ApplicationController
     else
       redirect_to root_url, :notice => "Email information not found.
                       Try logging in or signing up."
+    end
+  end
+
+  def edit_bookshelf_privacy
+    @user = User.find(params[:id])
+    @user.bookshelf_privacy = params[:privacy]
+    respond_to do |format|
+      if @user.save
+        format.js
+      end
     end
   end
 end

@@ -29,7 +29,7 @@
         <% end %>
       </ul>
       <div class="new-comment">
-        <% if current_user.image_url.blank? %>
+        <% if current_user.nil? or current_user.image_url.blank? %>
           <%= image_tag "http://placehold.it/50x50" %>
         <% else %>
           <% filename = current_user.image.file.filename %>      
@@ -41,7 +41,7 @@
           <% end %>
         <% end %>
         <%= form_for [@book_post,@book_post.comments.build], remote: true do |f| %>
-          <%= f.text_area :body, rows: 1 %>
+          <%= f.text_area :body, rows: 2 %>
           <p>
             <%= f.submit "Comment",class: "btn"%>
           </p>
