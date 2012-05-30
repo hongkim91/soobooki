@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120528073112) do
+ActiveRecord::Schema.define(:version => 20120529215805) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -35,9 +35,17 @@ ActiveRecord::Schema.define(:version => 20120528073112) do
 
   create_table "books", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "image"
+    t.string   "authors"
+    t.string   "translators"
+    t.string   "publisher"
+    t.string   "pub_date"
+    t.string   "category"
+    t.string   "isbn"
+    t.string   "isbn13"
+    t.string   "api_id"
   end
 
   create_table "comments", :force => true do |t|

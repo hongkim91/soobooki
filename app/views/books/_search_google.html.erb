@@ -1,0 +1,12 @@
+<table class="book-search-table">
+  <tbody>
+    <% @response['items'].each do |volume| %>
+      <% book = volume['volumeInfo'] %>
+      <% image_url = book['imageLinks'].present? ? book['imageLinks']['smallThumbnail'] : nil %>
+      <% authors = book['authors'].present? ? book['authors'].join(', ') : nil %>
+      <%= render 'search_item', image_url: image_url, title: book['title'],
+          authors: authors, publisher: book['publisher'], api_id: volume['id'],
+          pub_date: book['publishedDate'] %>
+    <% end %>
+  </tbody>
+</table>

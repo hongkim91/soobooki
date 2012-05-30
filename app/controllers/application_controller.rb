@@ -34,4 +34,11 @@ class ApplicationController < ActionController::Base
       bookshelf_path(:id => user.bookshelf_name)
     end
   end
+
+  def remote_image_exists?(image_url)
+    url = URI.parse(image_url)
+    Net::HTTP.start(url.host, url.port) do |http|
+      return http.head(url.request_uri)['Content-Type'].starts_with? 'image'
+    end
+  end
 end

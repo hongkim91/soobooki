@@ -114,17 +114,28 @@ class BooksController < ApplicationController
   end
 
   def search
-#    @books = Book.all
-    req_params = {'q' => params[:query]}
-    req_params['startIndex'] = 1
-    req_params['maxResults'] = 15
-    query = req_params.map { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
+    @api = params[:api]
+    if @api == "google"
+      req_params = {'q' => params[:query]}
+      req_params['startIndex'] = 1
+      req_params['maxResults'] = 15
+      query = req_params.map { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
 
-    url = URI::HTTPS.build(:host  => 'www.googleapis.com',
-                           :path  => '/books/v1/volumes',
-                           :query => query)
-    @response = HTTParty.get(url.to_s)
+      url = URI::HTTPS.build(:host  => 'www.googleapis.com',
+                       :path  => '/books/v1/volumes',
+                       :query => query)
+      @response = HTTParty.get(url.to_s)
+    elsif @api == "daum"
+      req_params = {'q' => params[:query]}
+      req_params['result'] = 15
+      req_params['apikey'] = "f0e654cab5a4b9b378330e8f3c64b0e53d8aff81"
 
+      query = req_params.map { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
+      url = URI::HTTPS.build(:host  => 'apis.daum.net',
+                       :path  => '/search/book',
+                       :query => query)
+      @response = HTTParty.get(url.to_s)
+    end
     respond_to do |format|
       format.js
     end

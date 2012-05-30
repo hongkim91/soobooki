@@ -1,5 +1,4 @@
 class BookPostsController < ApplicationController
-
   # GET /book_posts
   # GET /book_posts.json
   def index
@@ -34,7 +33,6 @@ class BookPostsController < ApplicationController
           " Send a friend request!" and return
       end
     end
-
     if @user
       increment_size = 10
       previous_book_post = nil
@@ -138,30 +136,41 @@ class BookPostsController < ApplicationController
     @book = Book.find(@book_post.book_id)
   end
 
-  # POST /book_posts
-  # POST /book_posts.json
   def create
-    url = URI::HTTPS.build(:host  => 'www.googleapis.com',
-                           :path  => '/books/v1/volumes/'+params[:google_book_id])
-    response = HTTParty.get(url.to_s)
-    book_info = response['volumeInfo']
-#    return render text: "#{book_info['imageLinks']['small'].inspect}"
     #TODO: improve so that image links can be blank <- add default image
     #TODO: check if the book already exists.
-    image_url = nil
-    if book_info['imageLinks']
-      if book_info['imageLinks']['small']
-        image_url = book_info['imageLinks']['small']
-      elsif book_info['imageLinks']['thumbnail']
-        image_url = book_info['imageLinks']['thumbnail']
+    if params[:api] == "google"
+      url = URI::HTTPS.build(:host  => 'www.googleapis.com',
+                       :path  => '/books/v1/volumes/'+params[:google_book_id])
+      response = HTTParty.get(url.to_s)
+      book = response['volumeInfo']
+      title = params[:title]
+      image_url = nil
+      if book['imageLinks']
+        if book['imageLinks']['small']
+          image_url = book['imageLinks']['small']
+        elsif book['imageLinks']['thumbnail']
+          image_url = book['imageLinks']['thumbnail']
+        end
+      end
+      isbn = "todo"
+      isbn13 = "todo"
+    elsif params[:api] == "daum"
+      params.map do |key,value|
+        params[key] = value.gsub('<b>','').gsub('</b>','') unless value.nil?
+      end
+      image_url = "http://book.daum-img.net/image/"+params[:api_id]
+      unless remote_image_exists?(image_url)
+        image_url = "http://book.daum-img.net/image/KOR"+params[:isbn13]
       end
     end
-#    return render text: "image_url: #{image_url}"
 
-    @book = Book.new(title: book_info['title'], remote_image_url: image_url)
+    @book = Book.new(title: params[:title], remote_image_url: image_url, authors: params[:authors],
+      translators: params[:translators], publisher: params[:publisher], category: params[:category],
+      pub_date: params[:pub_date], api_id: params[:api_id], isbn: params[:isbn], isbn13: params[:isbn13])
     @book.book_posts.build(user_id: current_user.id, year: Time.now.year, month: Time.now.month,
                      day: Time.now.day)
-    @google_book_id = params[:google_book_id]
+    @api_id = params[:api_id]
     respond_to do |format|
       if @book.save!
         format.html { redirect_to @book_post, notice: 'Book post was successfully created.' }

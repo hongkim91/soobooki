@@ -1,0 +1,26 @@
+<!-- image_url, title, author, publisher, pub_date, id are parameters --
+  -- passed to this partial-->
+<tr>
+  <td class="book-image-block"> 
+    <% if image_url %>
+      <%= image_tag image_url, class: "book-small-image"%>
+    <% else %>
+      <%= image_tag "http://placehold.it/58x80", class: "book-small-image"%>
+    <% end %>
+  </td>
+  <td> 
+    <%= sanitize title %> </br>
+    <% if authors %>
+      by <%= sanitize authors %> </br>
+    <% end %>
+    <%= sanitize publisher %> </br>
+    <%= pub_date %>
+  </td>
+  <td class="book-action-block">
+    <!-- TODO: make the button disappear even after revisit -->
+    <%= link_to "Add Book", book_posts_path(api: @api, api_id: api_id, title: title,
+                              authors: authors, translators: translators, category: category,
+                              publisher: publisher, pub_date: pub_date, isbn: isbn, isbn13: isbn13),
+        method: :post, class: "btn add_#{api_id}", remote:true %>
+  </td>
+</tr>
