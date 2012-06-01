@@ -89,23 +89,22 @@ class BookPostsController < ApplicationController
     @user = @book_post.user
     @book = Book.find(@book_post.book_id)
 
-    unless @book_post.privacy == "Everyone"
-      unless current_user.present?
-        redirect_to log_in_path,
-        notice: "You must first log in to view #{user_name(@user)}'s"+
-          " book review on #{@book_post.book.title}." and return
-      end
-    end
     if @book_post.privacy == "Only Me"
       unless current_user == @user
-        redirect_to bookshelf(current_user),
+        redirect_to bookshelf(@user),
         notice: "#{user_name(@user)}'s book review on #{@book_post.book.title} is private." and return
       end
     elsif @book_post.privacy == "Friends"
       unless current_user == @user or @user.friends.include?(current_user)
-        redirect_to friendships_path,
+        redirect_to bookshelf(@user),
         notice: "#{user_name(@user)}'s book review on"+
-          " #{@book_post.book.title} is only open to friends. Send a friend request!" and return
+          " '#{@book_post.book.title}' is only open to friends. Send a friend request!" and return
+      end
+    elsif @book_post.privacy == "Users"
+      unless current_user.present?
+        redirect_to bookshelf(@user),
+        notice: "You must first log in to view #{user_name(@user)}'s"+
+          " book review on #{@book_post.book.title}." and return
       end
     end
 

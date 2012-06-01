@@ -23,30 +23,35 @@
           <%= raw @book_post.review %>
         </div>
       </p>
-      <ul class="comment-list">
-        <% @book_post.comments.each do |comment| %>
-          <%= render "comments/comment", comment: comment%>
-        <% end %>
-      </ul>
-      <div class="new-comment">
-        <% if current_user.nil? or current_user.image_url.blank? %>
-          <%= image_tag "http://placehold.it/50x50" %>
-        <% else %>
-          <% filename = current_user.image.file.filename %>      
-          <% if FileTest.exists?(current_user.image.file.path.gsub(filename,'small_thumb_'+filename)) %>
-            <%= image_tag (current_user.image_url(:small_thumb).to_s+
-                      "?#{File.mtime(current_user.image.file.path).to_i.to_s}") %>
-          <% else %>
-            <%= image_tag (current_user.image_url(:thumb).to_s) %>
+      <% unless @book_post.comments.empty? %>
+        <ul class="comment-list">
+          <% @book_post.comments.each do |comment| %>
+            <%= render "comments/comment", comment: comment%>
           <% end %>
-        <% end %>
-        <%= form_for [@book_post,@book_post.comments.build], remote: true do |f| %>
-          <%= f.text_area :body, rows: 2 %>
-          <p>
-            <%= f.submit "Comment",class: "btn"%>
-          </p>
-        <% end %>
+        </ul>
+      <% end %>
+      <% if current_user.present? %>
+        <div class="new-comment">
+          <% if current_user.nil? or current_user.image_url.blank? %>
+            <%= image_tag "http://placehold.it/50x50" %>
+          <% else %>
+            <% filename = current_user.image.file.filename %>      
+            <% if FileTest.exists?(current_user.image.file.path\
+                             .gsub(filename,'small_thumb_'+filename)) %>
+              <%= image_tag (current_user.image_url(:small_thumb).to_s+
+                        "?#{File.mtime(current_user.image.file.path).to_i.to_s}") %>
+            <% else %>
+              <%= image_tag (current_user.image_url(:thumb).to_s) %>
+            <% end %>
+          <% end %>
+          <%= form_for [@book_post,@book_post.comments.build], remote: true do |f| %>
+            <%= f.text_area :body, rows: 2 %>
+            <p>
+              <%= f.submit "Comment",class: "btn"%>
+            </p>
+          <% end %>
       </div>
+      <% end %>
       <% if current_user == @user %>
         <%= link_to 'Edit Post', edit_book_post_path(@book_post), :class => "btn", id: "ck_edit_link" %>
         <%= link_to 'Mercury Editor', "/editor"+request.path, class: "btn", id: "mercury_edit_link", data: {save_url: mercury_update_book_post_path(@book_post)} %>

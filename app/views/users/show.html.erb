@@ -4,10 +4,8 @@
     <% unless @user.image_url.blank? %>
       <%= image_tag @user.image_url(:thumb).to_s, class: "frame float-left" %>
     <% end %>
-
-      <h3>Email</h3>
-      <%= @user.email %>
-
+    <h3>Email</h3>
+    <%= @user.email %>
     <% if @user.first_name? %>
       <p>
         <h3> Name: </h3>

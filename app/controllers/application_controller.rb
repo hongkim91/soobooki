@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user, :bookshelf, :user_name, :find_user
-  private
 
+  private
   def current_user
     @current_user ||= User.find_by_id(session[:user_id]) if session[:user_id]
   end
@@ -40,5 +40,15 @@ class ApplicationController < ActionController::Base
     Net::HTTP.start(url.host, url.port) do |http|
       return http.head(url.request_uri)['Content-Type'].starts_with? 'image'
     end
+  end
+
+  def logged_in?
+      if current_user.present?
+        @user = current_user
+      else
+        unless params[:controller] == "sessions" and params[:action] == "new"
+          redirect_to log_in_path, notice: "Plase log in first." and return
+        end
+      end
   end
 end

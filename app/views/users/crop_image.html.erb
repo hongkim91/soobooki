@@ -1,13 +1,17 @@
-<h1>Crop Picture</h1>
-<% filename = @user.image.file.filename %>
-<% if FileTest.exists?(@user.image.file.path.gsub(filename,'large_'+filename)) %>
-  <%= image_tag @user.image_url(:large).to_s, id:"cropbox" %>
-<% else %>
-  <%= image_tag @user.image_url.to_s, id:"cropbox" %>
-<% end %>
-<%= form_for @user do |f| %>
-  <% %w[x y w h].each do |attr| %>
-    <%= f.hidden_field "crop_#{attr}" %>
-  <% end %>
-  <%= f.submit "Crop", class:"btn crop" %>
-<% end %>
+<div class="row">
+  <div class="span6 offset3">
+    <h1>Crop Picture</h1>
+    <% filename = @user.image.file.filename %>
+    <% if FileTest.exists?(@user.image.file.path.gsub(filename,'large_'+filename)) %>
+      <%= image_tag @user.image_url(:large).to_s, id:"cropbox" %>
+    <% else %>
+      <%= image_tag @user.image_url.to_s, id:"cropbox" %>
+    <% end %>
+    <%= form_for @user do |f| %>
+      <% %w[x y w h].each do |attr| %>
+        <%= f.hidden_field "crop_#{attr}" %>
+      <% end %>
+      <%= f.submit "Crop", class:"btn crop" %>
+    <% end %>
+  </div>
+</div>

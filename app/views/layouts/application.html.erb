@@ -14,12 +14,13 @@
           <ul class="nav" id="top-nav">
             <li><%= link_to 'Books', bookshelf(current_user) %></li>
             <li><%= link_to 'Movies', "#" %></li>
+            <li><%= link_to 'Friends', friendships_path %></li>
+            <% id = current_user ? current_user : 0 %>
+            <li><%= link_to 'Notifications', notifications_path(id: id) %></li>
+            <li><%= link_to 'My Account', user_path(id: id) %></li>
             <% if current_user %>
-              <li><%= link_to 'Friends', friendships_path %></li>
-              <li><%= link_to 'Notifications', notifications_path(id:current_user.id) %></li>
-              <li><%= link_to 'My Account', user_path(current_user) %></li>
               <% if current_user.admin? %>
-                <li><%= link_to 'Users Admin', users_path %></li>
+                <!--<li><%= link_to 'Users Admin', users_path %></li>-->
               <% end %>
               <li><%= link_to 'Log out', log_out_path %></li>
             <% else %>

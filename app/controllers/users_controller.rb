@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :logged_in?
+
   def index
     if current_user
       raise AcessDenied unless current_user.admin?

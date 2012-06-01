@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
-  # GET /friendships
-  # GET /friendships.json
+  before_filter :logged_in?
+
   def index
     raise AccessDenied unless current_user
     @users = User.where('email_confirmed = true AND email != \''+current_user.email+'\'')
@@ -17,8 +17,6 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  # POST /friendships
-  # POST /friendships.json
   def create
     @friendship = current_user.direct_friendships.build(:friend_id => params[:friend_id])
 
@@ -49,8 +47,6 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  # DELETE /friendships/1
-  # DELETE /friendships/1.json
   def destroy
     @friendship = Friendship.find(params[:id])
     raise AccessDenied unless @friendship.user == current_user ||

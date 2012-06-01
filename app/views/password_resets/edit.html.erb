@@ -1,24 +1,16 @@
-<h1> Reset Password </h1>
-
-<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :password, 'New Password' %>
-    <%= f.password_field :password %>
+<div class="row">
+  <div class="span6 offset3">
+    <h1> Reset Password </h1>
+    <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+      <div class="field">
+        <%= f.label :password, 'New Password' %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation, 'New Password Confirmation'%>
+        <%= f.password_field :password_confirmation %>
+      </div>
+      <div class="actions"><%= f.submit "Reset Password", :class => "btn" %></div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :password_confirmation, 'New Password Confirmation'%>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="actions"><%= f.submit "Reset Password", :class => "btn" %></div>
-<% end %>
-
+</div>
