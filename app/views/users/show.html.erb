@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="my-account-container span6">
+  <div class="my-account-container span7 offset2">
     <h1> My Account Info </h1>
     <% unless @user.image_url.blank? %>
       <%= image_tag @user.image_url(:thumb).to_s, class: "frame float-left" %>
@@ -23,7 +23,7 @@
     <% if @user.info? %>
       <p>
         <h3>Info</h3>
-        <%= @user.info %>
+        <%= simple_format @user.info %>
       </p>
     <% end %>
     <h3>Authentications</h3>

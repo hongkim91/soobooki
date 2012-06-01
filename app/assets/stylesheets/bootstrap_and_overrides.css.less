@@ -86,8 +86,8 @@ h3 {padding-bottom: 5px;}
     width: 90px;
 }
 .no-image {
-    width: 85px;
-    height: 130px;
+    width: 100px;
+    height: 150px;
     text-align: center;
     vertical-align: middle;
     display:table-cell
@@ -194,7 +194,7 @@ input.crop{
 }
 img.float-left {
     float: left;
-    margin-right: 60px;
+    margin-right: 150px;
 }
 .privacy-settings {
     padding-top: 30px;
@@ -226,14 +226,16 @@ table.privacy th.privacy {
     margin-bottom: 20px;
 
 }
-.bookshelf-container h3 {
+.bookshelf > h3 {
     border-bottom: 2px solid #DDDDDD;
     padding-bottom: 2px;
     margin-bottom: 10px;
-    width: 520px;
+    width: 620px;
 }
 .navbar form {
-    margin: 7px 0px 0px 20px;
+    position: relative;
+    bottom: 2px;
+//    margin: 7px 0px 0px 20px;
 }
 .navbar form .icon-search {
     position: relative;
@@ -241,7 +243,7 @@ table.privacy th.privacy {
     top: 2px;
 }
 .navbar form .search-query {
-    padding: 3px 10px;
+//    padding: 3px 10px;
 }
 .search-results {
     display:none;
@@ -250,4 +252,37 @@ table.privacy th.privacy {
     border-bottom: 3px solid #DDDDDD;
     padding-bottom: 5px;
     margin-bottom: 15px;
+}
+.navbar {
+    text-align: center;
+    width: auto;
+    margin-left: -20px
+}
+.navbar .brand{
+    float: none;
+    display:inline-block;
+    vertial-align: top;
+    zoom:1;
+    *display: inline; 
+}
+#top-nav {
+    float: none;
+    display:inline-block;
+    vertial-align: top;
+    zoom:1;
+    *display: inline; 
+}
+#top-nav li{
+    float: none;
+    display:inline-block;
+    vertial-align: top;
+    zoom:1;
+    *display: inline; 
+}
+#top-nav form{
+    float: none;
+    display:inline-block;
+    vertial-align: top;
+    zoom:1;
+    *display: inline; 
 }
