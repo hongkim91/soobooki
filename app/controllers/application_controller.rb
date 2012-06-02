@@ -36,19 +36,27 @@ class ApplicationController < ActionController::Base
   end
 
   def remote_image_exists?(image_url)
-    url = URI.parse(image_url)
-    Net::HTTP.start(url.host, url.port) do |http|
-      return http.head(url.request_uri)['Content-Type'].starts_with? 'image'
+    d {image_url}
+    begin
+      url = URI.parse(image_url)
+      if url.respond_to?(:request_uri)
+        Net::HTTP.start(url.host, url.port) do |http|
+          return http.head(url.request_uri)['Content-Type'].starts_with? 'image'
+        end
+      end
+      return false
+    rescue
+      return false
     end
   end
 
   def logged_in?
-      if current_user.present?
-        @user = current_user
-      else
-        unless params[:controller] == "sessions" and params[:action] == "new"
-          redirect_to log_in_path, notice: "Plase log in first." and return
-        end
+    if current_user.present?
+      @user = current_user
+    else
+      unless params[:controller] == "sessions" and params[:action] == "new"
+        redirect_to log_in_path, notice: "Plase log in first." and return
       end
+    end
   end
 end
