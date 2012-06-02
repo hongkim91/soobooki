@@ -1,29 +1,33 @@
 <div class="row">
   <div class="my-account-container span7 offset2">
     <h1> My Account Info </h1>
-    <% unless @user.image_url.blank? %>
-      <%= image_tag @user.image_url(:thumb).to_s, class: "frame float-left" %>
-    <% end %>
-    <h3>Email</h3>
-    <%= @user.email %>
-    <% if @user.first_name? %>
-      <p>
-        <h3> Name: </h3>
-        <%= @user.first_name+" "+@user.last_name %>
-      </p>
-    <% end %>
-    <% if @user.bookshelf_name? %>
-      <p>
-        <h3>Bookshelf Name</h3>
-        <%= @user.bookshelf_name %>
-      </p>
-    <% end %>
-    <% if @user.info? %>
-      <p>
-        <h3>Info</h3>
-        <%= simple_format @user.info %>
-      </p>
-    <% end %>
+    <div class="account-info">
+      <% unless @user.image_url.blank? %>
+        <%= image_tag @user.image_url(:thumb).to_s, class: "frame float-left" %>
+      <% else %>
+        <%= image_tag "http://placehold.it/150x150", class: "frame float-left" %>
+      <% end %>
+      <h3>Email</h3>
+      <%= @user.email %>
+      <% if @user.first_name? %>
+        <p>
+          <h3> Name: </h3>
+          <%= @user.first_name+" "+@user.last_name %>
+        </p>
+      <% end %>
+      <% if @user.bookshelf_name? %>
+        <p>
+          <h3>Bookshelf Name</h3>
+          <%= @user.bookshelf_name %>
+        </p>
+      <% end %>
+      <% if @user.info? %>
+        <p>
+          <h3>Info</h3>
+          <%= simple_format @user.info %>
+        </p>
+      <% end %>
+    </div>
     <h3>Authentications</h3>
     <table class="table table-striped authentications">
       <tr>
@@ -31,24 +35,24 @@
         <th>Action</th>
       </tr>
       <% for provider in ["Facebook","Google"] %>
-      <tr>
-        <td><%= provider %></td>
-        <% authentication = @user.authentications.find_by_provider(provider) %>
-        <% if authentication %>
-        <td><%= link_to "Delete", authentication, :confirm => 
-          "Are you sure you want to delete authentication from #{provider}?",
-          :method => :delete, :class => "btn" %></td>
-        <% else %>
-        <td><%= link_to "Add", "/auth/facebook", :class => "btn" %></td>
-        <% end %>
-      </tr>
+        <tr>
+          <td><%= provider %></td>
+          <% authentication = @user.authentications.find_by_provider(provider) %>
+          <% if authentication %>
+            <td><%= link_to "Delete", authentication, :confirm => 
+                      "Are you sure you want to delete authentication from #{provider}?",
+                    :method => :delete, :class => "btn" %></td>
+          <% else %>
+            <td><%= link_to "Add", "/auth/facebook", :class => "btn" %></td>
+          <% end %>
+        </tr>
       <% end %>
     </table>
 
     <%= link_to 'Edit', edit_user_path(@user), :class => "btn"%>
     <%= link_to 'Delete Account', user_path(@user), 
-                :confirm => "Are you sure you want to delete your account?",
-                :method => :delete, :class => "btn"%>
+        :confirm => "Are you sure you want to delete your account?",
+        :method => :delete, :class => "btn"%>
     <div class="privacy-settings">
       <h1>Privacy Settings</h1>
       <h3>Bookshelf</h3>

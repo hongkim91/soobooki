@@ -1,14 +1,4 @@
 <%= form_for(@user, html: {multipart: true}) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2>Error:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <% if @user.new_record? %>
     <div class="field">
       <%= f.label :email %><br />
@@ -23,17 +13,18 @@
       <%= f.password_field :password_confirmation, class:"span3"%>
     </div>
   <% else %>
-    <% unless current_user.image_url.blank? %>
-      <% filename = @user.image.file.filename %>
-      <% if FileTest.exists?(@user.image.file.path.gsub(filename,'medium_'+filename)) %>
-        <%= image_tag(@user.image_url(:medium).to_s+
-                      "?#{File.mtime(@user.image.file.path).to_i.to_s}", class:"frame") %>
+    <div class="profile-pic">
+      <% unless @user.image_url.blank? %>
+        <% filename = @user.image.file.filename %>
+        <% if FileTest.exists?(@user.image.file.path.gsub(filename,'medium_'+filename)) %>
+          <%= image_tag(@user.image_url(:medium).to_s+
+                    "?#{File.mtime(@user.image.file.path).to_i.to_s}", class:"frame") %>
+        <% else %>
+          <%= image_tag(@user.image_url(:thumb).to_s, class:"frame") %>
+        <% end %>
       <% else %>
-        <%= image_tag(@user.image_url(:thumb).to_s, class:"frame") %>
+        <%= image_tag("http://placehold.it/250x250", class:"frame") %>
       <% end %>
-      <%= link_to "Crop Again", user_image_crop_path(@user), class: "btn" %>
-    <% end %>
-    <div class="name-fields">
       <div class="field">
         <%= f.label :first_name %>
         <%= f.text_field :first_name, class: "span2" %>
@@ -42,6 +33,20 @@
         <%= f.label :last_name %>
         <%= f.text_field :last_name, class: "span2" %>
       </div>
+      <div class="field">
+        <%= f.label :bookshelf_name, "Bookshelf ID" %>
+        <%= f.text_field :bookshelf_name %></br>
+        Your bookshelf's URL will be: soobooki.com/bookshelf/#bookshelf_id</br>
+      </div>
+    </div>
+    <div class="profile-pic-actions">
+      <% unless @user.image_url.blank? %>
+        <%= link_to "Crop Again", user_image_crop_path(@user), class: "btn" %>
+      <% end %>
+      <% fb_auth = @user.authentications.find_by_provider("Facebook") %>
+      <% if fb_auth %>
+        <%= link_to "Choose picture from Facebook", fb_profile_pictures_path(@user), class: "btn" %>
+      <% end %>
     </div>
     <div class="image-fields">
       <div class="image field">
@@ -57,14 +62,8 @@
       <%= f.label :info %>
       <%= f.text_area :info, rows:10, class:"span6" %>
     </div>
-    <div class="field">
-      <%= f.label :bookshelf_name, "Bookshelf ID" %>
-      <%= f.text_field :bookshelf_name %></br>
-      Your bookshelf's URL will be: soobooki.com/bookshelf/#bookshelf_id</br>
-    </div>
   <% end %>
   <div class="actions">
     <%= f.submit "Submit", :class => "btn" %>
-    <%= link_to "Back", book_posts_path, :class => "btn" %>
   </div>
 <% end %>

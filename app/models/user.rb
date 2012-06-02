@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
   has_many :comments
 
   has_many :notifications, :foreign_key => "receiver_id", :dependent => :destroy
-  has_many :sent_notifications, :foreign_key => "sender_id", :dependent => :destroy
 
   has_many :direct_friendships, :class_name => "Friendship", :dependent => :destroy,
            :conditions => "approved = true"
@@ -84,4 +83,28 @@ class User < ActiveRecord::Base
   def crop_image
     image.recreate_versions! if crop_x.present?
   end
+
+  def get_fb_profile_pictures
+    fb_auth = self.authentications.find_by_provider('Facebook')
+    profile_pictures = []
+    if fb_auth.present?
+      url = URI::HTTPS.build(:host  => 'graph.facebook.com',
+                       :path  => '/'+fb_auth.uid,
+                       :query => 'access_token='+fb_auth.access_token+'&fields=albums')
+      response = HTTParty.get(url.to_s)
+      response['albums']['data'].each do |album|
+        if album['name'] == "Profile Pictures"
+          url = URI::HTTPS.build(:host  => 'graph.facebook.com',
+                           :path  => '/'+album['id']+'/photos',
+                           :query => 'access_token='+fb_auth.access_token)
+          response = HTTParty.get(url.to_s)
+          response['data'].each do |picture|
+            profile_pictures << {thumbnail: picture['picture'], large: picture['source']}
+          end
+          return profile_pictures
+        end
+      end
+    end
+  end
+
 end

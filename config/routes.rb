@@ -16,11 +16,13 @@ Soobooki::Application.routes.draw do
   get "edit_book_post_privacy/:id" => "book_posts#edit_privacy", :as => "edit_book_post_privacy"
 
   get "user_image_crop/:id" => "users#crop_image", :as => "user_image_crop"
+  get "fb_profile_pictures/:id" => "users#fb_profile_pictures", :as => "fb_profile_pictures"
 
   put "friendships/:id" => "friendships#approve"
 
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'authentications#failure'
+  match '/auth/save_access_token' => 'authentications#save_access_token'
 
   resources :books do
     collection { get :search }

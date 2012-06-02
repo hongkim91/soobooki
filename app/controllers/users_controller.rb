@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :logged_in?
-
+  before_filter :logged_in?, except: [:new,:create,
+                               :email_confirmation,:need_confirmation,:send_confirmation]
   def index
     if current_user
       raise AcessDenied unless current_user.admin?
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def update
-#    return render text: "#{params}"
+    #    return render text: "#{params}"
     @user = User.find(params[:id])
     raise AccessDenied unless current_user.id == @user.id
 
@@ -55,8 +55,8 @@ class UsersController < ApplicationController
         format.html {
           @current_user = nil
           if params[:user][:image].present? or params[:user][:remote_image_url].present?
-#            return render text: "#{params}"
-           redirect_to user_image_crop_path(@user)
+            #            return render text: "#{params}"
+            redirect_to user_image_crop_path(@user)
           else
             redirect_to bookshelf(current_user),
             notice: 'User was successfully updated.'
@@ -72,6 +72,17 @@ class UsersController < ApplicationController
 
   def crop_image
     @user = User.find(params[:id])
+  end
+
+  def fb_profile_pictures
+    @user = User.find(params[:id])
+    fb_auth = @user.authentications.find_by_provider('Facebook')
+    if fb_auth.present?
+      @profile_pictures = @user.get_fb_profile_pictures
+    else
+      flash[:notice] = "User account not connected to Facebook yet. Please add Facebook authentication."
+      redirect_to user_path(current_user)
+    end
   end
 
   def destroy

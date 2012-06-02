@@ -157,15 +157,16 @@ h3 {padding-bottom: 5px;}
     background: none;
     border:0px;
 }
-.edit_user .name-fields{
-    height: 60px;
+.edit_user div.profile-pic {
+    height: 270px;
 }
-.edit_user .name-fields div{
+.edit_user div.profile-pic img{
     float: left;
-    padding-right: 20px;
+    margin-right: 50px;
 }
 .edit_user .image-fields{
     height: 60px;
+    margin-top: 10px;
 }
 .edit_user .image-fields div{
     float: left;
@@ -177,7 +178,7 @@ h3 {padding-bottom: 5px;}
 .edit_user .actions {
     margin-top: 10px;
 }
-img.frame {
+.frame {
     border: 1px solid #DDDDDD;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -212,7 +213,7 @@ div.friends-container th.bookshelf-id {
     width: 100px;
 }
 div.friends-container th.actions {
-    width: 145px;
+    width: 150px;
 }
 div.friends-container td{
     overflow: hidden;
@@ -225,6 +226,9 @@ table.privacy th.privacy {
     padding-bottom: 5px;
     margin-bottom: 20px;
 
+}
+.account-info {
+    min-height: 170px;
 }
 .bookshelf > h3 {
     border-bottom: 2px solid #DDDDDD;
@@ -288,4 +292,16 @@ table.privacy th.privacy {
 }
 .login-container {
     margin-top: 50px;
+}
+input[type="image"] {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    line-height: 1;
+    padding: 4px;
+    margin-bottom: 10px;
+}
+input[type="image"]:hover {
+    border-color: #0088CC;
+    box-shadow: 0 1px 4px rgba(0,105,214,0.25)
 }
