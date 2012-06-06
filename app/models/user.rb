@@ -24,8 +24,10 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
 
   has_many :notifications, :foreign_key => "receiver_id", :dependent => :destroy
+  has_many :inverse_notifications, :class_name => "Notification",:foreign_key => "sender_id",
+           :dependent => :destroy
 
-  has_many :direct_friendships, :class_name => "Friendship", :dependent => :destroy,
+  has_many :dnirect_friendships, :class_name => "Friendship", :dependent => :destroy,
            :conditions => "approved = true"
   has_many :direct_friends, :through => :direct_friendships, :source => :friend
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id",

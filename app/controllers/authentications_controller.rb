@@ -83,8 +83,4 @@ class AuthenticationsController < ApplicationController
     flash[:error] = 'There was an error at the remote authentication service. You have not been signed in.'
     redirect_to root_url
   end
-
-  def save_access_token
-    d {params}
-  end
 end
