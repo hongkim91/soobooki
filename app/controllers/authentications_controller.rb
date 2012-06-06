@@ -10,6 +10,7 @@ class AuthenticationsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
+    d {auth_hash}
     provider = auth_hash['provider'].titleize
     auth = Authentication.find_by_provider_and_uid(provider,auth_hash['uid'])
     access_token = (provider == "Facebook") ? auth_hash['credentials']['token'] : nil
