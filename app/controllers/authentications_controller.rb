@@ -10,7 +10,7 @@ class AuthenticationsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    d {auth_hash}
+    d {auth_hash.to_yaml}
     d {auth_hash["info"]["email"]}
     provider = auth_hash['provider'].titleize
     auth = Authentication.find_by_provider_and_uid(provider,auth_hash['uid'])
@@ -60,12 +60,12 @@ class AuthenticationsController < ApplicationController
         #TODO: set bookshelf_name too, but check if that name exists and act appropriately
         profile_pictures = user.get_fb_profile_pictures
         image_url = profile_pictures.first[:large] if profile_pictures.first.present?
-        if remote_image_exists?(image_url) and user.image_url.blank?
+        if user.image_url.blank?
           user.remote_image_url = image_url
         end
+        d {user.remote_image_url}
         d {flash[:notice]}
         d {user}
-        d {user.email}
         user.save!
       end
     end

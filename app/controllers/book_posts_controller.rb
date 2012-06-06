@@ -37,13 +37,13 @@ class BookPostsController < ApplicationController
       increment_size = 10
       previous_book_post = nil
       if params[:next_index]
-        book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
+        book_posts = @user.book_posts.order("year DESC","month DESC","day DESC","created_at DESC")
                          .limit(increment_size).offset(params[:next_index])
         @next_index = increment_size + params[:next_index].to_i
-        previous_book_post = @user.book_posts.order("year DESC","month DESC","day DESC")
+        previous_book_post = @user.book_posts.order("year DESC","month DESC","day DESC","created_at DESC")
                          .limit(1).offset(params[:next_index].to_i-1).first
       else
-        book_posts = @user.book_posts.order("year DESC","month DESC","day DESC").limit(increment_size)
+        book_posts = @user.book_posts.order("year DESC","month DESC","day DESC","created_at DESC").limit(increment_size)
         @next_index = increment_size
       end
       @book_posts_size = @user.book_posts.size

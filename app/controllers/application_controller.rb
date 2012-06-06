@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
       @user = current_user
     else
       unless params[:controller] == "sessions" and params[:action] == "new"
-        redirect_to log_in_path, notice: "Plase log in first." and return
+        redirect_to log_in_path, notice: "Please log in first." and return
       end
     end
   end
