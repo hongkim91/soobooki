@@ -1,9 +1,10 @@
 <td>
   <% if user.first_name? %>
-    <%= user.first_name+" "+user.last_name %>
+    <% name = user.first_name+" "+user.last_name %>
   <% else %>
-    <%= user.email %>
+    <% name = user.email %>
   <% end %>
+  <%= link_to name, bookshelf_path(user) %>
 </td>    
 <td><%= user.bookshelf_name %></td>
 <td><%= user.info %></td>

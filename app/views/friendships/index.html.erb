@@ -26,12 +26,10 @@
         <tr>
           <%= render "friendship_td", user: friendship.friend %>
           <td>
-            <%= link_to 'Delete', friendship,
+            <%= link_to 'Delete Friend', friendship,
                   confirm: "Are you sure you want to delete friendship 
                             with #{friendship.friend.email}?",
                   method: :delete, class: "btn" %>
-            <%= link_to 'Bookshelf',
-                bookshelf(friendship.friend), class: "btn" %>
           </td>
         </tr>
       <% end %>
