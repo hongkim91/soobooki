@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
 
-  has_many :comments
+  has_many :comments, :dependent => :destroy
 
   has_many :notifications, :foreign_key => "receiver_id", :dependent => :destroy
 

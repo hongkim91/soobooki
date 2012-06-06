@@ -4,3 +4,4 @@
 //= require ckeditor/init
 $ ->
   $('.new-comment textarea').autogrow();
+  $('.comment-list').css('border-top','0px') if $('.comment-list > li').size() is 0

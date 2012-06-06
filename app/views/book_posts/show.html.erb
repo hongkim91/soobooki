@@ -23,13 +23,11 @@
           <%= raw @book_post.review %>
         </div>
       </p>
-      <% unless @book_post.comments.empty? %>
-        <ul class="comment-list">
-          <% @book_post.comments.each do |comment| %>
-            <%= render "comments/comment", comment: comment%>
-          <% end %>
-        </ul>
-      <% end %>
+      <ul class="comment-list">
+        <% @book_post.comments.each do |comment| %>
+          <%= render "comments/comment", comment: comment%>
+        <% end %>
+      </ul>
       <% if current_user.present? %>
         <div class="new-comment">
           <% if current_user.nil? or current_user.image_url.blank? %>
