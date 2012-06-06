@@ -11,6 +11,7 @@ class AuthenticationsController < ApplicationController
   def create
     auth_hash = request.env['omniauth.auth']
     d {auth_hash}
+    d {auth_hash["info"]["email"]}
     provider = auth_hash['provider'].titleize
     auth = Authentication.find_by_provider_and_uid(provider,auth_hash['uid'])
     access_token = (provider == "Facebook") ? auth_hash['credentials']['token'] : nil
@@ -62,6 +63,9 @@ class AuthenticationsController < ApplicationController
         if remote_image_exists?(image_url) and user.image_url.blank?
           user.remote_image_url = image_url
         end
+        d {flash[:notice]}
+        d {user}
+        d {user.email}
         user.save!
       end
     end

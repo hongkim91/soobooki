@@ -4,6 +4,9 @@ class CommentsController < ApplicationController
     @comment = @book_post.comments.build(body: params[:comment][:body])
     @comment.user_id = current_user.id
 
+    d {params[:comment][:body]}
+    d {@comment.body}
+
     respond_to do |format|
       if @comment.save
         format.js

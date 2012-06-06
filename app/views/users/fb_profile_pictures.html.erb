@@ -4,7 +4,6 @@
     <h3>Select one that you wish to make your Soobooki profile picture</h3>
     <ul class="thumbnails">
       <% @profile_pictures.each do |picture| %>
-        <% d {picture} %>
         <% @user.remote_image_url = picture[:large] %>
         <li>
           <%= form_for @user do |f| %>

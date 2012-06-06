@@ -17,7 +17,8 @@
       <div class="comment-content">
         <%= link_to user_name(user), bookshelf(user) %>
         <span>
-          <%= raw simple_format(comment.body).gsub('<p>','').gsub('</p>','') %>
+          <%= raw simple_format(comment.body)
+                .gsub(/<\/p>\s*<p>/,'<br /><br />').gsub('<p>','').gsub('</p>','') %>
         </span>
         <% if comment.user == current_user or comment.book_post.user == current_user %>
           <div class="comment-remove">
