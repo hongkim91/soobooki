@@ -7,7 +7,7 @@
       <%= render 'search_item', image_url: book['cover_s_url'], title: book['title'],
           authors: book['author'], translators: book['translator'], publisher: book['pub_nm'],
           api_id: book['barcode'], isbn: book['isbn'], isbn13: book['isbn13'],
-          pub_date: pub_date, category: book['category'] %>
+          cover_image_url: nil, pub_date: pub_date, category: book['category'] %>
     <% end %>
   </tbody>
 </table>
