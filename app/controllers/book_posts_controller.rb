@@ -162,6 +162,8 @@ class BookPostsController < ApplicationController
       unless remote_image_exists?(image_url)
         image_url = "http://book.daum-img.net/image/KOR"+params[:isbn13]
       end
+    elsif params[:api] == "amazon"
+      image_url = params[:cover_image_url]
     end
 
     @book = Book.new(title: params[:title], remote_image_url: image_url, authors: params[:authors],

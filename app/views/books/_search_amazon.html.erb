@@ -1,0 +1,27 @@
+<h1>Search Results</h1>
+<table class="book-search-table">
+  <tbody>
+    <% @response.items.each do |item| %>
+      <% book = item.get_element('ItemAttributes') %>
+      <% pd = book.get('PublicationDate') %>
+      <% if pd.nil? %>
+        <% pub_date = nil %>
+      <% elsif pd.length == 4%>
+        <% pub_date = DateTime.civil(pd[0..3].to_i,1,1).strftime("%Y") %>
+      <% elsif pd.length == 7%>
+        <% pub_date = DateTime.civil(pd[0..3].to_i,pd[5..6].to_i,1).strftime("%b, %Y") %>
+      <% else %>
+        <% pub_date = DateTime.civil(pd[0..3].to_i,pd[5..6].to_i,pd[8..9].to_i)
+             .strftime("%b %-d, %Y") %>
+      <% end %>
+      <% authors = book.get_array('Author').join(',') %>
+      <% if authors == "-N/A-" %>
+        <% authors = nil %>
+      <% end %>
+      <%= render 'search_item', image_url: item.get('ImageSets/ImageSet/TinyImage/URL'), title: book.get('Title'),
+          authors: authors, publisher: book.get('Publisher'),
+          api_id: item.get('ASIN'), isbn13: book.get('ISBN'), cover_image_url: item.get('ImageSets/ImageSet/LargeImage/URL'),
+          pub_date: pub_date %>
+    <% end %>
+  </tbody>
+</table>

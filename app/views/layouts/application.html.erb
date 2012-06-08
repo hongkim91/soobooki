@@ -27,7 +27,7 @@
               <li><%= link_to 'Log in ', log_in_path %></li>
             <% end %>
             <li>
-              <%= form_tag search_books_path(api: "daum"), method: "get", remote: true,
+              <%= form_tag search_books_path(api: "amazon"), method: "get", remote: true,
                   class: "navbar-search" do %>
                 <%= text_field_tag "query", nil, placeholder: "Book Title",
                     class: "input-medium search-query" %>

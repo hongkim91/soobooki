@@ -94,7 +94,6 @@ class User < ActiveRecord::Base
                        :path  => '/'+fb_auth.uid,
                        :query => 'access_token='+fb_auth.access_token+'&fields=albums')
       response = HTTParty.get(url.to_s)
-      d {response}
       response['albums']['data'].each do |album|
         if album['name'] == "Profile Pictures"
           url = URI::HTTPS.build(:host  => 'graph.facebook.com',

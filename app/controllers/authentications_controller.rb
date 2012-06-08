@@ -60,10 +60,15 @@ class AuthenticationsController < ApplicationController
         #TODO: set bookshelf_name too, but check if that name exists and act appropriately
         profile_pictures = user.get_fb_profile_pictures
         image_url = profile_pictures.first[:large] if profile_pictures.first.present?
+        d {image_url}
         if user.image_url.blank?
-          user.remote_image_url = image_url
+          begin
+            user.remote_image_url = image_url
+          rescue => e
+            d {e.message}
+            d {e.backtrace}
+          end
         end
-        d {user.remote_image_url}
         d {flash[:notice]}
         d {user}
         user.save!

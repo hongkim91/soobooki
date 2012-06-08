@@ -136,6 +136,14 @@ class BooksController < ApplicationController
                        :path  => '/search/book',
                        :query => query)
       @response = HTTParty.get(url.to_s)
+    elsif @api == "amazon"
+      Amazon::Ecs.options = {
+        :associate_tag => 'soobooki-20',
+        :AWS_access_key_id => 'AKIAJRPFKMNJFNLSLLAQ',
+        :AWS_secret_key => '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'
+      }
+      @response = Amazon::Ecs.item_search(params[:query],
+                 {:response_group => 'Medium', :sort => 'relevancerank', :power => 'binding:-kindle'})
     end
     respond_to do |format|
       format.js

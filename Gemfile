@@ -53,3 +53,5 @@ gem "sanitize"
 gem "httparty"
 
 gem "log_buddy"
+
+gem 'amazon-ecs'

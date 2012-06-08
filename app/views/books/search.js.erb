@@ -1,7 +1,9 @@
-<% if params[:api] == "google" %>
+<% if @api == "google" %>
    $('.search-results').html("<%= j render "search_google" %>")
-<% elsif params[:api] == "daum" %>
+<% elsif @api == "daum" %>
    $('.search-results').html("<%= j render "search_daum" %>")
+<% elsif @api == "amazon" %>
+   $('.search-results').html("<%= j render "search_amazon" %>")
 <% else %>
    $('.search-results').html("something went wrong. sorry.")
 <% end %>

@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
   end
 
   def remote_image_exists?(image_url)
-    d {image_url}
     begin
       url = URI.parse(image_url)
       if url.respond_to?(:request_uri)
