@@ -1,7 +1,6 @@
 class BooksController < ApplicationController
   before_filter :logged_in?
-  # GET /books
-  # GET /books.json
+
   def index
     if current_user
       @books = Book.all
@@ -15,8 +14,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # GET /books/1
-  # GET /books/1.json
   def show
     @book = Book.find(params[:id])
 
@@ -26,8 +23,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # GET /books/new
-  # GET /books/new.json
   def new
     @book = Book.new
     @book.book_posts.build
@@ -38,18 +33,13 @@ class BooksController < ApplicationController
     end
   end
 
-  # GET /books/1/edit
   def edit
     raise AccessDenied
     @book = Book.find(params[:id])
   end
 
-  # POST /books
-  # POST /books.json
   def create
-#    return render text: "#{params}"
     @book = Book.new(params[:book])
-#    return render text: "#{@book.to_yaml}"
 
     unless @book.book_posts.empty?
       book_post = @book.book_posts.first
@@ -59,7 +49,6 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-#        return render text: "#{@book.to_yaml}"
         format.html {
           if @book.book_posts.empty?
             redirect_to @book, notice: 'Book was successfully created.'
@@ -82,13 +71,11 @@ class BooksController < ApplicationController
     end
   end
 
-  # PUT /books/1
-  # PUT /books/1.json
   def update
     @book = current_user.books.find(params[:id])
-#    return render :text => "params #{params}"
     review = params[:book][:book_posts_attributes]["0"][:review]
-    params[:book][:book_posts_attributes]["0"][:review] = Sanitize.clean(review,Sanitize::Config::RELAXED)
+    params[:book][:book_posts_attributes]["0"][:review] =
+      Sanitize.clean(review,Sanitize::Config::RELAXED)
 
     respond_to do |format|
       if @book.update_attributes!(params[:book])
@@ -101,8 +88,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
   def destroy
     raise AccessDenied unless current_user.admin?
     @book = Book.find(params[:id])

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     if current_user
       raise AcessDenied unless current_user.admin?
-      @users = User.all
+      @users = User.find(:all, order: "created_at DESC")
 
       respond_to do |format|
         format.html # index.html.erb
@@ -132,7 +132,19 @@ class UsersController < ApplicationController
 
   def edit_bookshelf_privacy
     @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
     @user.bookshelf_privacy = params[:privacy]
+    respond_to do |format|
+      if @user.save
+        format.js
+      end
+    end
+  end
+
+  def edit_book_api
+    @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
+    @user.book_api = params[:book_api]
     respond_to do |format|
       if @user.save
         format.js

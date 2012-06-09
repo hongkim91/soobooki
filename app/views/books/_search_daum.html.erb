@@ -1,13 +1,16 @@
-<h1>Search Results</h1>
-<table class="book-search-table">
-  <tbody>
-    <% @response['channel']['item'].each do |book| %>
-      <% pd = book['pub_date'] %>
-      <% pub_date = DateTime.civil(pd[0..3].to_i,pd[4..5].to_i,pd[6..7].to_i).strftime("%b %-d, %Y") %>
-      <%= render 'search_item', image_url: book['cover_s_url'], title: book['title'],
-          authors: book['author'], translators: book['translator'], publisher: book['pub_nm'],
-          api_id: book['barcode'], isbn: book['isbn'], isbn13: book['isbn13'],
-          cover_image_url: nil, pub_date: pub_date, category: book['category'] %>
-    <% end %>
-  </tbody>
-</table>
+<% @response['channel']['item'].each do |book| %>
+  <% pd = book['pub_date'] %>
+  <% pub_date = DateTime.civil(pd[0..3].to_i,pd[4..5].to_i,pd[6..7].to_i).strftime("%b %-d, %Y") %>
+  <%= render 'search_item',
+      title: book['title'],
+      authors: book['author'],
+      translators: book['translator'], 
+      publisher: book['pub_nm'],
+      pub_date: pub_date, 
+      category: book['category'],
+      api_id: book['barcode'], 
+      isbn: book['isbn'], 
+      isbn13: book['isbn13'],
+      image_url: book['cover_s_url'],
+      cover_image_url: nil %> 
+<% end %>

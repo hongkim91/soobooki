@@ -14,6 +14,7 @@ Soobooki::Application.routes.draw do
   get "bookshelf/:id" => "book_posts#index", :as => "bookshelf"
   get "edit_bookshelf_privacy/:id" => "users#edit_bookshelf_privacy", :as => "edit_bookshelf_privacy"
   get "edit_book_post_privacy/:id" => "book_posts#edit_privacy", :as => "edit_book_post_privacy"
+  get "edit_book_api/:id" => "users#edit_book_api", :as => "edit_book_api"
 
   get "user_image_crop/:id" => "users#crop_image", :as => "user_image_crop"
   get "fb_profile_pictures/:id" => "users#fb_profile_pictures", :as => "fb_profile_pictures"

@@ -1,0 +1,22 @@
+<div class="title">
+  <h1>Search Results</h1>  
+  <div class="book-search-engine">
+    <h3>Search Engine:</h3>
+    <div class="btn-group" data-toggle="buttons-radio">
+      <% ["daum","amazon"].each do |api| %>
+        <% if @user.book_api == api %>
+          <%= link_to api.titleize, edit_book_api_path(@user, book_api: api),
+              class: "btn init-select", remote: true %>
+        <% else %>
+          <%= link_to api.titleize, edit_book_api_path(@user, book_api: api),
+              class: "btn", remote: true %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<table class="book-search-table">
+  <tbody>
+    <%= render "search_#{@api}" %>
+  </tbody>
+</table>

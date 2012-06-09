@@ -1,6 +1,7 @@
 <%= javascript_include_tag "mercury_override" %>
 <div class="row">
-  <div class="span6 offset2">
+  <div class="search-results span6 offset2"></div>
+  <div class="book-post-container span6 offset2">
     <div class="book-post">
       <h1><%= @book.title %></h1>
       <% unless @book.image_url.blank? %>

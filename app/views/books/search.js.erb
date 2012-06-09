@@ -1,14 +1,8 @@
-<% if @api == "google" %>
-   $('.search-results').html("<%= j render "search_google" %>")
-<% elsif @api == "daum" %>
-   $('.search-results').html("<%= j render "search_daum" %>")
-<% elsif @api == "amazon" %>
-   $('.search-results').html("<%= j render "search_amazon" %>")
-<% else %>
-   $('.search-results').html("something went wrong. sorry.")
-<% end %>
+$('.search-results').html("<%= j render "search_results"  %>")
+$('.search-results .btn-group .init-select').button('toggle')           
 $('.bookshelf-container').hide()
 $('.friends-container').hide()
 $('.notifications-container').hide()
 $('.my-account-container').hide()
+$('.book-post-container').hide()
 $('.search-results').show()

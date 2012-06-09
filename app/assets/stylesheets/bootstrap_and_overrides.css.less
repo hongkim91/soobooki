@@ -47,6 +47,10 @@ h3 {padding-bottom: 5px;}
     margin-left: -15px;
     margin-bottom: 0px;
 }
+.bookshelf .thumbnail img {
+    min-height: 150px;
+    max-width: 300px;
+}
 .date select {
     width: 120px;
 }
@@ -254,10 +258,14 @@ table.privacy th.privacy {
 .search-results {
     display:none;
 }
-.search-results h1 {
+.search-results .title {
     border-bottom: 3px solid #DDDDDD;
-    padding-bottom: 5px;
     margin-bottom: 15px;
+    height: 41px;
+}
+.search-results .title h1 {
+    float: left;
+    padding-bottom: 5px;
 }
 .navbar {
     text-align: center;
@@ -309,4 +317,15 @@ input[type="image"]:hover {
 }
 #movieshelf:hover {
     color: #999999;
+}
+.book-search-engine {
+    float: right;
+    margin-top: 6px;
+}
+.book-search-engine h3{
+    float: left;
+}
+.book-search-engine .btn-group {
+    float: left;
+    margin-left: 10px;
 }

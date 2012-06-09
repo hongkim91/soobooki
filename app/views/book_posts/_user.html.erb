@@ -41,3 +41,6 @@
     <%= simple_format @user.info %>
   </p>
 <% end %>
+<% if @user.admin %>
+  <%= link_to "Users Admin Page", users_path, class: "btn" %>
+<% end %>
