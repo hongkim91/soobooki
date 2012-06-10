@@ -1,0 +1,39 @@
+.search-results {
+    display:none;
+    .title {
+        border-bottom: 3px solid #DDDDDD;
+        margin-bottom: 15px;
+        height: 41px;
+        h1 {
+            float: left;
+            padding-bottom: 5px;
+        }
+    }
+    .api {
+        float: right;
+        margin-top: 6px;
+        h3 { float: left; }
+        .btn-group {
+            float: left;
+            margin-left: 10px;
+        }
+    }
+    table {
+        width: 100%;
+        td {
+            border-bottom: 1px solid #DDDDDD;
+            padding: 5px;
+            vertical-align: top
+        }
+    }
+    .book-image-block{
+        width: 70px;
+        img {
+            max-width: 60px;
+            max-height: 80px;
+        }
+    }
+    .book-action-block{
+        width: 90px;
+    }
+}

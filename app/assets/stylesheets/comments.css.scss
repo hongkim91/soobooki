@@ -1,3 +1,64 @@
-// Place all the styles related to the Comments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@mixin item-list {
+    list-style-type: none;
+    margin: 0px;
+    border-top: 1px dotted #DDDDDD;
+}
+@mixin item-container {
+    width: 100%;
+    padding: 7px 0px;
+    min-height: 50px;
+    border-bottom: 1px dotted #DDDDDD;
+}
+@mixin item-content {
+    display: table-cell;
+    width: 10000px;
+    word-wrap: break-word;
+}
+@mixin thumbnail-profile {
+    width: 50px;
+    height: 50px;
+    padding: 0px 10px 0px 0px;
+    margin: 0px;
+    border: 0px;
+    float: left;
+}
+.new-comment {
+    width: 100%;
+    padding: 7px 0px;
+    .btn { float: right; }
+    img {
+        width: 50px;
+        height: 50px;
+        padding: 0px 10px 0px 0px;
+        margin: 0px;
+        border: 0px;
+        float: left;
+    }
+    form { display: table-cell; }
+    textarea { width: 490px; }
+}
+$time-color: grey;
+.comment-list {
+    @include item-list;
+    .comment-container {
+        @include item-container;
+        img { @include thumbnail-profile; }
+        .comment-content {
+            @include item-content;
+            .comment-time { color: $time-color; }
+            .comment-remove {
+                float: right;
+                a {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #000000;
+                    opacity:0.2;
+                    &:hover {
+                        text-decoration: none;
+                        opacity: 0.4;
+                    }
+                }
+            }
+        }
+    }
+}

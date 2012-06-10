@@ -10,5 +10,19 @@
  *
  *= require_self
  *= require jquery.Jcrop
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require mercury_overrides.css
 */
+
+@import "book_posts.css.scss";
+@import "sessions.css.scss";
+@import "users.css.scss";
+@import "comments.css.scss";
+@import "notifications.css.scss";
+@import "friendships.css.scss";
+@import "search.css.scss";
+
+
+
+
+

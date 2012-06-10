@@ -2,7 +2,7 @@
   <a href="<%= book_post_path(book_post)%>" class="thumbnail">
     <% if book.image_url.blank? %>
       <div class="no-image">
-        <h3><%= book.title %></h3>
+        <%= book.title %>
       </div>
     <% else %>
       <%= image_tag book.image_url(:thumb).to_s%> 

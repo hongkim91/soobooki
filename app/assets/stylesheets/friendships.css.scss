@@ -1,0 +1,7 @@
+.friends-container {
+    table { table-layout: fixed; }
+    th.name-email { width: 160px; }
+    th.bookshelf-id { width: 100px; }
+    th.actions { width: 130px; }
+    td { overflow: hidden; }
+}

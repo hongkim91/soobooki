@@ -18,12 +18,12 @@
         <% filename = @user.image.file.filename %>
         <% if FileTest.exists?(@user.image.file.path.gsub(filename,'medium_'+filename)) %>
           <%= image_tag(@user.image_url(:medium).to_s+
-                    "?#{File.mtime(@user.image.file.path).to_i.to_s}", class:"frame") %>
+                    "?#{File.mtime(@user.image.file.path).to_i.to_s}") %>
         <% else %>
-          <%= image_tag(@user.image_url(:thumb).to_s, class:"frame") %>
+          <%= image_tag(@user.image_url(:thumb).to_s) %>
         <% end %>
       <% else %>
-        <%= image_tag("http://placehold.it/250x250", class:"frame") %>
+        <%= image_tag("http://placehold.it/250x250") %>
       <% end %>
       <div class="field">
         <%= f.label :first_name %>

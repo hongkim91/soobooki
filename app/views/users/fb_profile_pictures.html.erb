@@ -8,7 +8,7 @@
         <li>
           <%= form_for @user do |f| %>
             <%= f.hidden_field :remote_image_url %>
-            <input src=<%= picture[:thumbnail] %> type="image">
+            <input src=<%= picture[:thumbnail] %> class="fb-profile-pic" type="image">
           <% end %>            
         </li>
       <% end %>

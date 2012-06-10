@@ -8,324 +8,54 @@ body { padding-top: 60px; }
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-//@fontAwesomeEotPath: asset-path('fontawesome-webfont.eot');
-//@fontAwesomeWoffPath: asset-path('fontawesome-webfont.woff');
-//@fontAwesomeTtfPath: asset-path('fontawesome-webfont.ttf');
-//@fontAwesomeSvgzPath: asset-path('fontawesome-webfont.svgz');
-//@fontAwesomeSvgPath: asset-path('fontawesome-webfont.svg');
+@fontAwesomeEotPath: asset-path('fontawesome-webfont.eot');
+@fontAwesomeWoffPath: asset-path('fontawesome-webfont.woff');
+@fontAwesomeTtfPath: asset-path('fontawesome-webfont.ttf');
+@fontAwesomeSvgzPath: asset-path('fontawesome-webfont.svgz');
+@fontAwesomeSvgPath: asset-path('fontawesome-webfont.svg');
 
 // Font Awesome
-//@import "fontawesome";
-
-// Your custom LESS stylesheets goes here
-//
-// Since bootstrap was imported above you have access to its mixins which
-// you may use and inherit here
-//
-// If you'd like to override bootstrap's own variables, you can do so here as well
-// See http://twitter.github.com/bootstrap/less.html for their names and documentation
-//
-// Example:
-// @linkColor: #ff0000;
+@import "fontawesome";
 
 h1 {padding-bottom: 20px;}
-.book-post img { 
-    display: block; margin-left: auto; margin-right: auto;
-    padding: 4px;
-    border: 1px solid #DDDDDD; 
-    margin-bottom: 20px;
-}
 h3 {padding-bottom: 5px;}
-.book .thumbnail { 
-    border-radius: 0px 0px 0px 0px;
-}
-.thumbnails li {
-    margin-left: 15px;
-    margin-bottom: 13px;
-}
 .thumbnails {
     margin-left: -15px;
     margin-bottom: 0px;
-}
-.bookshelf .thumbnail img {
-    min-height: 150px;
-    max-width: 300px;
-}
-.date select {
-    width: 120px;
-}
-.auth_providers {
-    margin-top: 55px;
-}
-.authentications table {
-    display: block;
-}
-.auth_provider {
-    float: left;               
-}
-.auth_provider h3{
-    margin-left: 10px;
-}
-.book_image_local {
-    width: 300px;
-    float: left;
-}
-.book-post {
-    padding-bottom: 50px;
-}
-.book-small-image {
-    max-width: 60px;
-    max-height: 80px;
-}
-.book-search-table td{
-    border-bottom: 1px solid #DDDDDD;
-    padding: 5px;
-    vertical-align: top
-}
-.book-search-table {
-    width: 100%;
-}
-.book-image-block{
-    width: 70px;
-}
-.book-action-block{
-    width: 90px;
-}
-.no-image {
-    width: 100px;
-    height: 150px;
-    text-align: center;
-    vertical-align: middle;
-    display:table-cell
-}
-.new-comment .btn {
-    float: right;
-}
-.new-comment {
-    width: 100%;
-    padding: 7px 0px;
-}
-.new-comment img {
-    width: 50px;
-    height: 50px;
-    padding: 0px 10px 0px 0px;
-    margin: 0px;
-    border: 0px;
-    float: left;
-}
-.new-comment form {
-    display: table-cell;
-}
-.new-comment textarea {
-    width: 490px;
-}
-.comment-list {
-    list-style-type: none;
-    margin: 0px;
-    border-top: 1px dotted #DDDDDD;
-}
-.comment-container {
-    width: 100%;
-    padding: 7px 0px;
-    min-height: 50px;
-    border-bottom: 1px dotted #DDDDDD;
-}
-.comment-container img {
-    width: 50px;
-    height: 50px;
-    padding: 0px 10px 0px 0px;
-    margin: 0px;
-    border: 0px;
-    float: left;
-}
-.comment-content {
-    display: table-cell;
-    width: 10000px;
-    word-wrap: break-word;
-}
-.comment-time {
-    color: gray;   
-}
-.comment-remove {
-    float: right;
-}
-.comment-remove a {
-    font-size: 20px;
-    font-weight: bold;
-    color: #000000;
-    opacity:0.2;
-}
-.comment-remove a:hover {
-    text-decoration: none;
-    opacity: 0.4;
-}
-.close {
-    background: none;
-    border:0px;
-}
-.edit_user div.profile-pic {
-    height: 270px;
-}
-.edit_user div.profile-pic img{
-    float: left;
-    margin-right: 50px;
-}
-.edit_user .image-fields{
-    height: 60px;
-    margin-top: 10px;
-}
-.edit_user .image-fields div{
-    float: left;
-    padding-right: 20px;
-}
-.edit_user .field {
-    margin: 0px;
-}
-.edit_user .actions {
-    margin-top: 10px;
-}
-.frame {
-    border: 1px solid #DDDDDD;
-    border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    line-height: 1;
-    padding: 4px;
-    margin-bottom: 10px;
-}
-#cropbox{
-    max-width: 600px;
-    max-height: 600px;
-}
-input.crop{
-    margin-top: 15px;
-}
-img.float-left {
-    float: left;
-    margin-right: 150px;
-}
-.privacy-settings {
-    padding-top: 30px;
-}
-.bookshelf-privacy {
-    padding-bottom: 15px;
-}
-table.friends {
-    table-layout: fixed;
-}
-div.friends-container th.name-email {
-    width: 160px;
-}
-div.friends-container th.bookshelf-id {
-    width: 100px;
-}
-div.friends-container th.actions {
-    width: 110px;
-}
-div.friends-container td{
-    overflow: hidden;
-}
-table.privacy th.privacy {
-    width: 270px;
-}
-.my-account-container h1 {
-    border-bottom: 3px solid #DDDDDD;
-    padding-bottom: 5px;
-    margin-bottom: 20px;
-
-}
-.account-info {
-    min-height: 170px;
-}
-.bookshelf > h3 {
-    border-bottom: 2px solid #DDDDDD;
-    padding-bottom: 2px;
-    margin-bottom: 10px;
-    width: 620px;
-}
-.navbar form {
-    position: relative;
-    bottom: 2px;
-//    margin: 7px 0px 0px 20px;
-}
-.navbar form .icon-search {
-    position: relative;
-    right: 35px;
-    top: 2px;
-}
-.navbar form .search-query {
-//    padding: 3px 10px;
-}
-.search-results {
-    display:none;
-}
-.search-results .title {
-    border-bottom: 3px solid #DDDDDD;
-    margin-bottom: 15px;
-    height: 41px;
-}
-.search-results .title h1 {
-    float: left;
-    padding-bottom: 5px;
-}
-.navbar {
-    text-align: center;
-    width: auto;
-    margin-left: -20px
-}
-.navbar .brand{
-    float: none;
-    display:inline-block;
-    vertial-align: top;
-    zoom:1;
-    *display: inline; 
-}
-#top-nav {
-    float: none;
-    display:inline-block;
-    vertial-align: top;
-    zoom:1;
-    *display: inline; 
-}
-#top-nav li{
-    float: none;
-    display:inline-block;
-    vertial-align: top;
-    zoom:1;
-    *display: inline; 
-}
-#top-nav form{
-    float: none;
-    display:inline-block;
-    vertial-align: top;
-    zoom:1;
-    *display: inline; 
-}
-.login-container {
-    margin-top: 50px;
-}
-input[type="image"] {
-    border: 1px solid #DDDDDD;
-    border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-    line-height: 1;
-    padding: 4px;
-    margin-bottom: 10px;
-}
-input[type="image"]:hover {
-    border-color: #0088CC;
-    box-shadow: 0 1px 4px rgba(0,105,214,0.25)
+    li {
+        margin-left: 15px;
+        margin-bottom: 13px;
+    }
 }
 #movieshelf:hover {
     color: #999999;
 }
-.book-search-engine {
-    float: right;
-    margin-top: 6px;
+.inline-block {
+    float: none;
+    display:inline-block;
+    vertial-align: top;
+    zoom:1;
+    *display: inline; 
 }
-.book-search-engine h3{
-    float: left;
-}
-.book-search-engine .btn-group {
-    float: left;
-    margin-left: 10px;
+.navbar {
+    text-align: center;
+    width: auto;
+    margin-left: -20px;
+    .brand{
+        .inline-block;
+    }
+    #top-nav {
+        .inline-block;
+        li { .inline-block; }
+        form { 
+            .inline-block;
+            position: relative;
+            bottom: 2px;
+            .icon-search {
+                position: relative;
+                right: 35px;
+                top: 2px;
+            }
+        }
+    }
 }

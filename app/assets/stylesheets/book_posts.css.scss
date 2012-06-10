@@ -1,0 +1,42 @@
+.book-post-container{
+    padding-bottom: 50px;
+    img { 
+        display: block; margin-left: auto; margin-right: auto;
+        padding: 4px;
+        border: 1px solid #DDDDDD; 
+        margin-bottom: 20px;
+    }
+}
+
+.bookshelf {
+    .thumbnail { 
+        border-radius: 0px 0px 0px 0px;
+        img {
+            min-height: 150px;
+            max-width: 300px;
+        }
+        .no-image {
+            width: 100px;
+            height: 150px;
+            text-align: center;
+            vertical-align: middle;
+            display:table-cell;
+            background-color: #DDDDDD;
+        }
+    }
+    h3 {
+        border-bottom: 2px solid #DDDDDD;
+        padding-bottom: 2px;
+        margin-bottom: 10px;
+        width: 620px;
+    }
+}
+.edit_book {
+    .date select {
+        width: 120px;
+    }
+    .book_image_local {
+        width: 300px;
+        float: left;
+    }
+}

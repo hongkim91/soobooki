@@ -1,0 +1,79 @@
+@mixin img-round-border {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    line-height: 1;
+    padding: 4px;
+}
+
+.edit_user {
+    div.profile-pic {
+        height: 270px;
+        img {
+            float: left;
+            margin-right: 50px;
+            margin-bottom: 10px;
+            @include img-round-border;
+        }
+    }
+    .image-fields{
+        height: 60px;
+        margin-top: 10px;
+    }
+    .image-fields div{
+        float: left;
+        padding-right: 20px;
+    }
+    .field {
+        margin: 0px;
+    }
+    .actions {
+        margin-top: 10px;
+    }
+}
+.crop-container {
+    #cropbox{
+        max-width: 600px;
+        max-height: 600px;
+    }
+    input{
+        margin-top: 15px;
+    }
+}
+.my-account-container {
+    h1 {
+        border-bottom: 3px solid #DDDDDD;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+    }
+    .account-info {
+        min-height: 170px;
+        img {
+            float: left;
+            margin-right: 150px;
+            margin-bottom: 10px;
+            @include img-round-border;
+        }
+    }
+    .privacy-settings {
+        margin-top: 30px;
+    }
+    .bookshelf-privacy {
+        margin-bottom: 15px;
+    }
+    table th.privacy {
+        width: 270px;
+    }
+}
+input[type="image"].fb-profile-pic {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+    line-height: 1;
+    padding: 4px;
+    margin-bottom: 10px;
+    &:hover {
+        border-color: #0088CC;
+        box-shadow: 0 1px 4px rgba(0,105,214,0.25)
+    }
+}

@@ -1,6 +1,6 @@
 <div class="title">
   <h1>Search Results</h1>  
-  <div class="book-search-engine">
+  <div class="api">
     <h3>Search Engine:</h3>
     <div class="btn-group" data-toggle="buttons-radio">
       <% ["daum","amazon"].each do |api| %>
@@ -15,7 +15,7 @@
     </div>
   </div>
 </div>
-<table class="book-search-table">
+<table>
   <tbody>
     <%= render "search_#{@api}" %>
   </tbody>
