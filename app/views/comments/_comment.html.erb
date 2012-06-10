@@ -28,11 +28,7 @@
           </div>
         <% end %>
         <div class="comment-time">
-          <% if comment.created_at.year == Time.now.year %>
-            <%= comment.created_at.localtime.strftime("%B %-d at %l:%M%P") %>
-          <% else %>
-            <%= comment.created_at.localtime.strftime("%B %-d, %Y at %l:%M%P") %>
-          <% end %>
+          <%= format_time(comment.created_at) %>
         </div>
       </div>
     </div>

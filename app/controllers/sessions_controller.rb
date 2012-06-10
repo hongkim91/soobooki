@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:password])
         if user.email_confirmed
           session[:user_id] = user.id
+          user.latest_login_at = Time.now
+          user.save
           redirect_to bookshelf(current_user), :notice => "User logged in"
         else
           session[:user_email] = user.email
@@ -23,7 +25,7 @@ class SessionsController < ApplicationController
         render "new"
       end
     rescue BCrypt::Errors::InvalidHash
-      flash.now.alert = "You didn't signed up with a password, but rather through 
+      flash.now.alert = "You didn't signed up with a password, but rather through
                           #{user.authentications.first.provider}."
       render "new"
     end

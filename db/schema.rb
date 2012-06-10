@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120609073652) do
+ActiveRecord::Schema.define(:version => 20120610112023) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20120609073652) do
     t.string   "last_name"
     t.string   "bookshelf_privacy",        :default => "Users"
     t.string   "book_api",                 :default => "daum"
+    t.datetime "latest_login_at"
   end
 
 end

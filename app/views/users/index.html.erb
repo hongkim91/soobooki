@@ -8,16 +8,20 @@
           <th>Signup Date</th>
           <th>Confirmed</th>
           <th>Providers</th>
+          <th>Login At</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= user.email %></td>
-            <td><%= user.created_at.strftime("%b %-d, %Y") %></td>
+            <td><%= link_to user.email, bookshelf_path(user) %></td>
+            <td><%= user.created_at.localtime.strftime("%b %-d, %Y") %></td>
             <td><%= user.email_confirmed %></td>
             <td><%= user.authentications.map{|auth| auth.provider}.join(", ") %></td>
+            <td>
+              <%= format_time(user.latest_login_at) %>
+            </td>
             <td>
               <% if current_user.admin? && !user.admin? %>
                 <%= link_to 'Delete', user_path(user),

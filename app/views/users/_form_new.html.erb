@@ -1,0 +1,27 @@
+<%= form_for(@user, html: {multipart: true}) do |f| %>
+  <div class="names">
+    <div class="field">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class:"span" %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class:"span2" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email, class:"span3" %>
+  </div>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password, class:"span3"%>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, class:"span3"%>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit", :class => "btn" %>
+  </div>
+<% end %>

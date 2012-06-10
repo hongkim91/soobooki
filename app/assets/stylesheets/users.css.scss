@@ -5,7 +5,6 @@
     line-height: 1;
     padding: 4px;
 }
-
 .edit_user {
     div.profile-pic {
         height: 270px;
@@ -31,12 +30,22 @@
         margin-top: 10px;
     }
 }
+.new_user {
+    .names {
+        height: 60px;
+        .field {
+            margin-right: 10px;
+            float: left;
+            input { width: 120px;}
+        }
+    }
+}
 .crop-container {
-    #cropbox{
+    #cropbox {
         max-width: 600px;
         max-height: 600px;
     }
-    input{
+    input {
         margin-top: 15px;
     }
 }
