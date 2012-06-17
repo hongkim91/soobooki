@@ -57,7 +57,7 @@ class AuthenticationsController < ApplicationController
         user = current_user
         user.first_name = auth_hash['info']['first_name'] unless user.first_name.present?
         user.last_name = auth_hash['info']['last_name'] unless user.last_name.present?
-        #TODO: set bookshelf_name too, but check if that name exists and act appropriately
+        #TODO: set soobooki_id too, but check if that name exists and act appropriately
         profile_pictures = user.get_fb_profile_pictures
         image_url = profile_pictures.first[:large] if profile_pictures.first.present?
         d {image_url}

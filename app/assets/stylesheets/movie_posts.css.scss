@@ -1,0 +1,13 @@
+.movie-post-container{
+    @include item-post-container;
+}
+
+.movieshelf {
+    @include itemshelf;
+}
+.edit_movie_post {
+    @include item-form;
+}
+.new_movie_post {
+    @include item-form;
+}

@@ -1,5 +1,14 @@
 <% comment = @comment ? @comment : comment %>
 <% user = find_user(comment.user_id) %>
+<% if comment.book_post.present? %>
+  <% post = comment.book_post %>
+  <% itemshelf_path = bookshelf(user) %>  
+  <% post_comment_path =  book_post_comment_path(comment.book_post,comment) %>
+<% else %>  
+  <% post = comment.movie_post %>
+  <% itemshelf_path = movieshelf(user) %>  
+  <% post_comment_path =  movie_post_comment_path(comment.movie_post,comment) %>
+<% end %>
 
 <% unless user.nil? %>
   <li class="comment-item-<%= comment.id %>">
@@ -15,14 +24,14 @@
         <% end %>
       <% end %>
       <div class="comment-content">
-        <%= link_to user_name(user), bookshelf(user) %>
+        <%= link_to user_name(user), itemshelf_path %>
         <span>
           <%= raw simple_format(comment.body)
                 .gsub(/<\/p>\s*<p>/,'<br /><br />').gsub('<p>','').gsub('</p>','') %>
         </span>
-        <% if comment.user == current_user or comment.book_post.user == current_user %>
+        <% if comment.user == current_user or post.user == current_user %>
           <div class="comment-remove">
-            <%= link_to "×", book_post_comment_path(comment.book_post,comment), 
+            <%= link_to "×", post_comment_path,
                 :confirm => "Are you sure you want to delete this comment?",
                 :method => :delete, remote: true %>
           </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120610112023) do
+ActiveRecord::Schema.define(:version => 20120617020503) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20120610112023) do
     t.integer  "month",      :default => 0
     t.integer  "day",        :default => 0
     t.string   "privacy",    :default => "Friends"
+    t.string   "title"
+    t.string   "image"
   end
 
   create_table "books", :force => true do |t|
@@ -54,8 +56,9 @@ ActiveRecord::Schema.define(:version => 20120610112023) do
     t.text     "body"
     t.integer  "user_id"
     t.integer  "book_post_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "movie_post_id"
   end
 
   add_index "comments", ["book_post_id"], :name => "index_comments_on_book_post_id"
@@ -69,6 +72,31 @@ ActiveRecord::Schema.define(:version => 20120610112023) do
     t.boolean  "approved",   :default => false
   end
 
+  create_table "movie_posts", :force => true do |t|
+    t.integer  "movie_id"
+    t.integer  "user_id"
+    t.text     "review"
+    t.integer  "year",       :default => 0
+    t.integer  "month",      :default => 0
+    t.integer  "day",        :default => 0
+    t.string   "privacy",    :default => "Friends"
+    t.string   "title"
+    t.string   "image"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  create_table "movies", :force => true do |t|
+    t.string   "title"
+    t.string   "director"
+    t.string   "actors"
+    t.string   "release_date"
+    t.string   "api_id"
+    t.string   "image"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"
@@ -77,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20120610112023) do
     t.integer  "book_post_id"
     t.integer  "comment_id"
     t.string   "notification_type"
+    t.integer  "movie_post_id"
   end
 
   create_table "users", :force => true do |t|
@@ -91,12 +120,13 @@ ActiveRecord::Schema.define(:version => 20120610112023) do
     t.string   "email_confirmation_token"
     t.boolean  "email_confirmed",          :default => false
     t.boolean  "admin",                    :default => false
-    t.string   "bookshelf_name"
+    t.string   "soobooki_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "bookshelf_privacy",        :default => "Users"
     t.string   "book_api",                 :default => "daum"
     t.datetime "latest_login_at"
+    t.string   "movieshelf_privacy",       :default => "Users"
   end
 
 end

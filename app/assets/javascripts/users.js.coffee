@@ -5,8 +5,6 @@
 $ ->
   new ImageCropper()
   $('.privacy-settings .btn-group .init-select').button('toggle')
-  $('#movieshelf').click((e)->e.preventDefault())
-
 
 class ImageCropper
   constructor: ->

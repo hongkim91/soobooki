@@ -1,19 +1,23 @@
 class CommentObserver < ActiveRecord::Observer
   def after_create(model)
     sender = model.user
-    book_post_owner = model.book_post.user
-    unless sender == book_post_owner
-      book_post_owner.notifications.create(sender_id: sender.id, comment_id: model.id,
-                                    notification_type: "new comment on my book_post")
+    if model.book_post.present?
+      post = model.book_post
+    else
+      post = model.movie_post
+    end
+    unless sender == post.user
+      post.user.notifications.create(sender_id: sender.id, comment_id: model.id,
+                                    notification_type: "new comment on my post")
     end
     commenters = []
-    model.book_post.comments.each do |comment|
+    post.comments.each do |comment|
       unless commenters.include?(comment.user)
         commenters << comment.user
       end
     end
     commenters.each do |commenter|
-      unless (commenter == model.book_post.user or commenter == model.user)
+      unless (commenter == post.user or commenter == model.user)
         commenter.notifications.create(sender_id: sender.id, comment_id: model.id,
                                 notification_type: "potential comment reply")
       end

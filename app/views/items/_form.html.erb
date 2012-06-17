@@ -1,0 +1,47 @@
+<%= javascript_include_tag "book_posts" %>
+<%= form_for(post, html: {multipart: true}) do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, class:"span6" %>
+  </div>
+  <div class="field date" >
+    <% d {@controller} %>
+    <% if @controller == "book_posts" %>
+      <%= f.label :date_read %>
+    <% else %>
+      <%= f.label :date_seen %>
+    <% end %>
+    <% years = ((Time.now.year.to_i).downto(1980)).map{|y| [y.to_s,y]}\
+         .insert(0,['Select Year',0]) %>
+    <%= f.select :year, years %>
+    <% months = (1..12).map{|m| [Date::MONTHNAMES[m],m]}\
+         .insert(0,['Select Month',0]) %>
+    <%= f.select :month, months %>
+    <% days = (1..31).map{|d| [d.to_s,d]}.insert(0,['Select Day',0]) %>
+    <%= f.select :day, days %>
+  </div>
+  <div class="field image_local">
+    <%= f.label :image, "Cover image file"%>
+    <%= f.file_field :image %>
+  </div>
+  <div class="field image_url">
+    <%= f.label :remote_image_url, "or Cover image URL" %>
+    <%= f.text_field :remote_image_url %>
+  </div>
+  <div class="field">
+    <%= f.label :review %>
+    <%= f.cktext_area(:review, :namespace => "",:width => 610,:height => 500, :toolbar => 'MyToolbar') %>
+  </div>
+  <div class="actions">
+    <% if params[:action] == "new" or params[:action] == "create" %>
+      <% if @controller == "book_posts" %>
+        <%= f.submit "Add Book",:class => "btn" %>
+      <% else %>
+        <%= f.submit "Add Movie",:class => "btn" %>
+      <% end %>
+    <% else %>
+      <%= f.submit "Edit Post",:class => "btn" %>
+    <% end %>
+  </div>
+<% end %>
+

@@ -1,0 +1,13 @@
+<% if @last_month_posts %>
+   <% @last_month_posts.each do |post| %>
+     <% item = find_movie(post.movie_id) %>
+     <% if item %>
+       $(".movieshelf ul.<%=post.year%>_<%=post.month%>").append("<%= j render "items/item_thumbnail", :item => item, :post => post %>")
+     <% end %>
+   <% end %>
+<% end %>
+$(".<%=itemshelf%>").append("<%= j render "items/itemshelf" %>")
+$("a.see-more").attr("href", "<%= j movie_posts_path(next_index:@next_index) %>")
+<% if @next_index >= @posts_size %>
+   $("a.see-more").hide()
+<% end %>

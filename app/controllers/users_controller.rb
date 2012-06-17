@@ -17,7 +17,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @book_posts = @user.book_posts.order("year DESC","month DESC","day DESC")
+    @book_posts = @user.book_posts.order("year DESC","month DESC","day DESC","created_at DESC")
+    @movie_posts = @user.movie_posts.order("year DESC","month DESC","day DESC","created_at DESC")
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -35,6 +36,7 @@ class UsersController < ApplicationController
       redirect_to root_url, :notice => "A confirmation link was sent to your email.
                           Please click on the link to finish sign up!"
     else
+      flash[:notice] = @user.errors.full_messages[0]
       render "new"
     end
   end
@@ -55,7 +57,6 @@ class UsersController < ApplicationController
         format.html {
           @current_user = nil
           if params[:user][:image].present? or params[:user][:remote_image_url].present?
-            #            return render text: "#{params}"
             redirect_to user_image_crop_path(@user)
           else
             redirect_to bookshelf(current_user),
@@ -64,6 +65,7 @@ class UsersController < ApplicationController
         }
         format.json { head :no_content }
       else
+        flash[:notice] = @user.errors.full_messages[0]
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -141,10 +143,32 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_movieshelf_privacy
+    @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
+    @user.movieshelf_privacy = params[:privacy]
+    respond_to do |format|
+      if @user.save
+        format.js
+      end
+    end
+  end
+
   def edit_book_api
     @user = User.find(params[:id])
     raise AccessDenied unless current_user.id == @user.id
     @user.book_api = params[:book_api]
+    respond_to do |format|
+      if @user.save
+        format.js
+      end
+    end
+  end
+
+  def edit_movie_api
+    @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
+    @user.movie_api = params[:movie_api]
     respond_to do |format|
       if @user.save
         format.js

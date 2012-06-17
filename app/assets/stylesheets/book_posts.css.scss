@@ -1,4 +1,13 @@
-.book-post-container{
+@mixin item-form {
+    .date select {
+        width: 100px;
+    }
+    .image_local {
+        width: 300px;
+        float: left;
+    }
+}
+@mixin item-post-container {
     padding-bottom: 50px;
     img { 
         display: block; margin-left: auto; margin-right: auto;
@@ -7,8 +16,8 @@
         margin-bottom: 20px;
     }
 }
-
-.bookshelf {
+@mixin itemshelf {
+    min-height: 1px;
     .thumbnail { 
         border-radius: 0px 0px 0px 0px;
         img {
@@ -31,12 +40,16 @@
         width: 620px;
     }
 }
-.edit_book {
-    .date select {
-        width: 120px;
-    }
-    .book_image_local {
-        width: 300px;
-        float: left;
-    }
+.book-post-container{
+    @include item-post-container;
+}
+
+.bookshelf {
+    @include itemshelf;
+}
+.edit_book_post {
+    @include item-form;
+}
+.new_book_post {
+    @include item-form;
 }

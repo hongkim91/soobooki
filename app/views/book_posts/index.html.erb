@@ -3,9 +3,9 @@
   </div>
   <div class="bookshelf-container span7 offset2">
     <div class="bookshelf">
-      <%= render "bookshelf"%>
+      <%= render "items/itemshelf"%>
     </div>
-    <% unless @next_index >= @book_posts_size %>
+    <% unless @next_index >= @posts_size %>
       <%= link_to "See More", book_posts_path(next_index: @next_index),
           class: "btn see-more", remote: true %>
     <% end %>
@@ -14,6 +14,6 @@
     <% end %>
   </div>
   <div class="span3">
-    <%= render 'user' %>
+    <%= render 'users/user' %>
   </div>
 </div>

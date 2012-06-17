@@ -13,7 +13,7 @@
           <a class="brand" href="<%= bookshelf(current_user) %>">Soobooki</a>
           <ul class="nav" id="top-nav">
             <li><%= link_to 'Books', bookshelf(current_user) %></li>
-            <li><%= link_to 'Movies', "#", id:"movieshelf"%></li>
+            <li><%= link_to 'Movies', movieshelf(current_user) %></li>
             <li><%= link_to 'Friends', friendships_path %></li>
             <% id = current_user ? current_user : 0 %>
             <li><%= link_to 'Notifications', notifications_path(id: id) %></li>

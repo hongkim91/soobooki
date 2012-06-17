@@ -8,4 +8,13 @@ module ApplicationHelper
       end
     end
   end
+  def format_date(year,month,day)
+    if day != 0 and month != 0
+      "%s %d, %d" % [Date::MONTHNAMES[month],day,year]
+    elsif month != 0
+      "%s, %d" % [Date::MONTHNAMES[month],year]
+    else
+      year.to_s
+    end
+  end
 end

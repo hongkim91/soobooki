@@ -2,52 +2,22 @@
 <div class="row">
   <div class="search-results span6 offset2"></div>
   <div class="book-post-container span6 offset2">
-    <h1><%= @book.title %></h1>
-    <% unless @book.image_url.blank? %>
-      <%= image_tag @book.image_url(:default).to_s %>        
+    <h1><%= @book_post.title %></h1>
+    <% if @book_post.image_url.present? %>
+      <%= image_tag @book_post.image_url(:default).to_s %>        
     <% end %>
     <% if @book_post.year != 0 %>
       <h4> Date Read </h4>
-      <% if @book_post.day != 0 and @book_post.month != 0%>
-        <%= "%s %d, %d" % [Date::MONTHNAMES[@book_post.month],
-              @book_post.day,@book_post.year] %>
-      <% elsif @book_post.month != 0 %>
-        <%= "%s, %d" % [Date::MONTHNAMES[@book_post.month],@book_post.year] %>
-      <% else %>
-        <%= @book_post.year.to_s %>
-      <% end %>
+      <%= format_date(@book_post.year,@book_post.month,@book_post.day) %>
     <% end %>
     <p>
       <div id="book_post_review" class="mercury-region" data-type="editable">
         <%= raw @book_post.review %>
       </div>
     </p>
-    <ul class="comment-list">
-      <% @book_post.comments.each do |comment| %>
-        <%= render "comments/comment", comment: comment%>
-      <% end %>
-    </ul>
+    <%= render "comments/comment_list", post: @book_post %>
     <% if current_user.present? %>
-      <div class="new-comment">
-        <% if current_user.nil? or current_user.image_url.blank? %>
-          <%= image_tag "http://placehold.it/50x50" %>
-        <% else %>
-          <% filename = current_user.image.file.filename %>      
-          <% if FileTest.exists?(current_user.image.file.path\
-                           .gsub(filename,'small_thumb_'+filename)) %>
-            <%= image_tag (current_user.image_url(:small_thumb).to_s+
-                      "?#{File.mtime(current_user.image.file.path).to_i.to_s}") %>
-          <% else %>
-            <%= image_tag (current_user.image_url(:thumb).to_s) %>
-          <% end %>
-        <% end %>
-        <%= form_for [@book_post,@book_post.comments.build], remote: true do |f| %>
-          <%= f.text_area :body, rows: 2 %>
-          <p>
-            <%= f.submit "Comment",class: "btn"%>
-          </p>
-        <% end %>
-      </div>
+      <%= render "comments/new_comment", post: @book_post %>
     <% end %>
     <% if current_user == @user %>
       <%= link_to 'Edit Post', edit_book_post_path(@book_post), :class => "btn", id: "ck_edit_link" %>
@@ -58,7 +28,7 @@
     <% end %>
   </div>
   <div class="span3 offset1">
-    <%= render 'user' %>
+    <%= render 'users/user' %>
   </div>
 </div>
 

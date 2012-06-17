@@ -67,8 +67,13 @@
     .privacy-settings {
         margin-top: 30px;
     }
-    .bookshelf-privacy {
+    .itemshelf-privacy {
         margin-bottom: 15px;
+        margin-right: 50px;
+        float: left;
+    }
+    .itemshelf-privacy-container {
+        height: 75px;
     }
     table th.privacy {
         width: 270px;

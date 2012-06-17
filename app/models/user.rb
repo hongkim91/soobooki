@@ -2,14 +2,14 @@ class User < ActiveRecord::Base
   has_secure_password
 
   attr_accessible :email, :password, :password_confirmation, :image, :remote_image_url,\
-                  :info, :bookshelf_name, :first_name, :last_name, :crop_x, :crop_y, :crop_w, :crop_h
+                  :info, :soobooki_id, :first_name, :last_name, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates :email, :presence => :true,
                     :uniqueness => {:case_sensitive => false},
                     :length => {:minimun => 3, :maximum => 254},
                     :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
   validates_length_of :password, :minimun => 1, :maximum => 254
-  validates :bookshelf_name, :uniqueness => {:case_sensitive => false},
+  validates :soobooki_id, :uniqueness => {:case_sensitive => false},
                        :length => {:minimun => 1, :maximum => 254},
                        :format => {:with => /^[a-z]+[a-z0-9\_\-]+$/i},
                        :allow_blank => true
@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
 
   has_many :book_posts, :dependent => :destroy
   has_many :books, :through => :book_posts
+
+  has_many :movie_posts, :dependent => :destroy
+  has_many :movies, :through => :movie_posts
 
   has_many :comments, :dependent => :destroy
 

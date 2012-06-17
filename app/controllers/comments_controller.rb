@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   def create
-    @book_post = BookPost.find(params[:book_post_id])
-    @comment = @book_post.comments.build(body: params[:comment][:body])
+    if params[:book_post_id].present?
+      @post = BookPost.find(params[:book_post_id])
+    else
+      @post = MoviePost.find(params[:movie_post_id])
+    end
+    @comment = @post.comments.build(body: params[:comment][:body])
     @comment.user_id = current_user.id
-
-    d {params[:comment][:body]}
-    d {@comment.body}
 
     respond_to do |format|
       if @comment.save

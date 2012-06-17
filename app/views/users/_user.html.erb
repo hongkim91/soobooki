@@ -29,10 +29,10 @@
     <%= @user.email %>
   </p>
 <% end %>
-<% if @user.bookshelf_name? %>
-  <h4> Bookshelf ID: </h4>
+<% if @user.soobooki_id? %>
+  <h4> Soobooki ID: </h4>
   <p>
-    <%= @user.bookshelf_name %>
+    <%= @user.soobooki_id %>
   </p>
 <% end %>
 <% if @user.info? %>
@@ -41,6 +41,11 @@
     <%= simple_format @user.info %>
   </p>
 <% end %>
-<% if @user.admin %>
+<% if @controller == "book_posts" %>
+  <%= link_to "See Movieshelf", movieshelf(@user), class: "btn" %>
+<% else %>
+  <%= link_to "See Bookshelf", bookshelf(@user), class: "btn" %>
+<% end %>
+<% if @user == current_user and current_user.admin? %>
   <%= link_to "Users Admin Page", users_path, class: "btn" %>
 <% end %>

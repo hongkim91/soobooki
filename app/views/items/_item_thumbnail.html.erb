@@ -1,0 +1,16 @@
+<li>
+  <% if @controller == "book_posts" %>
+    <% post_path = book_post_path(post) %>
+  <% else %>
+    <% post_path = movie_post_path(post) %>
+  <% end %>
+  <a href="<%= post_path%>" class="thumbnail">
+    <% if post.image_url.present? %>
+      <%= image_tag post.image_url(:thumb).to_s%> 
+    <% else %>
+      <div class="no-image">
+        <%= post.title %>
+      </div>
+    <% end %>
+  </a>
+</li>

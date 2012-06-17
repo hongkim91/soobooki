@@ -1,5 +1,4 @@
 Soobooki::Application.routes.draw do
-
   Mercury::Engine.routes
   mount Ckeditor::Engine => '/ckeditor'
 
@@ -16,6 +15,12 @@ Soobooki::Application.routes.draw do
   get "edit_book_post_privacy/:id" => "book_posts#edit_privacy", :as => "edit_book_post_privacy"
   get "edit_book_api/:id" => "users#edit_book_api", :as => "edit_book_api"
 
+  get "movieshelf/:id" => "movie_posts#index", :as => "movieshelf"
+  get "edit_movieshelf_privacy/:id" => "users#edit_movieshelf_privacy", :as => "edit_movieshelf_privacy"
+  get "edit_movie_post_privacy/:id" => "movie_posts#edit_privacy", :as => "edit_movie_post_privacy"
+  get "edit_movie_api/:id" => "users#edit_movie_api", :as => "edit_movie_api"
+
+
   get "user_image_crop/:id" => "users#crop_image", :as => "user_image_crop"
   get "fb_profile_pictures/:id" => "users#fb_profile_pictures", :as => "fb_profile_pictures"
 
@@ -25,11 +30,18 @@ Soobooki::Application.routes.draw do
   match '/auth/failure' => 'authentications#failure'
   match '/auth/save_access_token' => 'authentications#save_access_token'
 
+  resources :users
   resources :books do
     collection { get :search }
   end
-  resources :users
   resources :book_posts do
+    member { post :mercury_update }
+    resources :comments
+  end
+  resources :movies do
+    collection { get :search }
+  end
+  resources :movie_posts do
     member { post :mercury_update }
     resources :comments
   end

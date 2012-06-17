@@ -16,10 +16,10 @@
           <%= @user.first_name+" "+@user.last_name %>
         </p>
       <% end %>
-      <% if @user.bookshelf_name? %>
+      <% if @user.soobooki_id? %>
         <p>
-          <h3>Bookshelf Name</h3>
-          <%= @user.bookshelf_name %>
+          <h3>Soobooki ID</h3>
+          <%= @user.soobooki_id %>
         </p>
       <% end %>
       <% if @user.info? %>
@@ -56,45 +56,57 @@
         :method => :delete, :class => "btn"%>
     <div class="privacy-settings">
       <h1>Privacy Settings</h1>
-      <h3>Bookshelf</h3>
-      <div class="btn-group bookshelf-privacy" data-toggle="buttons-radio">
-        <% ["Only Me","Friends","Users","Everyone"].each do |privacy_level| %>
-          <% if @user.bookshelf_privacy == privacy_level %>
-            <%= link_to privacy_level, edit_bookshelf_privacy_path(@user, privacy: privacy_level),
-                class: "btn init-select", remote: true %>
-          <% else %>
-            <%= link_to privacy_level, edit_bookshelf_privacy_path(@user, privacy: privacy_level),
-                class: "btn", remote: true %>
-          <% end %>
+      <div class="itemshelf-privacy-container">
+        <% ["Bookshelf","Movieshelf"].each do |itemshelf| %>
+          <div class="btn-group itemshelf-privacy" data-toggle="buttons-radio">
+            <h3><%= itemshelf %></h3>
+            <% ["Only Me","Friends","Users","Everyone"].each do |privacy_level| %>
+              <% if itemshelf == "Bookshelf" %>
+                <% itemshelf_privacy = @user.bookshelf_privacy %>
+                <% edit_privacy_path = edit_bookshelf_privacy_path(@user, privacy: privacy_level)%>
+              <% else %>
+                <% itemshelf_privacy = @user.movieshelf_privacy %>
+                <% edit_privacy_path = edit_movieshelf_privacy_path(@user, privacy: privacy_level)%>
+              <% end %>
+              <% if itemshelf_privacy == privacy_level %>
+                <%= link_to privacy_level, edit_privacy_path, class: "btn init-select", remote: true %>
+              <% else %>
+                <%= link_to privacy_level, edit_privacy_path, class: "btn", remote: true %>
+              <% end %>
+            <% end %>
+          </div>
         <% end %>
       </div>
-      <h3>Book Reviews</h3>
-      <table class="table table-striped">
-        <tr>
-          <th>Book Title</th>
-          <th class="privacy">Privacy Level</th>
-        </tr>
-        <% @book_posts.each do |book_post| %>
+      <% ["Book","Movie"].each do |item| %>
+        <h3><%= item %> Reviews</h3>
+        <table class="table table-striped">
           <tr>
-            <td><%= book_post.book.title %></td>
-            <td>
-              <div class="btn-group" data-toggle="buttons-radio">
-                <% ["Only Me","Friends","Users","Everyone"].each do |privacy_level| %>
-                  <% if book_post.privacy == privacy_level %>
-                    <%= link_to privacy_level, 
-                        edit_book_post_privacy_path(book_post, privacy: privacy_level),
-                        class: "btn init-select", remote: true %>
-                  <% else %>
-                    <%= link_to privacy_level, 
-                        edit_book_post_privacy_path(book_post, privacy: privacy_level),
-                        class: "btn", remote: true %>
-                  <% end %>
-                <% end %>
-              </div>
-            </td>
+            <th><%= item %> Title</th>
+            <th class="privacy">Privacy Level</th>
           </tr>
-        <% end %>
-      </table>
+          <% posts = (item == "Book") ? @book_posts : @movie_posts %>
+          <% posts.each do |post| %>
+            <tr>
+              <td><%= post.title %></td>
+              <td>
+                <div class="btn-group" data-toggle="buttons-radio">
+                  <% ["Only Me","Friends","Users","Everyone"].each do |privacy_level| %>
+                    <% edit_privacy_path = (item == "Book") ?
+                       edit_book_post_privacy_path(post, privacy: privacy_level) :
+                       edit_movie_post_privacy_path(post, privacy: privacy_level) %>
+                    <% if post.privacy == privacy_level %>
+                      <%= link_to privacy_level, edit_privacy_path, 
+                          class: "btn init-select", remote: true %>
+                    <% else %>
+                      <%= link_to privacy_level, edit_privacy_path, class: "btn", remote: true %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>

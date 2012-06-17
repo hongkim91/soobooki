@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: 
+  director: 
+  actors: 
+  release_date: 
+  api_id: 
+  image: MyString
+
+two:
+  title: 
+  director: 
+  actors: 
+  release_date: 
+  api_id: 
+  image: MyString

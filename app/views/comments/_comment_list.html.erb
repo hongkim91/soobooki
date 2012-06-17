@@ -1,0 +1,5 @@
+<ul class="comment-list">
+  <% post.comments.each do |comment| %>
+    <%= render "comments/comment", comment: comment%>
+  <% end %>
+</ul>

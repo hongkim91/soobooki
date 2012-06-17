@@ -1,0 +1,24 @@
+<% @posts_by_year_and_month.each_key do |year| %>
+  <% @posts_by_year_and_month[year].each_key do |month| %>
+    <% posts = @posts_by_year_and_month[year][month] %>
+    <% posts.delete_if {|post| !(current_user == post.user) and post.privacy == "Only Me"} %>
+    <% next if posts.length == 0 %>
+    <% if year == 0 %>
+      <h3>Sometime Before</h3>
+    <% elsif month == 0 %>
+      <h3><%= year.to_s %> </h3>
+    <% else %>
+      <h3><%= Date::MONTHNAMES[month]+", "+year.to_s %></h3>
+    <% end %>
+    <ul class ="thumbnails book <%=year%>_<%=month%>">
+    <% posts.each do |post| %>
+      <%= render "items/item_thumbnail", :post => post %>
+    <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
+
+
+
+

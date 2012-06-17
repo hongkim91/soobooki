@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="search-results span7 offset2">
+  </div>
+  <div class="movieshelf-container span7 offset2">
+    <div class="movieshelf">
+      <%= render "items/itemshelf"%>
+    </div>
+    <% unless @next_index >= @posts_size %>
+      <%= link_to "See More", movie_posts_path(next_index: @next_index),
+          class: "btn see-more", remote: true %>
+    <% end %>
+    <% if @user == current_user %>
+      <%= link_to 'Add Movie', new_movie_post_path, class: "btn" %>
+    <% end %>
+  </div>
+  <div class="span3">
+    <%= render 'users/user' %>
+  </div>
+</div>
