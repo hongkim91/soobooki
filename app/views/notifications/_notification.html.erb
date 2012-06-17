@@ -35,7 +35,7 @@
         <% end %>
       <% elsif notif.notification_type == "potential comment reply" %>
         <% comment = notif.comment %>
-        <% if nofic.book_post.present? %>
+        <% if notif.book_post.present? %>
           has also commented on
           <%= link_to user_name(comment.book_post.user)+"'s", bookshelf(comment.book_post.user) %>
           book review about
