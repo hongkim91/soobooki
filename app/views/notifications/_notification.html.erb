@@ -12,13 +12,15 @@
       <% end %>
     <% end %>
     <div class="notification-content">
-      <% if notif.book_post.present? %>
+      <% book = (notif.book_post.present? or
+           (notif.comment.present? and notif.comment.book_post.present?)) ? true : false %>
+      <% if book %>
         <%= link_to user_name(sender), bookshelf(sender) %>
       <% else %>
         <%= link_to user_name(sender), movieshelf(sender) %>
       <% end %>
       <% if notif.notification_type == "friend's new post" %>
-        <% if notif.book_post.present? %>
+        <% if book %>
           has read the book
           <%= link_to notif.book_post.title, book_post_path(notif.book_post) %>
         <% else %>
@@ -26,23 +28,27 @@
           <%= link_to notif.movie_post.title, movie_post_path(notif.movie_post) %>
         <% end %>
       <% elsif notif.notification_type == "new comment on my post" %>
-        <% if notif.book_post.present? %>
+        <% comment = notif.comment %>
+        <% if book %>
           has commented on your book review about
-          <%= link_to notif.comment.book_post.title, book_post_path(notif.comment.book_post) %>
+          <%= link_to comment.book_post.title, book_post_path(comment.book_post) %>
         <% else %>
           has commented on your movie review about
-          <%= link_to notif.comment.movie_post.title, movie_post_path(notif.comment.movie_post) %>
+          <%= link_to comment.movie_post.title, movie_post_path(comment.movie_post) %>
         <% end %>
       <% elsif notif.notification_type == "potential comment reply" %>
         <% comment = notif.comment %>
-        <% if notif.book_post.present? %>
-          has also commented on
-          <%= link_to user_name(comment.book_post.user)+"'s", bookshelf(comment.book_post.user) %>
+        has also commented on
+        <% user = book ? comment.book_post.user : comment.movie_post.user %>
+        <% if sender == user %>
+          his/her own
+        <% else %>
+          <%= link_to user_name(user)+"'s", book ? bookshelf(user) : movieshelf(user) %>
+        <% end %>
+        <% if book %>
           book review about
           <%= link_to comment.book_post.title, book_post_path(comment.book_post) %>
         <% else %>
-          has also commented on
-          <%= link_to user_name(comment.movie_post.user)+"'s", movieshelf(comment.movie_post.user) %>
           movie review about
           <%= link_to comment.movie_post.title, movie_post_path(comment.movie_post) %>
         <% end %>
