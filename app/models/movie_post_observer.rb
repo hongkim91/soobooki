@@ -1,14 +1,14 @@
-class BookPostObserver < ActiveRecord::Observer
+class MoviePostObserver < ActiveRecord::Observer
   def after_create(model)
     friends = model.user.friends
     friends.each do |friend|
-      friend.notifications.create(sender_id: model.user.id, book_post_id: model.id,
+      friend.notifications.create(sender_id: model.user.id, movie_post_id: model.id,
                            notification_type: "friend's new post")
     end
   end
 
   def before_update(model)
-    previous_privacy = BookPost.find(model.id).privacy
+    previous_privacy = MoviePost.find(model.id).privacy
     if previous_privacy == "Only Me"
       self.after_create(model)
     end

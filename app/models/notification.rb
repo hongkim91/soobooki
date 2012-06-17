@@ -1,5 +1,5 @@
 class Notification < ActiveRecord::Base
-  attr_accessible :receiver_id, :sender_id, :book_post_id, :comment_id, :type,
+  attr_accessible :receiver_id, :sender_id, :book_post_id, :movie_post_id, :comment_id, :type,
                   :notification_type
 
   belongs_to :sender, :class_name => "User"

@@ -1,0 +1,61 @@
+<% sender = notif.sender %>
+<li class="notification-item-<%= notif.id %>">
+  <div class="notification-container">
+    <% if sender.image_url.blank? %>
+      <%= image_tag "http://placehold.it/50x50" %>
+    <% else %>
+      <% filename = sender.image.file.filename %>      
+      <% if FileTest.exists?(sender.image.file.path.gsub(filename,'small_thumb_'+filename)) %>
+        <%= image_tag (sender.image_url(:small_thumb).to_s) %>
+      <% else %>
+        <%= image_tag (sender.image_url(:thumb).to_s) %>
+      <% end %>
+    <% end %>
+    <div class="notification-content">
+      <% if notif.book_post.present? %>
+        <%= link_to user_name(sender), bookshelf(sender) %>
+      <% else %>
+        <%= link_to user_name(sender), movieshelf(sender) %>
+      <% end %>
+      <% if notif.notification_type == "friend's new post" %>
+        <% if notif.book_post.present? %>
+          has read the book
+          <%= link_to notif.book_post.title, book_post_path(notif.book_post) %>
+        <% else %>
+          has watched the movie
+          <%= link_to notif.movie_post.title, movie_post_path(notif.movie_post) %>
+        <% end %>
+      <% elsif notif.notification_type == "new comment on my post" %>
+        <% if notif.book_post.present? %>
+          has commented on your book review about
+          <%= link_to notif.comment.book_post.title, book_post_path(notif.comment.book_post) %>
+        <% else %>
+          has commented on your movie review about
+          <%= link_to notif.comment.movie_post.title, movie_post_path(notif.comment.movie_post) %>
+        <% end %>
+      <% elsif notif.notification_type == "potential comment reply" %>
+        <% comment = notif.comment %>
+        <% if nofic.book_post.present? %>
+          has also commented on
+          <%= link_to user_name(comment.book_post.user)+"'s", bookshelf(comment.book_post.user) %>
+          book review about
+          <%= link_to comment.book_post.title, book_post_path(comment.book_post) %>
+        <% else %>
+          has also commented on
+          <%= link_to user_name(comment.movie_post.user)+"'s", movieshelf(comment.movie_post.user) %>
+          movie review about
+          <%= link_to comment.movie_post.title, movie_post_path(comment.movie_post) %>
+        <% end %>
+      <% else %>
+        something went wrong
+      <% end %>
+      <div class="notification-time">
+        <% if notif.created_at.year == Time.now.year %>
+          <%= notif.created_at.localtime.strftime("%B %-d at %l:%M%P") %>
+        <% else %>
+          <%= notif.created_at.localtime.strftime("%B %-d, %Y at %l:%M%P") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</li>
