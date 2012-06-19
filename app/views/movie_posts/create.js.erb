@@ -1,0 +1,2 @@
+<% id = @movie.title.gsub(' ','')+(@movie.director.present? ? @movie.director.gsub(' ','') : '') %>
+$('.add_<%= id %>').hide()

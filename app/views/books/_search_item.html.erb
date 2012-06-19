@@ -1,5 +1,5 @@
 <tr>
-  <td class="book-image-block"> 
+  <td class="image-block"> 
     <% if image_url %>
       <%= image_tag image_url%>
     <% else %>
@@ -14,7 +14,7 @@
     <%= sanitize publisher %> </br>
     <%= pub_date %>
   </td>
-  <td class="book-action-block">
+  <td class="action-block">
     <!-- TODO: make the button disappear even after revisit -->
     <%= link_to "Add Book", book_posts_path(api: @api, api_id: api_id, title: title,
                               authors: authors, cover_image_url: cover_image_url,

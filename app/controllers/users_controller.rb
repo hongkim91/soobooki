@@ -175,4 +175,15 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def edit_search_target
+    @user = User.find(params[:id])
+    raise AccessDenied unless current_user.id == @user.id
+    @user.search_target = params[:search_target]
+    respond_to do |format|
+      if @user.save
+        format.js
+      end
+    end
+  end
 end

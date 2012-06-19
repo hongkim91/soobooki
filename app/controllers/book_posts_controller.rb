@@ -45,7 +45,7 @@ class BookPostsController < ApplicationController
     #TODO: check if the book already exists.
 
     if params[:api].present?
-      create_from_search(params) and return
+      create_from_search and return
     end
     @book = Book.new(title: params[:book_post][:title], image: params[:book_post][:image],
                  remote_image_url: params[:book_post][:remote_image_url])
@@ -62,24 +62,8 @@ class BookPostsController < ApplicationController
     end
   end
 
-  def create_from_search(params)
-    if params[:api] == "google"
-      url = URI::HTTPS.build(:host  => 'www.googleapis.com',
-                       :path  => '/books/v1/volumes/'+params[:google_book_id])
-      response = HTTParty.get(url.to_s)
-      book = response['volumeInfo']
-      title = params[:title]
-      image_url = nil
-      if book['imageLinks']
-        if book['imageLinks']['small']
-          image_url = book['imageLinks']['small']
-        elsif book['imageLinks']['thumbnail']
-          image_url = book['imageLinks']['thumbnail']
-        end
-      end
-      isbn = "todo"
-      isbn13 = "todo"
-    elsif params[:api] == "daum"
+  def create_from_search
+    if params[:api] == "daum"
       params.map do |key,value|
         params[key] = value.gsub('<b>','').gsub('</b>','') unless value.nil?
       end
@@ -100,8 +84,6 @@ class BookPostsController < ApplicationController
     respond_to do |format|
       if @book.save!
         format.js
-      else
-        format.js {alert("book add failed")}
       end
     end
   end
@@ -110,7 +92,6 @@ class BookPostsController < ApplicationController
   def edit
     @book_post = current_user.book_posts.find(params[:id])
     @book = Book.find(@book_post.book_id)
-    @book_post.title = @book.title if @book_post.title.nil?
     @controller = params[:controller]
   end
 

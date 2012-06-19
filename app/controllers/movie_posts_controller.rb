@@ -36,10 +36,10 @@ class MoviePostsController < ApplicationController
 
   def create
     if params[:api].present?
-      create_from_search(params) and return
+      create_from_search and return
     end
-    @movie = Movie.new(title: params[:title], image: params[:image],
-                remote_image_url: params[:remote_image_url])
+    @movie = Movie.new(title: params[:movie_post][:title], image: params[:movie_post][:image],
+                remote_image_url: params[:movie_post][:remote_image_url])
     @movie_post = @movie.movie_posts.build(params[:movie_post])
     @movie_post.user = current_user
 
@@ -53,10 +53,27 @@ class MoviePostsController < ApplicationController
     end
   end
 
+  def create_from_search
+    d {params}
+    if params[:api] == "naver"
+      image_url = params[:image_url].gsub("mit110","mi")
+    end
+
+    @movie = Movie.new(title: params[:title], subtitle: params[:subtitle], remote_image_url: image_url,
+                   director: params[:director], actor: params[:actor], year: params[:year],
+                   rating: params[:rating])
+    @movie.movie_posts.build(user_id: current_user.id, year: Time.now.year, month: Time.now.month,
+                     day: Time.now.day)
+    respond_to do |format|
+      if @movie.save!
+        format.js
+      end
+    end
+  end
+
   def edit
     @movie_post = current_user.movie_posts.find(params[:id])
     @movie = Movie.find(@movie_post.movie_id)
-    @movie_post.title = @movie.title if @movie_post.title.nil?
     @controller = params[:controller]
   end
 

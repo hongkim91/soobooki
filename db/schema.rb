@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120617020503) do
+ActiveRecord::Schema.define(:version => 20120619110845) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -95,6 +95,10 @@ ActiveRecord::Schema.define(:version => 20120617020503) do
     t.string   "image"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "subtitle"
+    t.string   "actor"
+    t.string   "year"
+    t.string   "rating"
   end
 
   create_table "notifications", :force => true do |t|
@@ -127,6 +131,8 @@ ActiveRecord::Schema.define(:version => 20120617020503) do
     t.string   "book_api",                 :default => "daum"
     t.datetime "latest_login_at"
     t.string   "movieshelf_privacy",       :default => "Users"
+    t.string   "movie_api",                :default => "naver"
+    t.string   "search_target",            :default => "books"
   end
 
 end

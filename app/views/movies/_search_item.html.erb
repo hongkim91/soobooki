@@ -1,0 +1,24 @@
+<tr>
+  <td class="image-block"> 
+    <% if image_url %>
+      <%= image_tag image_url%>
+    <% else %>
+      <%= image_tag "http://placehold.it/58x80"%>
+    <% end %>
+  </td>
+  <td> 
+    <b><%= title %>
+    <%= "("+subtitle+")" if subtitle.present? %></b></br>
+    <%= "감독: "+director if director.present? %> </br>
+    <%= "배우: "+ actor if actor.present?%> </br>
+    <%= year %>
+  </td>
+  <td class="action-block">
+    <!-- TODO: make the button disappear even after revisit -->
+    <% id = title.gsub(' ','')+(director.present? ? director.gsub(' ','') : '') %>
+    <%= link_to "Add Movie", movie_posts_path(api: @api, title: title,
+            subtitle: subtitle, director: director, actor: actor,
+            year: year, image_url: image_url, rating: rating),
+        method: :post, class: "btn add_#{id}", remote:true %>
+  </td>
+</tr>

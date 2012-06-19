@@ -1,0 +1,22 @@
+<% movies = @response['rss']['channel']['item'] %>
+<% size = @response['rss']['channel']['total'].to_i %>
+<% movies = [movies] if size == 1 %>
+<% d {size} %>
+<% if size == 0 %>
+  <h3>No results were found :(</h3>
+<% else %>
+  <% movies.each do |movie| %>
+    <% director = movie['director'] %>
+    <% director = director.slice(0,director.length-1).gsub('|',', ') if director.present?%>
+    <% actor = movie['actor'] %>
+    <% actor = actor.slice(0,actor.length-1).gsub('|',', ') if actor.present?%>
+    <%= render 'search_item',
+        title: movie['title'],
+        subtitle: movie['subtitle'],
+        director: director,
+        actor: actor,
+        year: movie['pubDate'],
+        image_url: movie['image'],
+        rating: movie['userRating'] %>
+  <% end %>
+<% end %>

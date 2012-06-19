@@ -1,0 +1,8 @@
+<% if @user.search_target == "books" %>
+   $('.navbar-search').attr('action','<%= search_books_path(api:@user.book_api) %>')
+   $('.navbar-search input').attr('placeholder','Book Title')
+<% else %>
+   $('.navbar-search').attr('action','<%= search_movies_path(api:@user.movie_api) %>')
+   $('.navbar-search input').attr('placeholder','Movie Title')
+<% end %>
+$('.navbar-search input').val('')

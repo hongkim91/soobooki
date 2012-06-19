@@ -2,10 +2,9 @@
 <%= form_for(post, html: {multipart: true}) do |f| %>
   <div class="field">
     <%= f.label :title %>
-    <%= f.text_field :title, class:"span6" %>
+    <%= f.text_field :title, value: post.title, class:"span6" %>
   </div>
   <div class="field date" >
-    <% d {@controller} %>
     <% if @controller == "book_posts" %>
       <%= f.label :date_read %>
     <% else %>

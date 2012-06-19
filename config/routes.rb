@@ -10,6 +10,8 @@ Soobooki::Application.routes.draw do
   get "need_confirmation" =>"users#need_confirmation", :as => "need_confirmation"
   get "send_confirmation" =>"users#send_confirmation", :as => "send_confirmation"
 
+  get "edit_search_target/:id" => "users#edit_search_target", :as => "edit_search_target"
+
   get "bookshelf/:id" => "book_posts#index", :as => "bookshelf"
   get "edit_bookshelf_privacy/:id" => "users#edit_bookshelf_privacy", :as => "edit_bookshelf_privacy"
   get "edit_book_post_privacy/:id" => "book_posts#edit_privacy", :as => "edit_book_post_privacy"
@@ -19,7 +21,6 @@ Soobooki::Application.routes.draw do
   get "edit_movieshelf_privacy/:id" => "users#edit_movieshelf_privacy", :as => "edit_movieshelf_privacy"
   get "edit_movie_post_privacy/:id" => "movie_posts#edit_privacy", :as => "edit_movie_post_privacy"
   get "edit_movie_api/:id" => "users#edit_movie_api", :as => "edit_movie_api"
-
 
   get "user_image_crop/:id" => "users#crop_image", :as => "user_image_crop"
   get "fb_profile_pictures/:id" => "users#fb_profile_pictures", :as => "fb_profile_pictures"

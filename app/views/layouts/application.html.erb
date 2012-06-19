@@ -24,12 +24,33 @@
               <li><%= link_to 'Log in ', log_in_path %></li>
             <% end %>
             <li>
-              <% api = current_user.present? ? current_user.book_api : "daum" %>
-              <%= form_tag search_books_path(api: api), method: "get", remote: true,
-                  class: "navbar-search" do %>
-                <%= text_field_tag "query", nil, placeholder: "Book Title",
+              <% d {current_user.search_target} %>
+              <% if current_user.nil? %>
+                <% api = "daum" %>
+                <% search_path = search_books_path(api: api) %>
+                <% placeholder = "Book Title" %>
+              <% elsif current_user.search_target == "books" %>
+                <% api = current_user.book_api %>
+                <% search_path = search_books_path(api: api) %>
+                <% placeholder = "Book Title" %>
+              <% else %>
+                <% api = current_user.movie_api %>
+                <% search_path = search_movies_path(api: api) %>
+                <% placeholder = "Movie Title" %>
+              <% end %>
+
+              <%= form_tag search_path, method: "get", remote: true, class: "navbar-search" do %>
+                <%= text_field_tag "query", nil, placeholder: placeholder,
                     class: "input-medium search-query" %>
                 <i class="icon-search"></i>
+                <a data-remote="true"
+                   href="<%= edit_search_target_path(current_user,search_target:"books") %>">
+                   <i class="icon-book icon-white"></i>
+                </a>
+                <a data-remote="true"
+                   href="<%= edit_search_target_path(current_user,search_target:"movies") %>">
+                  <i class="icon-facetime-video icon-white"></i>
+                </a>
               <% end %>
             </li>
           </ul>
