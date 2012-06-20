@@ -24,7 +24,6 @@
               <li><%= link_to 'Log in ', log_in_path %></li>
             <% end %>
             <li>
-              <% d {current_user.search_target} %>
               <% if current_user.nil? %>
                 <% api = "daum" %>
                 <% search_path = search_books_path(api: api) %>
@@ -43,14 +42,16 @@
                 <%= text_field_tag "query", nil, placeholder: placeholder,
                     class: "input-medium search-query" %>
                 <i class="icon-search"></i>
-                <a data-remote="true"
-                   href="<%= edit_search_target_path(current_user,search_target:"books") %>">
-                   <i class="icon-book icon-white"></i>
-                </a>
-                <a data-remote="true"
-                   href="<%= edit_search_target_path(current_user,search_target:"movies") %>">
-                  <i class="icon-facetime-video icon-white"></i>
-                </a>
+                <% if current_user.present? %>
+                  <a data-remote="true"
+                     href="<%= edit_search_target_path(current_user,search_target:"books") %>">
+                    <i class="icon-book icon-white"></i>
+                  </a>
+                  <a data-remote="true"
+                     href="<%= edit_search_target_path(current_user,search_target:"movies") %>">
+                    <i class="icon-facetime-video icon-white"></i>
+                  </a>
+                <% end %>
               <% end %>
             </li>
           </ul>
