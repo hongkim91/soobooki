@@ -6,6 +6,18 @@ $ ->
   new ImageCropper()
   $('.privacy-settings .btn-group .init-select').button('toggle')
 
+  $(".navbar li").each ->
+    hrefpath = $("a",this).attr("href").split("?")[0]
+    if (hrefpath.toLowerCase()==location.pathname.toLowerCase())
+    	$(this).addClass("active")
+
+#  $('.navbar li').click (e) ->
+#    $(this).click()
+#    $('.navbar li').removeClass('active')
+#    if !$(this).hasClass('active')
+#      $(this).addClass('active')
+#    e.preventDefault()
+
 class ImageCropper
   constructor: ->
     $('#cropbox').Jcrop

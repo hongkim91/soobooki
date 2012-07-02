@@ -55,3 +55,5 @@ gem "httparty"
 gem "log_buddy"
 
 gem 'amazon-ecs'
+
+gem 'exception_notification'

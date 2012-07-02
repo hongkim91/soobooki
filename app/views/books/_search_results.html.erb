@@ -20,3 +20,7 @@
     <%= render "search_#{@api}" %>
   </tbody>
 </table>
+<% if @user == current_user %>
+  <%= link_to 'Add Custom Book', new_book_post_path, class: "btn" %>
+<% end %>
+

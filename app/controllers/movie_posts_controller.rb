@@ -54,7 +54,6 @@ class MoviePostsController < ApplicationController
   end
 
   def create_from_search
-    d {params}
     if params[:api] == "naver"
       image_url = params[:image_url].gsub("mit110","mi")
     elsif params[:api] == "tomato"
