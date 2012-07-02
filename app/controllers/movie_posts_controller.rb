@@ -57,6 +57,8 @@ class MoviePostsController < ApplicationController
     d {params}
     if params[:api] == "naver"
       image_url = params[:image_url].gsub("mit110","mi")
+    elsif params[:api] == "tomato"
+      image_url = params[:image_url].gsub("_mob","_ori")
     end
 
     @movie = Movie.new(title: params[:title], subtitle: params[:subtitle], remote_image_url: image_url,

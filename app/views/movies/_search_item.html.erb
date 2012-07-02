@@ -1,7 +1,7 @@
 <tr>
   <td class="image-block"> 
     <% if image_url %>
-      <%= image_tag image_url%>
+      <%= image_tag image_url.gsub("SX640","SX60"), alt: "#{title}_img"%>
     <% else %>
       <%= image_tag "http://placehold.it/58x80"%>
     <% end %>
@@ -9,13 +9,15 @@
   <td> 
     <b><%= title %>
     <%= "("+subtitle+")" if subtitle.present? %></b></br>
-    <%= "감독: "+director if director.present? %> </br>
-    <%= "배우: "+ actor if actor.present?%> </br>
+    <% if director.present? %>
+      <%= (@api == "naver" ? "감독: ":"Director: ")+director %> </br>
+    <% end %>
+    <%= (@api == "naver" ? "배우: ":"Actors: ")+actor if actor.present?%> </br>
     <%= year %>
   </td>
   <td class="action-block">
-    <!-- TODO: make the button disappear even after revisit -->
-    <% id = title.gsub(' ','')+(director.present? ? director.gsub(' ','') : '') %>
+    <% id = title.gsub(/[[:punct:]\s]/,'')+year.to_s+
+         (director.present? ? director.gsub(/[[:punct:]\s]/,'') : '') %>
     <%= link_to "Add Movie", movie_posts_path(api: @api, title: title,
             subtitle: subtitle, director: director, actor: actor,
             year: year, image_url: image_url, rating: rating),

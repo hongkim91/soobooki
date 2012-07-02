@@ -1,2 +1,3 @@
-<% id = @movie.title.gsub(' ','')+(@movie.director.present? ? @movie.director.gsub(' ','') : '') %>
+<% id = @movie.title.gsub(/[[:punct:]\s]/,'')+@movie.year.to_s+
+   (@movie.director.present? ? @movie.director.gsub(/[[:punct:]\s]/,'') : '') %>
 $('.add_<%= id %>').hide()

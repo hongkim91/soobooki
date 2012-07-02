@@ -1,7 +1,6 @@
 <% movies = @response['rss']['channel']['item'] %>
 <% size = @response['rss']['channel']['total'].to_i %>
 <% movies = [movies] if size == 1 %>
-<% d {size} %>
 <% if size == 0 %>
   <h3>No results were found :(</h3>
 <% else %>

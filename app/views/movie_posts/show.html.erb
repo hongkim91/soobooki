@@ -13,7 +13,7 @@
       <%= image_tag @movie.image_url(:default).to_s %>        
     <% end %>
     <% if @movie_post.year != 0 %>
-      <h4> Date Read </h4>
+      <h4> Date Watched </h4>
       <%= format_date(@movie_post.year,@movie_post.month,@movie_post.day) %>
     <% end %>
     <p>

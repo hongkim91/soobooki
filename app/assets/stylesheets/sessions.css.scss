@@ -1,7 +1,9 @@
 .login-container {
     margin-top: 50px;
+    h2 {
+        margin-bottom: 30px;
+    }
     .auth-providers {
-        margin-top: 55px;
         .auth-provider {
             float: left;               
             h3{ margin-left: 10px; }

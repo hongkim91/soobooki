@@ -1,0 +1,16 @@
+<% if @response['total'] == 0 %>
+  <h3>No results were found :(</h3>
+<% else %>
+  <% @response['movies'].each do |movie| %>
+    <% actor = movie['abridged_cast'] %>
+    <% actor = actor.map{|actor| actor['name']}.join(', ') if actor.present?%>
+    <%= render 'search_item',
+        title: movie['title'],
+        subtitle: nil,
+        director: nil,
+        actor: actor,
+        year: movie['year'],
+        image_url: movie['posters']['thumbnail'],
+        rating: movie['ratings']['audience_score'] %>
+  <% end %>
+<% end %>

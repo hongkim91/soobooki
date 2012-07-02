@@ -34,6 +34,8 @@ h3 {padding-bottom: 5px;}
     zoom:1;
     *display: inline; 
 }
+.search-form-icon {
+}
 .navbar {
     text-align: center;
     width: auto;
@@ -48,10 +50,22 @@ h3 {padding-bottom: 5px;}
             .inline-block;
             position: relative;
             bottom: 2px;
-            .icon-search {
+            .icon-search { 
                 position: relative;
                 right: 35px;
                 top: 2px;
+            }
+            .search-type-icon {
+                .icon-search;
+                opacity: 0.7;
+                filter:alpha(opacity=70); /* For IE8 and earlier */
+                right: 15px;
+            }
+            .icon-book {
+                .search-type-icon;
+            }
+            .icon-facetime-video {
+                .search-type-icon;
             }
         }
     }

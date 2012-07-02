@@ -1,5 +1,21 @@
 <div class="title">
   <h1>Search Results</h1>  
+  <div class="api">
+    <h3>Search Engine:</h3>
+    <% d {@user.movie_api} %>
+    <div class="btn-group" data-toggle="buttons-radio">
+      <% ["naver","tomato"].each do |api| %>
+        <% name = (api=="naver" ? "Naver" : "Rotten Tomatoes")%>
+        <% if @user.movie_api == api %>
+          <%= link_to name, edit_movie_api_path(@user, movie_api: api),
+              class: "btn init-select", remote: true %>
+        <% else %>
+          <%= link_to name, edit_movie_api_path(@user, movie_api: api),
+              class: "btn", remote: true %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 <table>
   <tbody>
