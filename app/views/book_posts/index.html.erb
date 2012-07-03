@@ -2,12 +2,16 @@
   <div class="search-results span7 offset2"></div>
   <div class="bookshelf-container span7 offset2">
     <% if @posts_size == 0 %>
-      <h3>1. Search for a book</h3>
-      <%= image_tag "book-search-bar.png" %> 
-      <h3>2. Add it to your bookshelf</h3>
-      <%= image_tag "book.png" %>
-      <h3>3. Write reviews and share them with others</h3>
-      <%= image_tag "bookshelf.png" %>
+      <div class="usage-info">
+        <h2>Usage Guide</h2>
+        <h3>1. Search for a book</h3>
+        <%= image_tag "book-search-bar.png" %> 
+        (click the book icon for book search)
+        <h3>2. Add it to your bookshelf</h3>
+        <%= image_tag "book.png" %>
+        <h3>3. Write reviews and share them with others</h3>
+        <%= image_tag "bookshelf.png" %>
+      </div>
     <% else %>
       <div class="bookshelf">
         <%= render "items/itemshelf"%>

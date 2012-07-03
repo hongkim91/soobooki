@@ -1,9 +1,6 @@
 .movie-post-container{
     @include item-post-container;
 }
-.movieshelf-container {
-    @include itemshelf-container;
-}
 .movieshelf {
     @include itemshelf;
 }

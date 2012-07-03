@@ -1,14 +1,17 @@
 <div class="row">
-  <div class="search-results span7 offset2">
-  </div>
+  <div class="search-results span7 offset2"></div>
   <div class="movieshelf-container span7 offset2">
     <% if @posts_size == 0 %>
-      <h3>1. Search for a movie</h3>
-      <%= image_tag "movie-search-bar.png" %> 
-      <h3>2. Add it to your movieshelf</h3>
-      <%= image_tag "movie.png" %>
-      <h3>3. Write reviews and share them with others</h3>
-      <%= image_tag "movieshelf.png" %>
+      <div class="usage-info">
+        <h2>Usage Guide</h2>
+        <h3>1. Search for a movie</h3>
+        <%= image_tag "movie-search-bar.png" %> 
+        (click the camera icon for movie search)
+        <h3>2. Add it to your movieshelf</h3>
+        <%= image_tag "movie.png" %>
+        <h3>3. Write reviews and share them with others</h3>
+        <%= image_tag "movieshelf.png" %>
+      </div>
     <% else %>
       <div class="movieshelf">
         <%= render "items/itemshelf"%>

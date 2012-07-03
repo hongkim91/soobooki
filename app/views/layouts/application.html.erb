@@ -43,11 +43,11 @@
                     class: "input-medium search-query" %>
                 <i class="icon-search"></i>
                 <% if current_user.present? %>
-                  <a data-remote="true"
+                  <a data-remote="true" title="book search"
                      href="<%= edit_search_target_path(current_user,search_target:"books") %>">
                     <i class="icon-book icon-white"></i>
                   </a>
-                  <a data-remote="true"
+                  <a data-remote="true" title="movie search"
                      href="<%= edit_search_target_path(current_user,search_target:"movies") %>">
                     <i class="icon-facetime-video icon-white"></i>
                   </a>
