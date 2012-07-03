@@ -1,6 +1,9 @@
 .movie-post-container{
     @include item-post-container;
 }
+.movieshelf-contaienr{
+    margin-bottom: 50px;
+}
 .movieshelf {
     @include itemshelf;
 }

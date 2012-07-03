@@ -62,6 +62,9 @@
 .book-post-container {
     @include item-post-container;
 }
+.bookshelf-container {
+    margin-bottom: 50px;
+}
 .usage-info {
     @include itemshelf-usage-info;
 }
