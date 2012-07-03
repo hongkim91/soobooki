@@ -34,6 +34,8 @@ class AuthenticationsController < ApplicationController
     else
       if auth
         session[:user_id] = auth.user_id
+        current_user.latest_login_at = Time.now
+        current_user.save
         if auth.access_token.nil?
           auth.access_token = access_token
           auth.save!
@@ -51,6 +53,7 @@ class AuthenticationsController < ApplicationController
         user.email_confirmed = true
         user.authentications.build(:provider => provider, :uid => auth_hash["uid"],
                              :access_token => access_token)
+        user.latest_login_at = Time.now
         user.save!(:validate => false)
         session[:user_id] = user.id
         redirect_to user_path(current_user)
