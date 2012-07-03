@@ -1,16 +1,23 @@
-<% @response['channel']['item'].each do |book| %>
-  <% pd = book['pub_date'] %>
-  <% pub_date = DateTime.civil(pd[0..3].to_i,pd[4..5].to_i,pd[6..7].to_i).strftime("%b %-d, %Y") %>
-  <%= render 'search_item',
-      title: book['title'],
-      authors: book['author'],
-      translators: book['translator'], 
-      publisher: book['pub_nm'],
-      pub_date: pub_date, 
-      category: book['category'],
-      api_id: book['barcode'], 
-      isbn: book['isbn'], 
-      isbn13: book['isbn13'],
-      image_url: book['cover_s_url'],
-      cover_image_url: nil %> 
+<% size = @response['channel']['totalCount'].to_i %>
+<% if size == 0 %>
+  <h3>No results were found :(</h3>
+<% else %>
+  <% books = @response['channel']['item'] %>
+  <% books = [books] if size == 1 %>
+  <% books.each do |book| %>
+    <% pd = book['pub_date'] %>
+    <% pub_date = DateTime.civil(pd[0..3].to_i,pd[4..5].to_i,pd[6..7].to_i).strftime("%b %-d, %Y") %>
+    <%= render 'search_item',
+        title: book['title'],
+        authors: book['author'],
+        translators: book['translator'], 
+        publisher: book['pub_nm'],
+        pub_date: pub_date, 
+        category: book['category'],
+        api_id: book['barcode'], 
+        isbn: book['isbn'], 
+        isbn13: book['isbn13'],
+        image_url: book['cover_s_url'],
+        cover_image_url: nil %> 
+  <% end %>
 <% end %>
