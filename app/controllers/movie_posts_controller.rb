@@ -17,6 +17,8 @@ class MoviePostsController < ApplicationController
     @movie_post = MoviePost.find(params[:id])
     @user = @movie_post.user
     @movie = Movie.find(@movie_post.movie_id)
+    @controller = params[:controller]
+    @action = params[:action]
 
     if post_privacy_valid?
       respond_to do |format|

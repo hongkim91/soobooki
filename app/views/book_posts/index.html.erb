@@ -17,7 +17,7 @@
         <%= render "items/itemshelf"%>
       </div>
       <% unless @next_index >= @posts_size %>
-        <%= link_to "See More", book_posts_path(next_index: @next_index),
+        <%= link_to "See More", bookshelf_path(id: @user.id, next_index: @next_index),
             class: "btn see-more", remote: true %>
       <% end %>
     <% end %>

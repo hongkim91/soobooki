@@ -21,6 +21,8 @@ class BookPostsController < ApplicationController
     @book_post = BookPost.find(params[:id])
     @user = @book_post.user
     @book = Book.find(@book_post.book_id)
+    @controller = params[:controller]
+    @action = params[:action]
 
     if post_privacy_valid?
       respond_to do |format|

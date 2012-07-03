@@ -7,7 +7,7 @@
    <% end %>
 <% end %>
 $(".bookshelf").append("<%= j render "items/itemshelf" %>")
-$("a.see-more").attr("href", "<%= j book_posts_path(next_index:@next_index) %>")
+$("a.see-more").attr("href", "<%= j bookshelf_path(id: @user.id, next_index: @next_index) %>")
 <% if @next_index >= @posts_size %>
    $("a.see-more").hide()
 <% end %>

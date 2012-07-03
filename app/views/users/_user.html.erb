@@ -42,8 +42,10 @@
   </p>
 <% end %>
 <% if @controller == "book_posts" %>
+  <%= link_to "See Bookshelf", bookshelf(@user), class: "btn" if @action == "show"%>
   <%= link_to "See Movieshelf", movieshelf(@user), class: "btn" %>
 <% else %>
+  <%= link_to "See Movieshelf", movieshelf(@user), class: "btn" if @action == "show"%>
   <%= link_to "See Bookshelf", bookshelf(@user), class: "btn" %>
 <% end %>
 <% if @user == current_user and current_user.admin? %>
