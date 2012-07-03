@@ -1,5 +1,6 @@
 .search-results {
     display:none;
+    margin-bottom: 50px;
     .title {
         border-bottom: 3px solid #DDDDDD;
         margin-bottom: 15px;
@@ -20,6 +21,7 @@
     }
     table {
         width: 100%;
+        margin-bottom: 20px;
         td {
             border-bottom: 1px solid #DDDDDD;
             padding: 5px;

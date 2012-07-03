@@ -21,3 +21,6 @@
     <%= render "search_#{@api}" %>
   </tbody>
 </table>
+<% if @user == current_user %>
+  <%= link_to 'Add Custom Movie', new_movie_post_path, class: "btn" %>
+<% end %>

@@ -4,6 +4,7 @@
     <h1>Notifications</h1>
     <ul class="notification-list">
       <% @notifications.each do |notification| %>
+        <% d {notification.to_yaml} %>
         <%= render 'notification', notif: notification %>
       <% end %>
     </ul>

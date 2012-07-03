@@ -30,13 +30,16 @@
         margin-top: 10px;
     }
 }
-.new_user {
-    .names {
-        height: 60px;
-        .field {
-            margin-right: 10px;
-            float: left;
-            input { width: 120px;}
+.signup-container {
+    margin-top: 30px;
+    .new_user {
+        .names {
+            height: 60px;
+            .field {
+                margin-right: 10px;
+                float: left;
+                input { width: 120px;}
+            }
         }
     }
 }

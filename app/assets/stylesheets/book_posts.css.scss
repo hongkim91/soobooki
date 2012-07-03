@@ -6,6 +6,10 @@
         width: 300px;
         float: left;
     }
+    textarea {
+        width: 570px;
+        height: 400px;
+    }
 }
 @mixin item-post-container {
     padding-bottom: 50px;
@@ -16,13 +20,22 @@
         margin-bottom: 20px;
     }
 }
+@mixin itemshelf-container {
+    img {
+        margin-bottom: 20px;
+        margin-left: 15px;
+    }
+    h3 {
+        margin-bottom: 10px;
+    }
+}
 @mixin itemshelf {
     min-height: 1px;
     .thumbnail { 
         border-radius: 0px 0px 0px 0px;
         img {
             min-height: 150px;
-            max-width: 300px;
+            max-width: 200px;
         }
         .no-image {
             width: 100px;
@@ -40,10 +53,12 @@
         width: 620px;
     }
 }
-.book-post-container{
+.book-post-container {
     @include item-post-container;
 }
-
+.bookshelf-container {
+    @include itemshelf-container;
+}
 .bookshelf {
     @include itemshelf;
 }

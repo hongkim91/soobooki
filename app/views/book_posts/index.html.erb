@@ -1,13 +1,21 @@
 <div class="row">
-  <div class="search-results span7 offset2">
-  </div>
+  <div class="search-results span7 offset2"></div>
   <div class="bookshelf-container span7 offset2">
-    <div class="bookshelf">
-      <%= render "items/itemshelf"%>
-    </div>
-    <% unless @next_index >= @posts_size %>
-      <%= link_to "See More", book_posts_path(next_index: @next_index),
-          class: "btn see-more", remote: true %>
+    <% if @posts_size == 0 %>
+      <h3>1. Search for a book</h3>
+      <%= image_tag "book-search-bar.png" %> 
+      <h3>2. Add it to your bookshelf</h3>
+      <%= image_tag "book.png" %>
+      <h3>3. Write reviews and share them with others</h3>
+      <%= image_tag "bookshelf.png" %>
+    <% else %>
+      <div class="bookshelf">
+        <%= render "items/itemshelf"%>
+      </div>
+      <% unless @next_index >= @posts_size %>
+        <%= link_to "See More", book_posts_path(next_index: @next_index),
+            class: "btn see-more", remote: true %>
+      <% end %>
     <% end %>
   </div>
   <div class="span3">

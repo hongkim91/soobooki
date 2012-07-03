@@ -103,7 +103,7 @@ class BooksController < ApplicationController
     @api = params[:api]
     if @api == "daum"
       req_params = {'q' => params[:query]}
-      req_params['result'] = 15
+      req_params['result'] = 10
       req_params['apikey'] = "f0e654cab5a4b9b378330e8f3c64b0e53d8aff81"
 
       query = req_params.map { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')

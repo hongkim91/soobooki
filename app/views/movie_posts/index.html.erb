@@ -2,15 +2,21 @@
   <div class="search-results span7 offset2">
   </div>
   <div class="movieshelf-container span7 offset2">
-    <div class="movieshelf">
-      <%= render "items/itemshelf"%>
-    </div>
-    <% unless @next_index >= @posts_size %>
-      <%= link_to "See More", movie_posts_path(next_index: @next_index),
-          class: "btn see-more", remote: true %>
-    <% end %>
-    <% if @user == current_user %>
-      <%= link_to 'Add Movie', new_movie_post_path, class: "btn" %>
+    <% if @posts_size == 0 %>
+      <h3>1. Search for a movie</h3>
+      <%= image_tag "movie-search-bar.png" %> 
+      <h3>2. Add it to your movieshelf</h3>
+      <%= image_tag "movie.png" %>
+      <h3>3. Write reviews and share them with others</h3>
+      <%= image_tag "movieshelf.png" %>
+    <% else %>
+      <div class="movieshelf">
+        <%= render "items/itemshelf"%>
+      </div>
+      <% unless @next_index >= @posts_size %>
+        <%= link_to "See More", movie_posts_path(next_index: @next_index),
+            class: "btn see-more", remote: true %>
+      <% end %>
     <% end %>
   </div>
   <div class="span3">
