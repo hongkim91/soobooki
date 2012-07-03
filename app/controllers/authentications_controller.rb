@@ -34,6 +34,10 @@ class AuthenticationsController < ApplicationController
     else
       if auth
         session[:user_id] = auth.user_id
+        if auth.access_token.nil?
+          auth.access_token = access_token
+          auth.save!
+        end
         redirect_to bookshelf(current_user),
         :notice => "Successfully logged in through #{provider}!"
       else
@@ -53,6 +57,7 @@ class AuthenticationsController < ApplicationController
       end
     end
     if provider == "Facebook"
+      d {flash[:notice]}
       if current_user
         user = current_user
         user.first_name = auth_hash['info']['first_name'] unless user.first_name.present?
@@ -69,7 +74,6 @@ class AuthenticationsController < ApplicationController
             d {e.backtrace}
           end
         end
-        d {flash[:notice]}
         d {user}
         user.save!
       end
