@@ -6,9 +6,12 @@
 <% else %>
   <% movies.each do |movie| %>
     <% director = movie['director'] %>
-    <% director = director.slice(0,director.length-1).gsub('|',', ') if director.present?%>
+    <% director = director.slice(0,director.length-1).gsub('|',', ') if director %>
     <% actor = movie['actor'] %>
-    <% actor = actor.slice(0,actor.length-1).gsub('|',', ') if actor.present?%>
+    <% actor = actor.slice(0,actor.length-1).gsub('|',', ') if actor %>
+    <% %w(title subtitle).each do |t| %>
+      <% movie[t] = movie[t].gsub('<b>','').gsub('</b>','') if movie[t] %>
+    <% end %>
     <%= render 'search_item',
         title: movie['title'],
         subtitle: movie['subtitle'],

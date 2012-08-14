@@ -7,7 +7,7 @@
         <%= form_tag sessions_path do %>
           <div class="field">
             <%= label_tag :email %>
-            <%= text_field_tag :email, params[:email] %>
+            <%= text_field_tag :email, params[:email], id: "login-email" %>
           </div>
           <div class="field">
             <%= label_tag :password %>

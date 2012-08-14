@@ -16,4 +16,5 @@
 //= require jquery.autogrow-textarea
 //= require users
 //= require book_posts
+//= require sessions
 //= require twitter/bootstrap

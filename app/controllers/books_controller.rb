@@ -107,7 +107,7 @@ class BooksController < ApplicationController
       req_params['apikey'] = "f0e654cab5a4b9b378330e8f3c64b0e53d8aff81"
 
       query = req_params.map { |k, v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
-      url = URI::HTTPS.build(:host  => 'apis.daum.net',
+      url = URI::HTTP.build(:host  => 'apis.daum.net',
                        :path  => '/search/book',
                        :query => query)
       @response = HTTParty.get(url.to_s)
