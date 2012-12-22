@@ -54,11 +54,10 @@ class ApplicationController < ActionController::Base
     begin
       url = URI.parse(image_url)
       if url.respond_to?(:request_uri)
-        Net::HTTP.start(url.host, url.port) do |http|
-          return http.head(url.request_uri)['Content-Type'].starts_with? 'image'
-        end
+        return HTTParty.get(url.to_s).headers['content-type'].starts_with? 'image'
+      else
+        return false
       end
-      return false
     rescue
       return false
     end
