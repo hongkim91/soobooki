@@ -36,7 +36,7 @@ class AuthenticationsController < ApplicationController
         session[:user_id] = auth.user_id
         current_user.latest_login_at = Time.now
         current_user.save
-        if auth.access_token.nil?
+        unless access_token.blank?
           auth.access_token = access_token
           auth.save!
         end
