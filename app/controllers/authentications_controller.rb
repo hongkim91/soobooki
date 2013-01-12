@@ -13,7 +13,8 @@ class AuthenticationsController < ApplicationController
     d {auth_hash.to_yaml}
     d {auth_hash["info"]["email"]}
     provider = auth_hash['provider'].titleize
-    auth = Authentication.find_by_provider_and_uid(provider,auth_hash['uid'])
+    uid = auth_hash['uid']
+    auth = Authentication.find_by_provider_and_uid(provider, uid)
     access_token = (provider == "Facebook") ? auth_hash['credentials']['token'] : nil
     if current_user
       if auth
@@ -28,7 +29,7 @@ class AuthenticationsController < ApplicationController
       else
         flash[:notice] = "Authentication added! You can now log in using #{provider}!"
       end
-      current_user.authentications.create(:provider => provider,:uid => auth_hash['uid'],
+      current_user.authentications.create(:provider => provider,:uid => uid,
                                    :access_token => access_token)
       redirect_to user_path(current_user)
     else
@@ -36,10 +37,8 @@ class AuthenticationsController < ApplicationController
         session[:user_id] = auth.user_id
         current_user.latest_login_at = Time.now
         current_user.save
-        unless access_token.blank?
-          auth.access_token = access_token
-          auth.save!
-        end
+        auth.access_token = access_token
+        auth.save!
         redirect_to bookshelf(current_user),
         :notice => "Successfully logged in through #{provider}!"
       else
@@ -51,7 +50,7 @@ class AuthenticationsController < ApplicationController
           flash[:notice] = "Successfully signed up through #{provider}!"
         end
         user.email_confirmed = true
-        user.authentications.build(:provider => provider, :uid => auth_hash["uid"],
+        user.authentications.build(:provider => provider, :uid => uid,
                              :access_token => access_token)
         user.latest_login_at = Time.now
         user.save!(:validate => false)
@@ -66,7 +65,7 @@ class AuthenticationsController < ApplicationController
         user.first_name = auth_hash['info']['first_name'] unless user.first_name.present?
         user.last_name = auth_hash['info']['last_name'] unless user.last_name.present?
         #TODO: set soobooki_id too, but check if that name exists and act appropriately
-        profile_pictures = user.get_fb_profile_pictures
+        profile_pictures = user.get_fb_profile_pictures(uid)
         image_url = profile_pictures.first[:large] if profile_pictures.first.present?
         d {image_url}
         if user.image_url.blank?

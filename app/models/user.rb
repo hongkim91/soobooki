@@ -89,8 +89,8 @@ class User < ActiveRecord::Base
     image.recreate_versions! if crop_x.present?
   end
 
-  def get_fb_profile_pictures
-    fb_auth = self.authentications.find_by_provider('Facebook')
+  def get_fb_profile_pictures(uid)
+    fb_auth = self.authentications.find_by_provider_and_uid('Facebook', uid)
     profile_pictures = []
     if fb_auth.present?
       url = URI::HTTPS.build(:host  => 'graph.facebook.com',
