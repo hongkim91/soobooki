@@ -1,9 +1,9 @@
 == Soobooki
-A web app for book/movie review sharing built with Ruby on Rails. I had built it because I wanted my non-technical book loving friends to easily write and share their musings with me. It was used by a small circle of ppl for around 6 months then I decided to take it down. Soobooki was my first stab at web dev and Rails. Naturally, the code is far from the best practices of Rails, but it is here for your amusement if interested.
+A web app for book/movie review sharing built with Ruby on Rails. I had built it because I wanted my non-technical book loving friends to easily write and share their musings with me. It was used by a small circle of people for around 6 months then I decided to take it down. Soobooki was my first stab at web dev and Rails. Naturally, the code is far from the best practices of Rails, but it is here for your amusement if interested.
 
 Features include:
-  * Personal bookshelves/movieshelves
-  * Friendships
-  * Notifications
-  * Privacy settings
-  * Integrated book/movie search from 3rd party APIs
+* Personal bookshelves/movieshelves
+* Friendships
+* Notifications
+* Privacy settings
+* Integrated book/movie search from 3rd party APIs
